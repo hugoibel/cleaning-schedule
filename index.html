@@ -1,0 +1,1949 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Cleaning"><meta name="apple-mobile-web-app-status-bar-style" content="default"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Calendario de Limpieza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<meta name="theme-color" content="#14213D">
+<style>
+/* Layout: en el teléfono, una sola pantalla de app (barra superior, contenido con scroll, pestañas abajo).
+   En la computadora (>= 1000px): barra lateral azul marino, cabecera con navegación y tablas anchas.
+   Paleta del Master Cleaning Schedule: azul marino de planta + un color por frecuencia. */
+:root {
+  --bar: #14213D; --bar-sub: #B7C4DD; --bar-fg: #FFFFFF;
+  --bg: #F3F6FB; --card: #FFFFFF; --ink: #1B2638; --muted: #56657D;
+  --line: #D5DCE8; --line-2: #E6EBF3; --track: #E2E8F1; --hover: #EEF2F8;
+  --sel: #14213D; --sel-fg: #FFFFFF; --sel-sub: #B7C4DD;
+  --done-bg: #D8F0DE; --done-ink: #14532D; --done-solid: #1F8A4C; --done-soft: #F2FAF4; --done-line: #BFE3C9;
+  --flag-bg: #FFE45C; --flag-ink: #5A3A00; --flag-line: #D9B800;
+  --na-bg: #E7EAF0; --na-ink: #3B4B66; --na-line: #B5BFD0;
+  --warn-bg: #FFF6D6; --warn-line: #F0D98A; --warn-ink: #5A3A00;
+  --danger: #B42318; --danger-line: #F1B8B2;
+  --ring: #AEB9CC; --scrim: rgba(20,33,61,.55); --toast: #1B2638; --toast-fg: #FFFFFF; --toast-link: #8EC5FF;
+  --side-hover: #1E2F52; --side-on: #2B4373; --col: #EAF1FC; --off: #F0F2F6; --live: #3FBF74;
+  --font: 'IBM Plex Sans', -apple-system, 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bar: #0E1830; --bar-sub: #93A3C2; --bar-fg: #F2F5FA;
+    --bg: #0B1222; --card: #141E33; --ink: #E7ECF4; --muted: #9AA8BF;
+    --line: #2A3753; --line-2: #222E47; --track: #26324B; --hover: #1B2740;
+    --sel: #3B5B9A; --sel-fg: #FFFFFF; --sel-sub: #D3DDF0;
+    --done-bg: #1D4A30; --done-ink: #BFF0CF; --done-solid: #2FA764; --done-soft: #142B20; --done-line: #285C3D;
+    --flag-bg: #E8C93A; --flag-ink: #3A2600; --flag-line: #B89A10;
+    --na-bg: #2A3550; --na-ink: #C9D3E6; --na-line: #45547A;
+    --warn-bg: #3A3014; --warn-line: #6B5A22; --warn-ink: #F5DE95;
+    --danger: #FF8A80; --danger-line: #6E2B27;
+    --ring: #56658A; --scrim: rgba(0,0,0,.6); --toast: #E7ECF4; --toast-fg: #0B1222; --toast-link: #1D4E89;
+    --side-hover: #17243F; --side-on: #25395F; --col: #18284A; --off: #0F182B; --live: #3FBF74;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bar: #0E1830; --bar-sub: #93A3C2; --bar-fg: #F2F5FA;
+  --bg: #0B1222; --card: #141E33; --ink: #E7ECF4; --muted: #9AA8BF;
+  --line: #2A3753; --line-2: #222E47; --track: #26324B; --hover: #1B2740;
+  --sel: #3B5B9A; --sel-fg: #FFFFFF; --sel-sub: #D3DDF0;
+  --done-bg: #1D4A30; --done-ink: #BFF0CF; --done-solid: #2FA764; --done-soft: #142B20; --done-line: #285C3D;
+  --flag-bg: #E8C93A; --flag-ink: #3A2600; --flag-line: #B89A10;
+  --na-bg: #2A3550; --na-ink: #C9D3E6; --na-line: #45547A;
+  --warn-bg: #3A3014; --warn-line: #6B5A22; --warn-ink: #F5DE95;
+  --danger: #FF8A80; --danger-line: #6E2B27;
+  --ring: #56658A; --scrim: rgba(0,0,0,.6); --toast: #E7ECF4; --toast-fg: #0B1222; --toast-link: #1D4E89;
+  --side-hover: #17243F; --side-on: #25395F; --col: #18284A; --off: #0F182B; --live: #3FBF74;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.35; -webkit-text-size-adjust: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #4C8DF6; outline-offset: 2px; }
+#app { display: flex; flex-direction: column; height: 100%; max-width: 720px; margin: 0 auto; background: var(--bg); }
+
+/* barra superior */
+.appbar { flex: none; background: var(--bar); color: var(--bar-fg); padding: 10px 16px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.appbar .sub { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--bar-sub); font-weight: 600; }
+.monthbtn { background: none; border: 0; padding: 0; color: var(--bar-fg); font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 6px; min-height: 32px; }
+.monthbtn svg { width: 18px; height: 18px; }
+.pill { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.cur { background: var(--done-bg); color: var(--done-ink); }
+.pill.closed { background: var(--na-bg); color: var(--na-ink); }
+.pill.edit { background: var(--flag-bg); color: var(--flag-ink); }
+.pill.sync { background: transparent; color: var(--bar-sub); border: 1px solid currentColor; }
+
+/* contenido */
+main { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 12px 16px 28px; -webkit-overflow-scrolling: touch; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.summary { padding: 14px 14px 12px; margin-bottom: 12px; }
+.summary .row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.summary .big { font-size: 28px; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.small { font-size: 13px; color: var(--muted); }
+.bar { height: 10px; background: var(--track); border-radius: 999px; overflow: hidden; margin: 8px 0 6px; }
+.bar > i { display: block; height: 100%; background: var(--done-solid); border-radius: 999px; }
+.banner { background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+.banner button { background: var(--warn-ink); color: var(--warn-bg); border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 600; min-height: 40px; flex: none; }
+.banner.info { background: var(--card); border-color: var(--line); color: var(--muted); }
+
+/* semanas */
+.weeks { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px 10px; scrollbar-width: none; }
+.weeks::-webkit-scrollbar { display: none; }
+.wk { flex: none; min-width: 78px; min-height: 56px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 6px 10px; text-align: left; }
+.wk .d { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wk .p { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wk.sel { background: var(--sel); border-color: var(--sel); color: var(--sel-fg); }
+.wk.sel .p { color: var(--sel-sub); }
+.wk.now .d::after { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-left: 6px; vertical-align: middle; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 2px 8px; font-size: 14px; color: var(--muted); }
+.switch { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 6px 0; min-height: 44px; font-weight: 500; color: var(--ink); flex: none; }
+.switch .t { width: 40px; height: 24px; border-radius: 999px; background: var(--ring); position: relative; transition: background .15s; }
+.switch .t::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left .15s; }
+.switch.on .t { background: var(--done-solid); }
+.switch.on .t::after { left: 19px; }
+
+/* grupos y tareas */
+.group { margin-bottom: 14px; }
+.ghead { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 4px 6px; }
+.ghead .l { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; }
+.ghead .r { font-size: 13px; color: var(--muted); font-weight: 500; text-align: right; }
+.fchip { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 22px; padding: 0 6px; border-radius: 6px; background: var(--fc); color: #fff; font-size: 12px; font-weight: 700; flex: none; }
+.task { display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; min-height: 64px; }
+.task.isdone { background: var(--done-soft); border-color: var(--done-line); }
+.task .tx { flex: 1; min-width: 0; }
+.task .nm { font-size: 15px; font-weight: 500; overflow-wrap: anywhere; }
+.task .st { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.task .st b { color: var(--done-ink); font-weight: 600; }
+.task .nt { font-size: 12.5px; color: var(--warn-ink); background: var(--warn-bg); border-radius: 6px; padding: 3px 7px; margin-top: 4px; display: inline-block; overflow-wrap: anywhere; }
+.task.muted .nm { color: var(--muted); }
+.chk { flex: none; width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--ring); background: var(--card); display: inline-flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; padding: 0; font-weight: 700; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.chk:active { transform: scale(.94); }
+.chk.done { background: var(--done-solid); border-color: var(--done-solid); color: #fff; font-size: 20px; }
+.chk small { font-size: 10px; font-weight: 600; margin-top: 2px; letter-spacing: .02em; }
+.chk.flag { background: var(--flag-bg); border-color: var(--flag-line); color: var(--flag-ink); font-size: 24px; }
+.chk.na { background: var(--na-bg); border-color: var(--na-line); color: var(--na-ink); font-size: 13px; }
+.chk.dis, .cell.dis { opacity: .55; }
+
+/* cuadrícula del mes */
+.gridwrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+table.grid { border-collapse: separate; border-spacing: 0; width: 100%; }
+.grid th, .grid td { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line-2); padding: 0; text-align: center; }
+.grid thead th { background: var(--bar); color: var(--bar-fg); font-size: 13px; padding: 8px 2px; font-variant-numeric: tabular-nums; }
+.grid th.nm, .grid td.nm { position: sticky; left: 0; text-align: left; min-width: 150px; max-width: 150px; z-index: 1; background: var(--card); padding: 6px 8px; font-size: 12.5px; line-height: 1.25; }
+.grid thead th.nm { background: var(--bar); font-size: 12px; letter-spacing: .08em; z-index: 2; }
+.grid td.sum { font-size: 12px; font-weight: 600; color: var(--muted); min-width: 44px; font-variant-numeric: tabular-nums; }
+.grid td.sum.ok { color: var(--done-ink); background: var(--done-soft); }
+.grid tr.gh td { background: var(--hover); text-align: left; font-weight: 700; font-size: 12.5px; padding: 6px 8px; }
+.grid tr.gh .fchip { height: 18px; min-width: 28px; font-size: 11px; margin-right: 6px; }
+.cell { width: 100%; min-width: 44px; height: 46px; border: 0; background: transparent; font-size: 11px; font-weight: 700; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.cell.done { background: var(--done-bg); color: var(--done-ink); }
+.cell.flag { background: var(--flag-bg); color: var(--flag-ink); font-size: 16px; }
+.cell.na { background: var(--na-bg); color: var(--na-ink); }
+.cell small { font-size: 9.5px; font-weight: 600; }
+.note { font-size: 12.5px; color: var(--muted); margin: 8px 4px 0; }
+
+/* historial y ajustes */
+.mcard { padding: 14px; }
+.mcard .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mcard .nm { font-size: 18px; font-weight: 700; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.btn { min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); font-weight: 600; font-size: 14px; }
+.btn.pri { background: var(--sel); border-color: var(--sel); color: var(--sel-fg); }
+.btn.warn { background: var(--warn-bg); border-color: var(--warn-line); color: var(--warn-ink); }
+.empty { text-align: center; color: var(--muted); padding: 28px 18px; font-size: 14px; }
+h2.sec { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 4px 8px; font-weight: 700; }
+.field { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid var(--line-2); }
+.field:last-child { border-bottom: 0; }
+.field label, .field .lab { font-weight: 600; font-size: 14px; }
+.hint { font-size: 13px; color: var(--muted); }
+input[type=text], textarea { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--ring); border-radius: 10px; background: var(--card); color: var(--ink); }
+textarea { min-height: 76px; resize: vertical; }
+.seg { display: flex; gap: 6px; }
+.seg button { flex: 1; min-height: 44px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; font-weight: 600; }
+.seg button.on { background: var(--sel); color: var(--sel-fg); border-color: var(--sel); }
+.loading { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 60px 16px; color: var(--muted); }
+.spin { width: 28px; height: 28px; border: 3px solid var(--track); border-top-color: var(--done-solid); border-radius: 50%; animation: sp .8s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+
+/* pestañas */
+.tabs { flex: none; display: flex; background: var(--card); border-top: 1px solid var(--line); }
+.tabs button { flex: 1; min-height: 58px; background: none; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.tabs button svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tabs button.on { color: var(--ink); }
+.tabs button.on svg { stroke-width: 2.3; }
+
+/* hojas y diálogos */
+.scrim { position: fixed; inset: 0; background: var(--scrim); z-index: 50; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; max-width: 720px; margin: 0 auto; max-height: 90%; overflow-y: auto; background: var(--card); border-radius: 18px 18px 0 0; z-index: 51; padding: 8px 16px calc(16px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 30px rgba(0,0,0,.25); }
+.sheet .grab { width: 44px; height: 5px; border-radius: 3px; background: var(--ring); margin: 4px auto 12px; }
+.sheet h3, .dlg h3 { margin: 0; font-size: 18px; text-wrap: balance; }
+.sheet .sub { color: var(--muted); font-size: 13.5px; margin: 2px 0 12px; }
+.sheet .lbl { font-weight: 600; font-size: 13px; margin: 10px 0 4px; display: block; }
+.opts { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.opt { min-height: 52px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-align: left; }
+.opt .ic { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex: none; }
+.opt.done .ic { background: var(--done-solid); color: #fff; }
+.opt.flag .ic { background: var(--flag-bg); color: var(--flag-ink); }
+.opt.na .ic { background: var(--na-bg); color: var(--na-ink); font-size: 11px; }
+.opt.clr { color: var(--danger); border-color: var(--danger-line); }
+.opt.cancel { justify-content: center; color: var(--muted); border-color: transparent; }
+.dlg { position: fixed; left: 16px; right: 16px; top: 50%; transform: translateY(-50%); max-width: 480px; margin: 0 auto; background: var(--card); border-radius: 16px; padding: 18px 16px 16px; z-index: 51; box-shadow: 0 10px 40px rgba(0,0,0,.3); }
+.dlg p { margin: 6px 0 12px; color: var(--muted); font-size: 14px; }
+.toast { position: fixed; left: 16px; right: 16px; max-width: 688px; margin: 0 auto; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 60; background: var(--toast); color: var(--toast-fg); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.3); }
+.toast button { background: none; border: 0; color: var(--toast-link); font-weight: 700; font-size: 14px; min-height: 36px; padding: 0 6px; flex: none; }
+/* mejoras v2 */
+.live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: #3FBF74; box-shadow: 0 0 0 3px color-mix(in srgb, #3FBF74 25%, transparent); }
+.live.off i { background: var(--ring); box-shadow: none; }
+.alerts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.alert { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--warn-line); background: var(--warn-bg); color: var(--warn-ink); font-size: 14px; }
+.alert b { font-weight: 700; }
+.alert button { flex: none; min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid currentColor; background: transparent; color: inherit; font-weight: 600; }
+.search { position: relative; margin: 0 0 10px; }
+.search input { padding-left: 38px; }
+.search svg { position: absolute; left: 12px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; pointer-events: none; }
+.gbtn { min-height: 36px; padding: 0 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); font-size: 12.5px; font-weight: 600; color: var(--ink); flex: none; }
+.ghead .rt { display: flex; align-items: center; gap: 8px; }
+/* días de la semana (tareas diarias y 2 veces por semana) */
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin: 0 0 10px; }
+.dy { min-height: 56px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px 0; touch-action: manipulation; }
+.dy .l { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+.dy .n { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dy i { width: 7px; height: 7px; border-radius: 50%; background: transparent; }
+.dy i.part { background: var(--flag-line); }
+.dy i.full { background: var(--done-solid); }
+.dy.off .n { color: var(--muted); }
+.dy.off { background: var(--bg); border-style: dashed; }
+.dy.now .l { color: var(--done-solid); }
+.dy.sel { background: var(--sel); border-color: var(--sel); border-style: solid; color: var(--sel-fg); }
+.dy.sel .l { color: var(--sel-sub); }
+.dy.sel .n { color: var(--sel-fg); }
+.dy.sel i.full { background: #3FBF74; }
+.wd { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: 1px; }
+.wd span { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 4px; font-size: 10px; font-weight: 700; background: var(--track); color: var(--muted); }
+.wd span.done { background: var(--done-solid); color: #fff; }
+.wd span.flag { background: var(--flag-bg); color: var(--flag-ink); }
+.wd span.na { background: var(--na-bg); color: var(--na-ink); }
+.wd span.cur { box-shadow: 0 0 0 1.5px var(--ink); }
+.cell.part { background: var(--warn-bg); color: var(--warn-ink); }
+.wdset { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.wdset button { min-height: 44px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; font-weight: 700; font-size: 13px; }
+.wdset button.on { background: var(--sel); color: var(--sel-fg); border-color: var(--sel); }
+.who { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.who span { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--hover); color: var(--ink); font-variant-numeric: tabular-nums; }
+.acts { margin-top: 14px; }
+.act { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line-2); font-size: 13.5px; }
+.act:last-child { border-bottom: 0; }
+.act .ini { flex: none; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 700; background: var(--done-bg); color: var(--done-ink); }
+.act .ini.flag { background: var(--flag-bg); color: var(--flag-ink); }
+.act .ini.na { background: var(--na-bg); color: var(--na-ink); }
+.act .tx { flex: 1; min-width: 0; }
+.act .tx div:last-child { color: var(--muted); font-size: 12.5px; }
+.trow { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px; border: 0; border-bottom: 1px solid var(--line-2); background: transparent; text-align: left; min-height: 52px; }
+.trow:last-child { border-bottom: 0; }
+.trow .tx { flex: 1; min-width: 0; font-size: 14.5px; }
+.trow .tx small { display: block; color: var(--muted); font-size: 12px; }
+.trow.off .tx { color: var(--muted); text-decoration: line-through; }
+.fseg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.fseg button { min-height: 44px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.fseg button.on { border-color: var(--fc); box-shadow: inset 0 0 0 1px var(--fc); background: color-mix(in srgb, var(--fc) 12%, var(--card)); }
+.btn.danger { border-color: var(--danger-line); color: var(--danger); }
+.btn.block { width: 100%; }
+/* ---------- v3: piezas comunes (teléfono y computadora) */
+.tlist { display: flex; flex-direction: column; gap: 6px; }
+.hist-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.wk .rg, .wk .wb { display: none; }
+.mtools { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 0 0 10px; }
+.seg.sm { flex: 1 1 320px; max-width: 460px; }
+.seg.sm button { min-height: 40px; font-size: 13.5px; }
+.lnk { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 12px; border-radius: 10px; background: var(--sel); color: var(--sel-fg); font-weight: 600; font-size: 14px; text-decoration: none; flex: none; }
+.cell.fut { opacity: .45; }
+.cell.off:not(.done):not(.flag):not(.na) { background: repeating-linear-gradient(135deg, transparent 0 5px, var(--off) 5px 8px); }
+.cell.hn { position: relative; }
+.cell.hn::after { content: ''; position: absolute; top: 4px; right: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--flag-line); }
+/* cuadrícula de diarias día por día */
+table.dg td.nm, table.dg th.nm { min-width: 170px; max-width: 170px; }
+.dg thead th.wkh { font-size: 11.5px; padding: 5px 2px; border-left: 2px solid var(--bar-sub); }
+.dg thead tr + tr th { background: var(--hover); color: var(--ink); font-size: 10.5px; font-weight: 700; padding: 4px 0; line-height: 1.15; }
+.dg thead tr + tr th.off { color: var(--muted); font-weight: 500; }
+.dg thead tr + tr th.now { background: var(--sel); color: var(--sel-fg); }
+.dg th.ws, .dg td.ws { border-left: 2px solid var(--line); }
+.dg .cell { min-width: 24px; height: 36px; font-size: 12px; }
+.dg .cell small { font-size: 8.5px; }
+.dg td.now { background: var(--col); }
+/* tabla de la semana (computadora) */
+.mx td.csel { background: var(--col); }
+.mx .cell { min-width: 58px; height: 46px; }
+.mx th.dh { padding: 0; background: var(--bar); }
+.dhb { width: 100%; min-height: 50px; border: 0; background: transparent; color: var(--bar-fg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 4px 2px; }
+.dhb .l { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bar-sub); }
+.dhb .n { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mx th.dh.off .dhb .n { opacity: .6; }
+.mx th.dh.now .dhb .l { color: var(--live); }
+.mx th.dh.sel { background: var(--side-on); box-shadow: inset 0 -3px 0 var(--live); }
+.ghx { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ghx .l { display: flex; align-items: center; gap: 8px; }
+.ghx .rt { display: flex; align-items: center; gap: 10px; font-weight: 500; color: var(--muted); }
+.keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; margin: 10px 0 4px; font-size: 14px; align-items: center; }
+kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 6px; border: 1px solid var(--line); border-bottom-width: 2px; background: var(--bg); color: var(--ink); font: 600 12px/1 var(--font); }
+.keys kbd + kbd { margin-left: 4px; }
+.btn:disabled { opacity: .5; cursor: default; }
+.hint a { color: inherit; font-weight: 600; }
+.today-l { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.today-l b { color: var(--ink); }
+
+/* pasar el ratón (solo con ratón) */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover, .gbtn:hover, .seg button:not(.on):hover, .wdset button:not(.on):hover, .fseg button:not(.on):hover { background: var(--hover); }
+  .btn.pri:hover, .lnk:hover { filter: brightness(1.15); }
+  .wk:not(.sel):hover, .dy:not(.sel):hover { border-color: var(--ring); background: var(--hover); }
+  .chk:not(.done):not(.flag):not(.na):not(.dis):hover { border-color: var(--done-solid); color: var(--done-solid); }
+  .chk:not(.done):not(.flag):not(.na):not(.dis):hover::before { content: '✓'; font-size: 20px; }
+  .cell:not(.dis):not(.fut):hover { box-shadow: inset 0 0 0 2px var(--ring); }
+  .cell.mc:not(.done):not(.flag):not(.na):not(.dis):not(.fut):hover::before, .cell.dc:not(.done):not(.flag):not(.na):not(.dis):not(.fut):hover::before { content: '✓'; color: var(--done-solid); font-size: 15px; }
+  .trow:hover, .opt:not(.cancel):hover { background: var(--hover); }
+  .grid tbody tr:not(.gh):hover td.nm { background: var(--hover); }
+  .dhb:hover { background: var(--side-hover); }
+  .monthbtn:hover { opacity: .85; }
+}
+
+/* ---------- v3: computadora */
+@media (min-width: 1000px) {
+  #app { max-width: none; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "side bar" "side view"; }
+  .tabs { grid-area: side; flex-direction: column; background: var(--bar); color: var(--bar-fg); border-top: 0; padding: 18px 12px 14px; gap: 18px; overflow-y: auto; }
+  .tabs button { flex: none; min-height: 0; flex-direction: row; font-size: inherit; color: inherit; gap: 0; }
+  .sb-brand { display: flex; align-items: center; gap: 10px; padding: 0 6px; }
+  .sb-logo { width: 36px; height: 36px; border-radius: 10px; background: var(--side-on); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .sb-logo svg { width: 22px; height: 22px; stroke: var(--bar-fg); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .sb-brand b { display: block; font-size: 15px; line-height: 1.2; }
+  .sb-brand small { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--bar-sub); margin-top: 2px; }
+  .sb-nav { display: flex; flex-direction: column; gap: 2px; }
+  .tabs .nv { width: 100%; justify-content: flex-start; gap: 12px; min-height: 44px; padding: 0 10px; border-radius: 10px; background: none; border: 0; color: var(--bar-sub); font-size: 14.5px; font-weight: 600; text-align: left; }
+  .tabs .nv svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .tabs .nv span { flex: 1; }
+  .tabs kbd { background: transparent; border-color: var(--side-on); color: var(--bar-sub); min-width: 22px; height: 22px; font-size: 11px; }
+  .tabs .nv:hover { background: var(--side-hover); color: var(--bar-fg); }
+  .tabs .nv.on { background: var(--side-on); color: var(--bar-fg); }
+  .tabs .nv.on svg { stroke-width: 2.2; }
+  .sb-month { background: var(--side-hover); border-radius: 12px; padding: 12px; }
+  .sb-month .k { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--bar-sub); font-weight: 600; }
+  .sb-month .m { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .sb-month .p { display: flex; align-items: baseline; justify-content: space-between; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .sb-month .p b { font-size: 24px; }
+  .sb-month .p span { font-size: 12px; color: var(--bar-sub); }
+  .sb-month .bar { background: var(--side-on); height: 8px; margin: 6px 0 0; }
+  .sb-month .bar > i { background: var(--live); }
+  .sb-foot { margin-top: auto; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--bar-sub); }
+  .sb-foot .live { color: var(--bar-sub); padding: 0 6px; }
+  .tabs .sbb { justify-content: space-between; width: 100%; min-height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--side-on); background: none; color: var(--bar-sub); font-size: 12.5px; font-weight: 600; }
+  .tabs .sbb b { color: var(--bar-fg); }
+  .tabs .sbb:hover { background: var(--side-hover); color: var(--bar-fg); }
+
+  .appbar { grid-area: bar; background: var(--bg); color: var(--ink); padding: 20px 32px 10px; flex-wrap: wrap; }
+  .appbar .sub { color: var(--muted); }
+  .appbar .monthbtn { color: var(--ink); }
+  .appbar .pill.sync { color: var(--muted); }
+  .appbar h1 { margin: 2px 0 0; font-size: 28px; line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
+  .appbar .dh-r { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .wnav { display: inline-flex; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 10px; min-height: 42px; }
+  .wnav button { width: 40px; min-height: 40px; border: 0; background: none; color: var(--ink); font-size: 20px; line-height: 1; border-radius: 9px; }
+  .wnav button:hover { background: var(--hover); }
+  .wnav span { padding: 0 8px; font-weight: 600; font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .appbar .btn { min-height: 42px; }
+  .pill.cur { font-size: 12.5px; }
+
+  main { grid-area: view; padding: 6px 32px 48px; }
+  .alerts { flex-direction: row; flex-wrap: wrap; }
+  .alert { flex: 1 1 380px; }
+  .weeks { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); margin: 0 0 12px; padding: 0; overflow: visible; }
+  .wk { min-width: 0; padding: 9px 12px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .wk .rg { display: block; font-size: 12.5px; color: var(--muted); }
+  .wk.sel .rg { color: var(--sel-sub); }
+  .wk .p { order: 3; }
+  .wk .wb { display: block; order: 4; height: 5px; border-radius: 999px; background: var(--track); overflow: hidden; margin-top: 4px; }
+  .wk .wb b { display: block; height: 100%; background: var(--done-solid); }
+  .wk.sel .wb { background: var(--side-hover); }
+  .wk.sel .wb b { background: var(--live); }
+  .dk-tools { display: flex; align-items: center; gap: 16px; margin: 0 0 12px; }
+  .dk-tools .search { flex: 0 1 420px; margin: 0; }
+  .dk-tools .grow { flex: 1; color: var(--muted); font-size: 14px; }
+  .dk-week { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+  .dk-aside { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; align-items: start; }
+  .group { margin-bottom: 18px; }
+  .ghead { padding: 0 2px 8px; }
+  .tlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 8px; }
+  .task { min-height: 60px; }
+  .chk { width: 46px; height: 46px; }
+  .mx { width: 100%; }
+  .mx tr.gh td { padding: 8px 10px; }
+  .grid th.nm, .grid td.nm { min-width: 240px; max-width: 360px; font-size: 13.5px; padding: 6px 12px; }
+  table.dg td.nm, table.dg th.nm { min-width: 180px; max-width: 220px; font-size: 12.5px; }
+  .mx thead th:last-child { padding: 0 10px; }
+  .gridwrap + .note { margin-bottom: 16px; }
+  .cardpad { padding: 14px 16px; }
+  .ch { margin: 0 0 10px; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .card .ch.in { padding: 14px 16px 0; margin: 0; }
+  .fq { display: grid; grid-template-columns: 40px minmax(0, 1fr) 54px; align-items: center; gap: 4px 10px; font-size: 13px; }
+  .fq .fchip { min-width: 40px; }
+  .fq .bar { margin: 0; height: 8px; }
+  .fq .bar > i { background: var(--fc); }
+  .fq .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; }
+  .fq .nm { grid-column: 2 / 4; font-size: 12px; color: var(--muted); margin: -2px 0 2px; }
+  .dk-aside .acts { margin-top: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .kpi { padding: 14px 16px; }
+  .kpi .k { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .kpi .v { font-size: 28px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi .s { font-size: 13px; color: var(--muted); }
+  .kpi .bar { margin: 8px 0 0; }
+  .m-low { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .hist-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+  .set-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; max-width: 1200px; }
+  .set-cols > div > h2.sec:first-child { margin-top: 4px; }
+  .narrow { max-width: 1200px; }
+
+  .sheet { top: 50%; bottom: auto; left: 50%; right: auto; transform: translate(-50%, -50%); width: min(480px, calc(100vw - 32px)); max-height: 86vh; margin: 0; border-radius: 16px; padding: 20px 22px 18px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  .sheet .grab { display: none; }
+  .opt { min-height: 46px; font-size: 15px; }
+  .toast { left: auto; right: 28px; bottom: 28px; max-width: 460px; margin: 0; }
+}
+@media (min-width: 1420px) {
+  .dk-week { grid-template-columns: minmax(0, 1fr) 330px; }
+  .dk-aside { grid-template-columns: minmax(0, 1fr); }
+}
+.pill.langp { background: transparent; color: var(--bar-sub); border: 1px solid currentColor; font: inherit; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; flex: none; cursor: pointer; }
+.btns.stack { flex-direction: column; }
+.btns.stack .btn { width: 100%; }
+.where p { margin: 8px 0; color: var(--ink); font-size: 14px; }
+.where p b { font-weight: 700; }
+.trow:disabled, .wdset button:disabled { cursor: default; opacity: .7; }
+.pinlang { display: flex; justify-content: flex-end; margin: -2px 0 8px; }
+.dlg input[type=password] { letter-spacing: .3em; font-size: 20px; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .spin { animation-duration: 2.4s; } .switch .t, .switch .t::after { transition: none; } }
+</style>
+
+<div id="app">
+  <header id="bar" class="appbar"></header>
+  <main id="view"><div class="loading"><div class="spin"></div><div>Loading…</div></div></main>
+  <nav id="tabs" class="tabs" aria-label="Sections"></nav>
+</div>
+<div id="overlay"></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<input type="file" id="imp" accept=".json,application/json" hidden>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------ plantilla inicial (rev. 04/06/2026) */
+  var DEFAULT_REVISED = '04/06/2026';
+  var DEFAULT_TASKS = [
+    ['Processing room swing doors (inside & out)', 'Puertas batientes, cuarto de proceso (int. y ext.)', 'D'],
+    ['Warehouse floors (traffic areas)', 'Pisos del almacén (áreas de tránsito)', 'D'],
+    ['Mixing room curtain strips', 'Cortinas de tiras, cuarto de mezclado', 'TW'],
+    ['Cooler 3 curtain strips', 'Cortinas de tiras, Cooler 3', 'TW'],
+    ['Cooler 4 curtain strips', 'Cortinas de tiras, Cooler 4', 'TW'],
+    ['Back the line', 'Parte trasera de la línea', 'W'],
+    ['Exterior Area (Chemical)', 'Área exterior (químicos)', 'W'],
+    ['Warehouse floors (behind pallets)', 'Pisos del almacén (detrás de las tarimas)', 'W'],
+    ['Dust/wipe down warehouse walls', 'Sacudir/limpiar paredes del almacén', 'W'],
+    ['Hallway behind the mixing room', 'Pasillo detrás del cuarto de mezclado', 'W'],
+    ['Store area, common area (spice, cardboard & coats)', 'Almacén, área común (especias, cartón y abrigos)', 'W'],
+    ['Outdoor trash and cardboard area', 'Área exterior de basura y cartón', 'W'],
+    ['Dry Goods Store (Flight Path)', 'Almacén de productos secos (Flight Path)', 'BM'],
+    ['Cooler 3 (Bucket)', 'Cooler 3 (cubeta)', 'BM'],
+    ['Cooler 4 & 5 (Meat combo)', 'Cooler 4 y 5 (combo de carne)', 'BM'],
+    ['Combo Cooler (Flight Path)', 'Cooler combo (Flight Path)', 'BM'],
+    ['Metal detector conveyor line 1', 'Transportador del detector de metales, línea 1', 'BM'],
+    ['Metal detector conveyor line 2', 'Transportador del detector de metales, línea 2', 'BM'],
+    ['Metal detector conveyor line 3', 'Transportador del detector de metales, línea 3', 'BM'],
+    ['Shipping door', 'Puerta de embarque', 'BM'],
+    ['Masman Machine', 'Máquina Masman', 'BM'],
+    ['Label area (Rack)', 'Área de etiquetas (estante)', 'BM'],
+    ['Break room', 'Sala de descanso', 'BM'],
+    ['FG Cooler 1 (Flight Path)', 'Cooler 1 de producto terminado (Flight Path)', 'M'],
+    ['FG Cooler 2 (Flight Path)', 'Cooler 2 de producto terminado (Flight Path)', 'M'],
+    ['Ceiling lights', 'Luces del techo', 'M'],
+    ['Refrigeration units (processing)', 'Unidades de refrigeración (proceso)', 'M'],
+    ['Refrigeration units (packaging)', 'Unidades de refrigeración (empaque)', 'M'],
+    ['Refrigeration units & drip pans (mixing)', 'Unidades de refrigeración y bandejas de goteo (mezclado)', 'M'],
+    ['Packing area floors (mop)', 'Pisos del área de empaque (trapear)', 'M'],
+    ['Packing area wipe equipment & drop downs', 'Empaque: limpiar equipo y elementos colgantes', 'M'],
+    ['Maintenance room', 'Cuarto de mantenimiento', 'M'],
+    ['Operations offices', 'Oficinas de operaciones', 'M'],
+    ['QA offices', 'Oficinas de QA', 'M'],
+    ['Combo cooler floor and red Buckets', 'Combo cooler floor and red Buckets', 'D'],
+    ['Mixer Room', 'Mixer Room', 'D'],
+    ['Bucket Cooler', 'Bucket Cooler', 'D'],
+    ['Magnetic inspection', 'Inspección magnética', 'D']
+  ];
+  var DEFAULT_DOC = { company: '', site: '', code: '' };
+  var PATH = 'Site Operation \\ 9.2.5 Cleaning & Sanitation \\ Master Cleaning Schedule non-SPS';
+
+  /* ------------------------------------------- preferencias de este dispositivo
+     El idioma es de cada dispositivo: inglés por defecto, español con un clic. */
+  var PREF_KEY = 'limpieza_prefs';
+  var prefs = { initials: '', lang: 'en', mview: 'weeks' };
+  try {
+    var pr = JSON.parse(localStorage.getItem(PREF_KEY) || 'null');
+    if (pr) { prefs.initials = String(pr.initials || '').slice(0, 4); prefs.lang = pr.language === 'es' ? 'es' : 'en'; prefs.printLang = pr.printLang === 'es' ? 'es' : 'en'; prefs.mview = pr.mview === 'days' ? 'days' : 'weeks'; }
+  } catch (e) { /* sin almacenamiento */ }
+  function savePrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify({ initials: prefs.initials, language: prefs.lang, printLang: prefs.printLang, mview: prefs.mview })); } catch (e) { /* sin almacenamiento */ } }
+
+  /* ------------------------------------------------------------------ idioma */
+  function ES() { return prefs.lang === 'es'; }
+  function L(en, es) { return ES() ? es : en; }
+  var TXT = {
+    months: { en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] },
+    mon: { en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'] },
+    days: { en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], es: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'] },
+    dayL: { en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'], es: ['D', 'L', 'M', 'X', 'J', 'V', 'S'] },
+    dayN: { en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], es: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'] }
+  };
+  function W(k) { return TXT[k][ES() ? 'es' : 'en']; }
+  var FREQ = {
+    /* unit 'day': se marca por día; la semana pide un número de días (D: los días de trabajo; 2xS: 2) */
+    D: { code: 'D', codeEs: 'D', name: 'Daily', nameEs: 'Diario', color: '#1D4E89', unit: 'day' },
+    TW: { code: '2xW', codeEs: '2xS', name: 'Twice a week', nameEs: '2 veces por semana', color: '#0B7285', unit: 'day', perWeek: 2 },
+    W: { code: 'W', codeEs: 'S', name: 'Weekly', nameEs: 'Semanal', color: '#5B3FA6', unit: 'week' },
+    BM: { code: '2xM', codeEs: '2xM', name: 'Twice a month', nameEs: '2 veces al mes', color: '#B45309', unit: 'month', need: 2 },
+    M: { code: 'M', codeEs: 'M', name: 'Monthly', nameEs: 'Mensual', color: '#A21F52', unit: 'month', need: 1 },
+    Q: { code: 'Q', codeEs: 'T', name: 'Quarterly', nameEs: 'Trimestral', color: '#475569', unit: 'month', need: 1 }
+  };
+  var ORDER = ['D', 'TW', 'W', 'BM', 'M', 'Q'];
+  function fname(f) { return ES() ? FREQ[f].nameEs : FREQ[f].name; }
+  function fcode(f, lang) { return (lang ? lang === 'es' : ES()) ? FREQ[f].codeEs : FREQ[f].code; }
+  function stName(s) { return s === 'na' ? 'N/A' : s === 'flag' ? L('Done with note (*)', 'Done con observación (*)') : 'Done'; }
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+  /* La versión en línea guarda los datos compartidos en la nube. La copia guardada en la computadora enlaza aquí. */
+  var CLOUD_URL = 'https://claude.ai/artifact/MWBa5cFGTqV57j7rdMAgAn';
+  /* Nube propia del equipo (Cloudflare): funciona sin cuenta de Claude, con el PIN del equipo. */
+  var API = (function () { var d = 'https://limpieza-api.citemeai.workers.dev'; try { return localStorage.getItem('limpieza_api_base') || d; } catch (e) { return d; } })(); // la clave solo sirve para pruebas
+  var APP_URL = 'https://hugoibel.github.io/cleaning-schedule/';
+  var IN_VIEWER = !!(window.claude && typeof window.claude.use === 'function');
+  var MQ = window.matchMedia ? window.matchMedia('(min-width: 1000px)') : null;
+  function isDesk() { return !!(MQ && MQ.matches); }
+
+  /* ------------------------------------------------------------------ utilidades */
+  function $(s, el) { return (el || document).querySelector(s); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parseYMD(s) { var p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function nowISO() { return new Date().toISOString(); }
+  function nextSaturday(d) { var r = new Date(d.getFullYear(), d.getMonth(), d.getDate()); r.setDate(r.getDate() + ((6 - r.getDay() + 7) % 7)); return r; }
+  /* La hoja actual es la del mes en que termina la semana en curso (semanas que terminan en sábado). */
+  function currentKey() { var s = nextSaturday(new Date()); return s.getFullYear() + '-' + pad(s.getMonth() + 1); }
+  function weeksOf(key) { var p = key.split('-').map(Number), out = [], d = new Date(p[0], p[1] - 1, 1); while (d.getMonth() === p[1] - 1) { if (d.getDay() === 6) out.push(ymd(d)); d.setDate(d.getDate() + 1); } return out; }
+  function fmtWeek(s) { var d = parseYMD(s); return (d.getMonth() + 1) + '/' + d.getDate(); }
+  /* "Sat Oct 17" / "sáb 17 oct" */
+  function fmtLong(s) { var d = parseYMD(s); return ES() ? W('days')[d.getDay()] + ' ' + d.getDate() + ' ' + W('mon')[d.getMonth()] : W('days')[d.getDay()] + ' ' + W('mon')[d.getMonth()] + ' ' + d.getDate(); }
+  function fmtDate(s) { var d = parseYMD(s); return ES() ? d.getDate() + ' ' + W('mon')[d.getMonth()] : W('mon')[d.getMonth()] + ' ' + d.getDate(); }
+  function monthName(key) { var p = key.split('-').map(Number); return W('months')[p[1] - 1] + ' ' + p[0]; }
+  function fmtStamp(iso) { var d = new Date(iso); if (isNaN(d)) return ''; var h = d.getHours(), ap = h >= 12 ? 'pm' : 'am'; h = h % 12 || 12; return W('days')[d.getDay()] + ' ' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + h + ':' + pad(d.getMinutes()) + ' ' + ap; }
+  function monthIdx(key) { var p = key.split('-').map(Number); return p[0] * 12 + p[1] - 1; }
+  function keyOfIdx(i) { return Math.floor(i / 12) + '-' + pad((i % 12) + 1); }
+  function fold(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function lastWeekOf(mo) { return mo.weeks[mo.weeks.length - 1]; }
+  function addDays(s, n) { var d = parseYMD(s); d.setDate(d.getDate() + n); return ymd(d); }
+  var DEFAULT_WORKDAYS = [1, 2, 3, 4, 5];
+  function normWorkdays(a) {
+    if (!Array.isArray(a)) return DEFAULT_WORKDAYS.slice();
+    var o = [];
+    a.forEach(function (x) { x = Number(x); if (x >= 0 && x <= 6 && Math.floor(x) === x && o.indexOf(x) < 0) o.push(x); });
+    o.sort();
+    return o.length ? o : DEFAULT_WORKDAYS.slice();
+  }
+  function daysLeft(mo) { var end = parseYMD(lastWeekOf(mo)), t = new Date(); t = new Date(t.getFullYear(), t.getMonth(), t.getDate()); return Math.round((end - t) / 86400000); }
+
+  /* --------------------------------------------------------------- plantilla */
+  function defaultTemplate() {
+    return { revised: DEFAULT_REVISED, updatedAt: '', workdays: DEFAULT_WORKDAYS.slice(), doc: { company: DEFAULT_DOC.company, site: DEFAULT_DOC.site, code: DEFAULT_DOC.code }, tasks: DEFAULT_TASKS.map(function (t, i) { return { id: 't' + pad(i + 1), en: t[0], es: t[1], f: t[2], active: true }; }) };
+  }
+  function normTemplate(d) {
+    if (!d || !Array.isArray(d.tasks) || !d.tasks.length) return defaultTemplate();
+    var seen = {}, tasks = [];
+    d.tasks.forEach(function (t) {
+      if (!t || typeof t.id !== 'string' || seen[t.id] || !FREQ[t.f]) return;
+      seen[t.id] = 1;
+      tasks.push({ id: t.id.slice(0, 12), en: String(t.en || '').slice(0, 120), es: String(t.es || t.en || '').slice(0, 120), f: t.f, active: t.active !== false });
+    });
+    var dc = d.doc && typeof d.doc === 'object' ? d.doc : {};
+    return { revised: String(d.revised || DEFAULT_REVISED), updatedAt: String(d.updatedAt || ''), workdays: normWorkdays(d.workdays), doc: { company: String(dc.company || '').slice(0, 60), site: String(dc.site || '').slice(0, 60), code: String(dc.code || '').slice(0, 30) }, tasks: tasks.length ? tasks : defaultTemplate().tasks };
+  }
+  function activeTasks() { return tpl.tasks.filter(function (t) { return t.active; }).map(function (t) { return { id: t.id, en: t.en, es: t.es, f: t.f }; }); }
+  function nextTaskId() { var max = 0; tpl.tasks.forEach(function (t) { var n = parseInt(String(t.id).replace(/\D/g, ''), 10); if (n > max) max = n; }); return 't' + pad(max + 1); }
+  var tpl = defaultTemplate();
+
+  /* --------------------------------------------------------- almacenamiento
+     Nube: "months/2026-10" (un documento por mes) y "config/template" (las áreas).
+     Sin nube (página abierta fuera de Claude): copia local en este navegador.
+     Solo lectura: quien abre el enlace sin permiso para escribir ve todo en vivo, pero no marca. */
+  var LOCAL_KEY = 'limpieza_local_months', LOCAL_TPL = 'limpieza_local_template', WHERE_KEY = 'limpieza_where';
+  var store = { mode: 'loading', db: null, months: {}, live: false, gotMonths: false, gotTpl: false, booted: false, readOnly: false, moved: false, isOwner: false, snap: { months: {}, tpl: null } };
+  var creating = {};
+
+  function readJSON(k) { try { var m = JSON.parse(localStorage.getItem(k) || 'null'); return m && typeof m === 'object' ? m : null; } catch (e) { return null; } }
+  function writeLocal() { if (store.mode !== 'local') return; try { localStorage.setItem(LOCAL_KEY, JSON.stringify(store.months)); localStorage.setItem(LOCAL_TPL, JSON.stringify(tpl)); } catch (e) { toast(L('Could not save in this browser', 'No se pudo guardar en este navegador')); } }
+
+  function createMonth(key) {
+    return { key: key, createdAt: nowISO(), updatedAt: nowISO(), closedAt: null, revised: tpl.revised, workdays: tpl.workdays.slice(), weeks: weeksOf(key), tasks: activeTasks(), cells: {} };
+  }
+  function setReadOnly() { if (store.readOnly) return; store.readOnly = true; render(); }
+  /* deshace en pantalla lo que la nube no aceptó */
+  function revertPath(path) {
+    if (path === 'config/template') { if (store.snap.tpl) tpl = normTemplate(store.snap.tpl); }
+    else { var k = path.replace(/^months\//, ''), raw = store.snap.months[k]; if (raw) { var m = normalize(k, raw); if (m) store.months[k] = m; } }
+    render();
+  }
+  /* Una escritura a la vez por documento (en orden), con un reintento si la conexión falla un momento. */
+  var writeQ = {};
+  function cloudWrite(path, fn) {
+    if (store.mode !== 'cloud' || store.readOnly) return;
+    var ref = store.db.doc(path);
+    var fail = function (e) {
+      var code = e && e.code;
+      if (code === 'quota_exceeded') { toast(L('The data space is full. Export and delete old months.', 'El espacio de datos está lleno. Exporta y borra meses antiguos.')); return; }
+      if ((code === 'invalid_argument' || code === 'not_granted' || code === 'revoked') && !store.isOwner) { setReadOnly(); revertPath(path); toast(L('You can view this calendar but not change it.', 'Puedes ver este calendario, pero no cambiarlo.')); return; }
+      toast(L('Not saved. Check your connection.', 'No se guardó. Revisa la conexión.'));
+    };
+    var attempt = function () {
+      return fn(ref).catch(function (e) {
+        var code = e && e.code;
+        if (code === 'unavailable' || code === 'resource_exhausted') return new Promise(function (r) { setTimeout(r, 600 + Math.random() * 800); }).then(function () { return fn(ref); }).catch(fail);
+        fail(e);
+      });
+    };
+    writeQ[path] = (writeQ[path] || Promise.resolve()).then(attempt, attempt);
+  }
+  function putMonth(m, create) {
+    store.months[m.key] = m;
+    if (store.mode === 'cloud') cloudWrite('months/' + m.key, function (ref) { return ref.set(m); });
+    else if (store.mode === 'api') enqueue('PUT', '/api/month/' + m.key + (create ? '?mode=create' : ''), m);
+    else writeLocal();
+  }
+  function patchMonth(m, patch) {
+    if (store.mode === 'cloud') cloudWrite('months/' + m.key, function (ref) { return ref.update(patch); });
+    else if (store.mode === 'api') { var meta = {}, has = false; Object.keys(patch).forEach(function (f) { if (f !== 'cells') { meta[f] = patch[f]; has = true; } }); enqueue('PATCH', '/api/month/' + m.key, { meta: has ? meta : undefined, cells: patch.cells }); }
+    else writeLocal();
+  }
+  function saveTemplate() {
+    tpl.updatedAt = nowISO();
+    if (store.mode === 'cloud') { var body = JSON.parse(JSON.stringify(tpl)); cloudWrite('config/template', function (ref) { return ref.set(body); }); }
+    else if (store.mode === 'api') enqueue('PUT', '/api/template', tpl);
+    else writeLocal();
+    // el mes en curso (si sigue abierto) toma las áreas nuevas; los cerrados conservan las suyas
+    var cur = store.months[ui.cur];
+    if (cur && !cur.closedAt) { cur.tasks = activeTasks(); cur.revised = tpl.revised; cur.workdays = tpl.workdays.slice(); cur.updatedAt = nowISO(); patchMonth(cur, { tasks: cur.tasks, revised: cur.revised, workdays: cur.workdays, updatedAt: cur.updatedAt }); }
+  }
+  function ensureMonths() {
+    var cur = currentKey();
+    if (store.mode === 'loading') return cur;
+    var keys = Object.keys(store.months).sort();
+    if (keys.length) {
+      var from = monthIdx(keys[keys.length - 1]) + 1, to = monthIdx(cur) - 1;
+      if (to - from > 36) from = to - 36;
+      for (var i = from; i <= to; i++) { var k = keyOfIdx(i); if (!store.months[k] && !creating[k]) { creating[k] = 1; var mk = createMonth(k); mk.closedAt = nowISO(); putMonth(mk, true); } }
+    }
+    if (!store.months[cur] && !creating[cur]) { creating[cur] = 1; putMonth(createMonth(cur), true); }
+    Object.keys(store.months).forEach(function (k) {
+      var m = store.months[k];
+      if (k < cur && !m.closedAt) { var at = nowISO(); m.closedAt = at; patchMonth(m, { closedAt: at }); }
+    });
+    return cur;
+  }
+  function normalize(id, d) {
+    if (!d || !Array.isArray(d.tasks) || !Array.isArray(d.weeks)) return null;
+    var cells = {}, raw = d.cells && typeof d.cells === 'object' ? d.cells : {};
+    Object.keys(raw).forEach(function (k) { var c = raw[k]; if (c && (c.s === 'done' || c.s === 'flag' || c.s === 'na')) cells[k] = c; });
+    return { key: id, createdAt: d.createdAt || '', updatedAt: d.updatedAt || '', closedAt: d.closedAt || null, revised: d.revised || '', workdays: Array.isArray(d.workdays) ? normWorkdays(d.workdays) : null, weeks: d.weeks, tasks: d.tasks.filter(function (t) { return t && FREQ[t.f]; }), cells: cells };
+  }
+  /* Antes, las diarias y las de 2 veces por semana tenían una sola casilla por semana ("t01|1"),
+     así que al marcarla quedaba marcada toda la semana. Ahora cada día tiene la suya ("t01|2026-10-08").
+     Las marcas viejas pasan al día en que se hicieron (o al último día de trabajo de esa semana). */
+  function legacyChanges(mo) {
+    var ch = {}, n = 0;
+    Object.keys(mo.cells).forEach(function (k) {
+      var p = k.split('|'); if (p.length !== 2 || !/^\d+$/.test(p[1])) return;
+      var t = taskOf(mo, p[0]); if (!t || !isDayTask(t)) return;
+      var wi = Number(p[1]); if (wi < 0 || wi >= mo.weeks.length) return;
+      var c = mo.cells[k], days = weekDays(mo, wi), day = null;
+      if (c.at) { var d = new Date(c.at); if (!isNaN(d) && days.indexOf(ymd(d)) >= 0) day = ymd(d); }
+      if (!day) { var wd = days.filter(function (x) { return isWorkday(mo, x); }); day = (wd.length ? wd : days)[(wd.length ? wd : days).length - 1]; }
+      if (!mo.cells[dayKey(t, day)] && !ch[dayKey(t, day)]) ch[dayKey(t, day)] = c;
+      ch[k] = null; n++;
+    });
+    return n ? ch : null;
+  }
+  function migrateAll() {
+    if (store.mode === 'loading' || store.readOnly) return;
+    Object.keys(store.months).forEach(function (k) { var mo = store.months[k], ch = legacyChanges(mo); if (ch) writeCells(mo, ch); });
+  }
+
+  function startLocal() {
+    store.mode = 'local';
+    var raw = readJSON(LOCAL_KEY) || {};
+    store.months = {};
+    Object.keys(raw).forEach(function (k) { var m = normalize(k, raw[k]); if (m) store.months[k] = m; });
+    tpl = normTemplate(readJSON(LOCAL_TPL));
+    store.gotMonths = store.gotTpl = true;
+    maybeBoot();
+  }
+  function startCloud(db) {
+    store.mode = 'cloud'; store.db = db;
+    subMonths(db); subTemplate(db);
+  }
+  function subMonths(db) {
+    db.collection('months').onSnapshot(function (snap) {
+      var next = {}, raw = {};
+      snap.docs.forEach(function (d) { if (!d.exists) return; var body = d.data(), m = normalize(d.id, body); if (m) { next[d.id] = m; raw[d.id] = body; } });
+      Object.keys(creating).forEach(function (k) { if (!next[k] && store.months[k]) next[k] = store.months[k]; else if (next[k]) delete creating[k]; });
+      store.months = next; store.snap.months = raw;
+      store.live = !snap.metadata.fromCache;
+      if (snap.metadata.fromCache && !store.gotMonths) { render(); return; }
+      store.gotMonths = true;
+      if (store.booted) { migrateAll(); refreshClock(true); } else maybeBoot();
+    }, function (e) {
+      store.live = false; render();
+      if (e && e.code === 'unavailable') { setTimeout(function () { subMonths(db); }, 1500); return; }
+      toast(L('Lost the connection to your data. Reload the page.', 'Se perdió la conexión con tus datos. Recarga la página.'));
+    });
+  }
+  function subTemplate(db) {
+    db.doc('config/template').onSnapshot(function (snap) {
+      if (snap.exists) { store.snap.tpl = snap.data(); tpl = normTemplate(store.snap.tpl); }
+      else if (!snap.metadata.fromCache) tpl = defaultTemplate();
+      if (snap.metadata.fromCache && !store.gotTpl) return;
+      store.gotTpl = true;
+      if (store.booted) render(); else maybeBoot();
+    }, function (e) {
+      if (e && e.code === 'unavailable') { setTimeout(function () { subTemplate(db); }, 1500); return; }
+      store.gotTpl = true; maybeBoot();
+    });
+  }
+  function maybeBoot() {
+    if (store.booted || !store.gotMonths || !store.gotTpl) return;
+    store.booted = true;
+    ui.cur = ensureMonths();
+    migrateAll();
+    ui.month = ui.cur;
+    ui.week = curWeekIdx(store.months[ui.cur]);
+    ui.day = ymd(new Date());
+    render();
+  }
+
+  /* ------------------------------------------------ nube propia del equipo (sin cuenta de Claude)
+     Todo el estado se guarda también en el dispositivo: abre al instante y funciona sin señal.
+     Cada cambio entra en una cola guardada en el dispositivo y se envía en orden; sin conexión,
+     espera y se reintenta solo. Cada 10 s (con la app a la vista) mira si alguien cambió algo. */
+  var API_CACHE = 'limpieza_api_cache', API_OUTBOX = 'limpieza_outbox', API_PIN = 'limpieza_pin';
+  var api = { pin: '', rev: -1, outbox: [], busy: false, timer: null, loading: false };
+  function lsGet(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+  function lsSet(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento */ } }
+  function apiReq(method, path, body) {
+    var h = { 'X-Team-Pin': api.pin };
+    if (body !== undefined) h['Content-Type'] = 'application/json';
+    return fetch(API + path, { method: method, headers: h, body: body !== undefined ? JSON.stringify(body) : undefined, cache: 'no-store' }).then(function (r) {
+      if (r.ok) return r.json();
+      var e = new Error('HTTP ' + r.status); e.status = r.status; throw e;
+    });
+  }
+  function setLive(v) { if (store.live === v) return; store.live = v; render(); }
+  function saveOutbox() { lsSet(API_OUTBOX, JSON.stringify(api.outbox)); }
+  function enqueue(method, path, body) { api.outbox.push({ m: method, p: path, b: JSON.parse(JSON.stringify(body)) }); saveOutbox(); flushOutbox(); }
+  function flushOutbox() {
+    if (api.busy || !api.outbox.length || !api.pin) return;
+    api.busy = true; clearTimeout(api.timer);
+    var it = api.outbox[0];
+    apiReq(it.m, it.p, it.b).then(function (r) {
+      api.outbox.shift(); saveOutbox(); api.busy = false;
+      if (r && typeof r.rev === 'number' && r.rev === api.rev + 1) api.rev = r.rev;
+      store.live = true;
+      if (api.outbox.length) flushOutbox(); else { render(); pollApi(); }
+    }, function (e) {
+      api.busy = false;
+      var st = e && e.status;
+      if (st === 401) { pinRejected(); return; }
+      if (st === 400 || st === 404 || st === 413) { api.outbox.shift(); saveOutbox(); toast(L('One change could not be saved and was discarded.', 'Un cambio no se pudo guardar y se descartó.')); flushOutbox(); return; }
+      setLive(false);
+      api.timer = setTimeout(flushOutbox, 8000);
+    });
+  }
+  /* lo que aún está en la cola se vuelve a aplicar encima de lo que llega del servidor */
+  function reapplyOutbox() {
+    api.outbox.forEach(function (it) {
+      if (it.p === '/api/template') { tpl = normTemplate(it.b); return; }
+      var k = it.p.replace(/^\/api\/month\//, '').replace(/\?.*$/, ''), cur = store.months[k];
+      if (it.m === 'PUT') {
+        var m = normalize(k, it.b); if (!m) return;
+        if (cur && /mode=create/.test(it.p)) { Object.keys(m.cells).forEach(function (c) { cur.cells[c] = m.cells[c]; }); return; }
+        if (cur) Object.keys(cur.cells).forEach(function (c) { if (!(c in m.cells)) m.cells[c] = cur.cells[c]; });
+        store.months[k] = m; return;
+      }
+      if (!cur) return;
+      var b = it.b || {};
+      if (b.meta) Object.keys(b.meta).forEach(function (f) { cur[f] = b.meta[f]; });
+      if (b.cells) Object.keys(b.cells).forEach(function (c) { if (b.cells[c]) cur.cells[c] = b.cells[c]; else delete cur.cells[c]; });
+    });
+  }
+  function applyState(st, fromCache) {
+    var months = {};
+    Object.keys(st.months || {}).forEach(function (k) { var m = normalize(k, st.months[k]); if (m) months[k] = m; });
+    store.months = months;
+    tpl = st.template ? normTemplate(st.template) : defaultTemplate();
+    if (!fromCache) api.rev = st.rev;
+    reapplyOutbox();
+    store.gotMonths = store.gotTpl = true;
+    if (store.booted) refreshClock(true); else maybeBoot();
+  }
+  function loadState() {
+    if (api.loading || !api.pin) return;
+    api.loading = true;
+    apiReq('GET', '/api/state').then(function (st) {
+      api.loading = false; store.live = true;
+      lsSet(API_CACHE, JSON.stringify(st));
+      applyState(st, false);
+      if (!st.template) enqueue('PUT', '/api/template', tpl); // primer uso: la lista de áreas queda en la nube para todos
+      flushOutbox();
+    }, function (e) {
+      api.loading = false;
+      var s = e && e.status;
+      if (s === 401) { pinRejected(); return; }
+      if (s === 429) toast(L('Too many wrong PIN attempts from this network today. Try again tomorrow.', 'Demasiados PIN incorrectos desde esta red hoy. Prueba mañana.'));
+      store.live = false;
+      if (!store.booted) { store.gotMonths = store.gotTpl = true; maybeBoot(); } else render();
+    });
+  }
+  function pollApi() {
+    if (store.mode !== 'api' || !api.pin || document.hidden || api.loading) return;
+    apiReq('GET', '/api/rev').then(function (r) {
+      setLive(true);
+      if (api.outbox.length) flushOutbox();
+      else if (r.rev !== api.rev && !api.busy) loadState();
+    }, function (e) { if (e && e.status === 401) pinRejected(); else setLive(false); });
+  }
+  function pinRejected() { api.pin = ''; lsSet(API_PIN, null); askPin(true); }
+  function startApi() {
+    store.mode = 'api';
+    api.pin = lsGet(API_PIN);
+    try { api.outbox = JSON.parse(lsGet(API_OUTBOX) || '[]'); if (!Array.isArray(api.outbox)) api.outbox = []; } catch (e) { api.outbox = []; }
+    var cache = null;
+    try { cache = JSON.parse(lsGet(API_CACHE) || 'null'); } catch (e) { cache = null; }
+    if (cache && cache.months) applyState(cache, true);
+    if (api.pin) loadState(); else askPin(false);
+    setInterval(pollApi, 10000);
+  }
+
+  /* ------------------------------------------------------------- consultas */
+  function cellKey(t, wi) { return t.id + '|' + wi; }
+  function cell(mo, t, wi) { return mo.cells[cellKey(t, wi)]; }
+  function isLocked(mo) { return store.readOnly || (!!mo.closedAt && !ui.unlocked[mo.key]); }
+  function taskOf(mo, id) { for (var i = 0; i < mo.tasks.length; i++) if (mo.tasks[i].id === id) return mo.tasks[i]; return null; }
+  function tname(t) { return ES() ? (t.es || t.en) : (t.en || t.es); }
+  function baseReq(mo, t) { var F = FREQ[t.f]; if (F.unit === 'week') return mo.weeks.length; if (t.f === 'Q') return (Number(mo.key.slice(5)) % 3 === 0) ? 1 : 0; return F.need; }
+  /* --- tareas por día (Diario, 2 veces por semana) */
+  function isDayTask(t) { return !!t && !!FREQ[t.f] && FREQ[t.f].unit === 'day'; }
+  function wdOf(mo) { return (mo && mo.workdays) || tpl.workdays || DEFAULT_WORKDAYS; }
+  function weekDays(mo, wi) { var end = mo.weeks[wi], out = []; for (var i = 6; i >= 0; i--) out.push(addDays(end, -i)); return out; }
+  function isWorkday(mo, day) { return wdOf(mo).indexOf(parseYMD(day).getDay()) >= 0; }
+  function dayKey(t, day) { return t.id + '|' + day; }
+  function dcell(mo, t, day) { return mo.cells[dayKey(t, day)]; }
+  function perWeek(mo, t) { return t.f === 'D' ? wdOf(mo).length : (FREQ[t.f].perWeek || 1); }
+  function weekDayStat(mo, t, wi) {
+    var na = 0, marks = 0;
+    weekDays(mo, wi).forEach(function (d) { var c = dcell(mo, t, d); if (!c) return; if (c.s === 'na') { if (t.f !== 'D' || isWorkday(mo, d)) na++; } else marks++; });
+    var req = Math.max(0, perWeek(mo, t) - na);
+    return { req: req, done: Math.min(req, marks), marks: marks };
+  }
+  function weekIdxOfDay(mo, day) { for (var i = 0; i < mo.weeks.length; i++) if (weekDays(mo, i).indexOf(day) >= 0) return i; return -1; }
+  /* día que se está marcando en la pestaña Semana */
+  function selDay(mo, wi) {
+    var days = weekDays(mo, wi), today = ymd(new Date());
+    if (ui.selDay && days.indexOf(ui.selDay) >= 0) return ui.selDay;
+    if (days.indexOf(today) >= 0) return today;
+    var wd = days.filter(function (d) { return isWorkday(mo, d); }); if (!wd.length) wd = days;
+    return days[6] < today ? wd[wd.length - 1] : wd[0];
+  }
+  function taskStat(mo, t) {
+    if (isDayTask(t)) { var r = 0, dn = 0; for (var j = 0; j < mo.weeks.length; j++) { var w = weekDayStat(mo, t, j); r += w.req; dn += w.done; } return { req: r, done: dn, doneWeeks: [] }; }
+    var na = 0, done = 0, doneWeeks = [];
+    for (var i = 0; i < mo.weeks.length; i++) { var c = cell(mo, t, i); if (!c) continue; if (c.s === 'na') na++; else { done++; doneWeeks.push(i); } }
+    var req = Math.max(0, baseReq(mo, t) - na);
+    return { req: req, done: Math.min(req, done), doneWeeks: doneWeeks };
+  }
+  function stats(mo) { var req = 0, done = 0, per = {}; mo.tasks.forEach(function (t) { var s = taskStat(mo, t); per[t.id] = s; req += s.req; done += s.done; }); return { req: req, done: done, pct: req ? Math.round(done * 100 / req) : 0, per: per }; }
+  function weekProgress(mo, wi) { var tot = 0, done = 0; mo.tasks.forEach(function (t) { if (isDayTask(t)) { var w = weekDayStat(mo, t, wi); tot += w.req; done += w.done; return; } if (FREQ[t.f].unit !== 'week') return; var c = cell(mo, t, wi); if (c && c.s === 'na') return; tot++; if (c) done++; }); return { tot: tot, done: done, pct: tot ? Math.round(done * 100 / tot) : 0 }; }
+  function curWeekIdx(mo) { var today = ymd(new Date()); for (var i = 0; i < mo.weeks.length; i++) if (mo.weeks[i] >= today) return i; return mo.weeks.length - 1; }
+  function whoCounts(mo) {
+    var c = {};
+    Object.keys(mo.cells).forEach(function (k) { var x = mo.cells[k]; if (x && x.s !== 'na' && x.by) c[x.by] = (c[x.by] || 0) + 1; });
+    return Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).map(function (k) { return [k, c[k]]; });
+  }
+  function recent(mo, n) {
+    var out = [];
+    Object.keys(mo.cells).forEach(function (k) { var c = mo.cells[k]; if (!c || !c.at) return; var p = k.split('|'), t = taskOf(mo, p[0]); if (!t) return; if (p[1].indexOf('-') > 0) out.push({ c: c, t: t, day: p[1], wi: weekIdxOfDay(mo, p[1]) }); else out.push({ c: c, t: t, wi: Number(p[1]) }); });
+    out.sort(function (a, b) { return a.c.at < b.c.at ? 1 : -1; });
+    return out.slice(0, n);
+  }
+
+  /* -------------------------------------------------------------------- vista */
+  var ui = { tab: 'week', month: null, week: 0, pending: false, q: '', sheet: null, dlg: null, unlocked: {}, cur: null, day: null, selDay: null };
+  var undoFn = null, toastTimer = null, longFired = false, pressTimer = null, downloads = null, installEvt = null;
+
+  function ICON(name) {
+    var p = {
+      week: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8.5 15l2.5 2.5 4.5-5"/>',
+      month: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
+      hist: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+      set: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'
+    }[name];
+    return '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>';
+  }
+  var CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var SEARCH = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+  function fchip(f) { var F = FREQ[f]; return '<span class="fchip" style="--fc:' + F.color + '">' + fcode(f) + '</span>'; }
+  function tabNames() { return [['week', L('Week', 'Semana')], ['month', L('Month', 'Mes')], ['hist', L('History', 'Historial')], ['set', L('Settings', 'Ajustes')]]; }
+
+  function toast(msg, undo) {
+    var el = $('#toast');
+    undoFn = undo || null;
+    el.innerHTML = '<span>' + esc(msg) + '</span>' + (undo ? '<button data-act="undo">' + L('Undo', 'Deshacer') + '</button>' : '');
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.hidden = true; undoFn = null; }, undo ? 5000 : 3000);
+  }
+
+  function render() {
+    var view = $('#view');
+    document.documentElement.lang = prefs.lang;
+    renderTabs();
+    if (!store.booted || !ui.month || !store.months[ui.month]) {
+      $('#bar').innerHTML = '<div><div class="sub">' + L('Cleaning schedule', 'Calendario de limpieza') + '</div><div class="monthbtn">' + esc(monthName(currentKey())) + '</div></div><span class="pill sync">' + L('Loading…', 'Cargando…') + '</span>';
+      view.innerHTML = '<div class="loading"><div class="spin"></div><div>' + L('Loading your data…', 'Cargando tus datos…') + '</div></div>';
+      return;
+    }
+    var mo = store.months[ui.month];
+    var active = document.activeElement, focusId = active && active.id, selS = active && active.selectionStart, keepVal = (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA') && view.contains(active)) ? active.value : null;
+    var st = view.scrollTop, wk = $('.weeks', view), gw = $('.gridwrap', view);
+    var wkL = wk ? wk.scrollLeft : 0, gwL = gw ? gw.scrollLeft : 0;
+    renderBar(mo);
+    view.innerHTML = ui.tab === 'week' ? (isDesk() ? weekViewDesk(mo) : weekView(mo)) : ui.tab === 'month' ? monthView(mo) : ui.tab === 'hist' ? histView() : setView();
+    view.scrollTop = st;
+    wk = $('.weeks', view); gw = $('.gridwrap', view);
+    if (wk) { if (wkL) wk.scrollLeft = wkL; else { var s = $('.wk.sel', wk); if (s && s.offsetLeft > 200) wk.scrollLeft = s.offsetLeft - 16; } }
+    if (gw) gw.scrollLeft = gwL;
+    if (focusId && keepVal !== null) { var f = document.getElementById(focusId); if (f) { f.value = keepVal; f.focus(); try { f.setSelectionRange(selS, selS); } catch (e) { /* */ } } }
+  }
+  function statusPill(mo) {
+    if (store.readOnly) return '<span class="pill closed">' + L('View only', 'Solo lectura') + '</span>';
+    return mo.key === ui.cur && !mo.closedAt ? '<span class="pill cur">' + L('Current month', 'Mes actual') + '</span>' : isLocked(mo) ? '<span class="pill closed">' + L('Closed', 'Cerrado') + '</span>' : '<span class="pill edit">' + L('Editing', 'Editando') + '</span>';
+  }
+  function renderBar(mo) {
+    var bar = $('#bar');
+    if (isDesk()) { bar.innerHTML = deskBar(mo); return; }
+    var sub = '<div class="sub">' + L('Cleaning schedule', 'Calendario de limpieza') + '</div>';
+    if (ui.tab === 'hist' || ui.tab === 'set') { bar.innerHTML = '<div>' + sub + '<div class="monthbtn">' + (ui.tab === 'hist' ? L('History', 'Historial') : L('Settings', 'Ajustes')) + '</div></div>' + langBtn('pill langp'); return; }
+    bar.innerHTML = '<div>' + sub + '<button class="monthbtn" data-act="tab" data-tab="hist" aria-label="' + L('See other months', 'Ver otros meses') + '">' + esc(monthName(mo.key)) + CHEV + '</button></div>' + statusPill(mo);
+  }
+  /* botón para cambiar de idioma: muestra el otro idioma */
+  function langBtn(cls) { return '<button class="' + cls + '" data-act="lang" data-v="' + (ES() ? 'en' : 'es') + '" lang="' + (ES() ? 'en' : 'es') + '" title="' + L('Cambiar a español', 'Switch to English') + '">' + (ES() ? 'English' : 'Español') + '</button>'; }
+  /* computadora: título del mes, navegación de semanas o meses y botón Hoy */
+  function deskBar(mo) {
+    var d = tpl.doc || {}, org = [d.company, d.site].filter(Boolean).join(' · ');
+    var head = '<div><div class="sub">' + L('Cleaning schedule', 'Calendario de limpieza') + (org ? ' · ' + esc(org) : '') + '</div><h1>';
+    if (ui.tab === 'hist' || ui.tab === 'set') return head + (ui.tab === 'hist' ? L('History', 'Historial') : L('Settings', 'Ajustes')) + '</h1></div>';
+    var wi = clampWeek(mo), wk = ui.tab === 'week';
+    var prev = wk ? L('Previous week', 'Semana anterior') : L('Previous month', 'Mes anterior'), next = wk ? L('Next week', 'Semana siguiente') : L('Next month', 'Mes siguiente');
+    var nav = '<div class="wnav"><button data-act="nav" data-d="-1" aria-label="' + prev + '" title="' + prev + ' (←)">‹</button><span>' +
+      (wk ? L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi])) : esc(monthName(mo.key))) +
+      '</span><button data-act="nav" data-d="1" aria-label="' + next + '" title="' + next + ' (→)">›</button></div>';
+    var isNow = mo.key === ui.cur && (!wk || wi === curWeekIdx(mo));
+    return head + esc(monthName(mo.key)) + '</h1></div><div class="dh-r">' + nav + '<button class="btn" data-act="today"' + (isNow ? ' disabled' : '') + ' title="' + L('Go to today', 'Ir a hoy') + ' (H)">' + L('Today', 'Hoy') + '</button>' + statusPill(mo) + '</div>';
+  }
+  function renderTabs() {
+    var tabs = tabNames();
+    if (!isDesk()) {
+      $('#tabs').innerHTML = tabs.map(function (t) { return '<button data-act="tab" data-tab="' + t[0] + '" class="' + (ui.tab === t[0] ? 'on' : '') + '"' + (ui.tab === t[0] ? ' aria-current="page"' : '') + '>' + ICON(t[0]) + '<span>' + t[1] + '</span></button>'; }).join('');
+      return;
+    }
+    // computadora: barra lateral con marca, secciones, avance del mes y accesos
+    var h = '<div class="sb-brand"><span class="sb-logo">' + ICON('week') + '</span><div><b>' + L('Cleaning', 'Limpieza') + '</b><small>Master Cleaning Schedule</small></div></div>';
+    h += '<div class="sb-nav">' + tabs.map(function (t, i) { return '<button class="nv' + (ui.tab === t[0] ? ' on' : '') + '" data-act="tab" data-tab="' + t[0] + '"' + (ui.tab === t[0] ? ' aria-current="page"' : '') + '>' + ICON(t[0]) + '<span>' + t[1] + '</span><kbd aria-hidden="true">' + (i + 1) + '</kbd></button>'; }).join('') + '</div>';
+    var cm = store.booted && store.months[ui.cur];
+    if (cm) { var s = stats(cm); h += '<div class="sb-month"><div class="k">' + L('Current month', 'Mes en curso') + '</div><div class="m">' + esc(monthName(cm.key)) + '</div><div class="p"><b>' + s.pct + '%</b><span>' + s.done + L(' of ', ' de ') + s.req + '</span></div><div class="bar"><i style="width:' + s.pct + '%"></i></div></div>'; }
+    h += '<div class="sb-foot">' + (liveHTML() || (store.mode === 'local' ? '<span class="live off"><i></i>' + (IN_VIEWER ? L('Only in this browser', 'Solo en este navegador') : L('Saved on this computer', 'Copia en esta computadora')) + '</span>' : '')) +
+      langBtn('sbb') +
+      '<button class="sbb" data-act="tab" data-tab="set" title="' + L('Change my initials', 'Cambiar mis iniciales') + '">' + L('My initials', 'Mis iniciales') + ' <b>' + esc(prefs.initials || '—') + '</b></button>' +
+      (installEvt ? '<button class="sbb" data-act="install">' + L('Install the app', 'Instalar la app') + '</button>' : '') +
+      '<button class="sbb" data-act="help">' + L('Keyboard shortcuts', 'Atajos de teclado') + ' <kbd aria-hidden="true">?</kbd></button></div>';
+    $('#tabs').innerHTML = h;
+  }
+  function liveHTML() {
+    if (store.mode === 'api') {
+      var n = api.outbox.length;
+      if (n) return '<span class="live off" title="' + L('They are kept on this device and sent automatically.', 'Se guardan en este dispositivo y se envían solos.') + '"><i></i>' + (store.live ? L('Saving…', 'Guardando…') : plural(n, L('change waiting to sync', 'cambio pendiente de enviar'), L('changes waiting to sync', 'cambios pendientes de enviar'))) + '</span>';
+      return store.live ? '<span class="live"><i></i>' + L('Live', 'En vivo') + '</span>' : '<span class="live off"><i></i>' + L('Offline', 'Sin conexión') + '</span>';
+    }
+    if (store.mode === 'cloud') return store.live ? '<span class="live"><i></i>' + L('Live', 'En vivo') + '</span>' : '<span class="live off"><i></i>' + L('Offline', 'Sin conexión') + '</span>';
+    return '';
+  }
+  function bannerHTML(mo) {
+    var h = '';
+    if (store.moved) return '<div class="banner"><span>' + L('<b>This calendar has moved to its own app.</b> It works without a Claude account, on phones and computers, with the team PIN. Marks are no longer saved here.', '<b>Este calendario se mudó a su propia app.</b> Funciona sin cuenta de Claude, en teléfonos y computadoras, con el PIN del equipo. Aquí ya no se guardan marcas.') + '</span><a class="lnk" href="' + APP_URL + '" target="_blank" rel="noopener">' + L('Open the new app', 'Abrir la app nueva') + '</a></div>';
+    if (store.readOnly) h += '<div class="banner"><span>' + L('<b>View only.</b> You can see this calendar live, but you can’t mark tasks. Ask the owner to invite you by email as an Editor.', '<b>Solo lectura.</b> Ves este calendario en vivo, pero no puedes marcar. Pide al dueño que te invite por correo como Editor.') + '</span></div>';
+    if (store.mode === 'local') {
+      if (IN_VIEWER) h += '<div class="banner info"><span>' + L('Not connected to the shared calendar (sign in to Claude and open the link again). What you mark now stays only in this browser.', 'Sin conexión al calendario compartido (inicia sesión en Claude y abre el enlace otra vez). Lo que marques ahora se guarda solo en este navegador.') + '</span></div>';
+      else h += '<div class="banner info"><span>' + L('This copy keeps its data on this computer only. The shared calendar, where the whole team marks, is the online version.', 'Esta copia guarda los datos solo en esta computadora. El calendario compartido, donde marca todo el equipo, es la versión en línea.') + '</span><a class="lnk" href="' + CLOUD_URL + '" target="_blank" rel="noopener">' + L('Open online version', 'Abrir versión en línea') + '</a></div>';
+    }
+    if (!mo.closedAt || store.readOnly) return h;
+    if (isLocked(mo)) return h + '<div class="banner"><span>' + L('This month is closed. It is a read-only copy.', 'Mes cerrado. Es una copia de solo lectura.') + '</span><button data-act="unlock">' + L('Edit', 'Editar') + '</button></div>';
+    return h + '<div class="banner"><span>' + L('You are editing a closed month.', 'Estás editando un mes cerrado.') + '</span><button data-act="relock">' + L('Lock', 'Bloquear') + '</button></div>';
+  }
+  function alertsHTML(mo, wi) {
+    if (mo.key !== ui.cur || mo.closedAt) return '';
+    var out = [], now = curWeekIdx(mo);
+    // semanas anteriores del mes con tareas sin marcar
+    var late = [], lateN = 0;
+    var startDay = mo.createdAt ? ymd(new Date(mo.createdAt)) : '';
+    for (var i = 0; i < now; i++) {
+      if (startDay && mo.weeks[i] < startDay) continue; // semanas que terminaron antes de empezar a usar la app
+      var p = weekProgress(mo, i), miss = p.tot - p.done;
+      if (miss > 0 && i !== wi) { late.push(i); lateN += miss; }
+    }
+    var marks = L(lateN === 1 ? 'mark missing' : 'marks missing', lateN === 1 ? 'marca pendiente' : 'marcas pendientes');
+    if (late.length === 1) out.push('<div class="alert"><span>' + L('Week ending ', 'Semana del ') + '<b>' + fmtWeek(mo.weeks[late[0]]) + '</b>: ' + lateN + ' ' + marks + '</span><button data-act="week" data-w="' + late[0] + '">' + L('View', 'Ver') + '</button></div>');
+    else if (late.length > 1) out.push('<div class="alert"><span><b>' + late.length + L(' earlier weeks', ' semanas') + '</b>' + L(' with ', ' anteriores con ') + lateN + ' ' + marks + ' (' + late.map(function (i) { return fmtWeek(mo.weeks[i]); }).join(', ') + ')</span><button data-act="week" data-w="' + late[0] + '">' + L('View', 'Ver') + '</button></div>');
+    // fin de mes con tareas mensuales pendientes
+    var left = daysLeft(mo);
+    if (left <= 7) {
+      var stt = stats(mo), pend = mo.tasks.filter(function (t) { var s = stt.per[t.id]; return FREQ[t.f].unit === 'month' && s.done < s.req; }).length;
+      if (pend > 0) out.push('<div class="alert"><span>' + (left <= 0 ? L('Last day of the month', 'Último día del mes') : '<b>' + plural(left, L('day', 'día'), L('days', 'días')) + '</b>' + L(' left', ' restantes')) + ': ' + pend + L(' monthly tasks pending', ' tareas mensuales pendientes') + '</span><button data-act="monthPending">' + L('View', 'Ver') + '</button></div>');
+    }
+    return out.length ? '<div class="alerts">' + out.join('') + '</div>' : '';
+  }
+  function todayLine(mo) {
+    var today = ymd(new Date());
+    if (mo.key !== ui.cur || weekIdxOfDay(mo, today) < 0) return '';
+    var list = mo.tasks.filter(function (t) { return t.f === 'D'; });
+    if (!list.length) return '';
+    var n = list.filter(function (t) { return !!dcell(mo, t, today); }).length;
+    return '<div class="today-l">' + L('Today: ', 'Hoy: ') + '<b>' + n + L(' of ', ' de ') + list.length + '</b>' + L(' daily tasks', ' diarias') + (isWorkday(mo, today) ? '' : L(' (day off)', ' (día libre)')) + '</div>';
+  }
+  function summaryHTML(mo, wi) {
+    var s = stats(mo), w = weekProgress(mo, wi);
+    return '<div class="card summary"><div class="row"><div class="big">' + s.pct + '%</div><div class="small">' + s.done + L(' of ', ' de ') + s.req + L(' tasks this month', ' tareas del mes') + '</div></div>' +
+      '<div class="bar"><i style="width:' + s.pct + '%"></i></div><div class="row"><div class="small">' + L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi])) + ': ' + w.done + L(' of ', ' de ') + w.tot + L(' done', ' hechas') + '</div>' + liveHTML() + '</div>' + todayLine(mo) + '</div>';
+  }
+  function markInner(c, ini) {
+    var by = ini === false ? '' : '<small>' + esc(c.by) + '</small>';
+    return c.s === 'done' ? '✓' + by : c.s === 'flag' ? '*' + by : 'N/A';
+  }
+  function chkBtn(mo, t, wi, c, locked, day) {
+    var cls = 'chk' + (c ? ' ' + c.s : '') + (locked ? ' dis' : ''), inner = '', label = L('Mark Done: ', 'Marcar Done: ') + tname(t) + (day ? ', ' + fmtLong(day) : '');
+    if (c) { label = tname(t) + ': ' + stName(c.s); inner = markInner(c); }
+    return '<button class="' + cls + '" data-act="tap" data-t="' + t.id + '" data-w="' + wi + '"' + (day ? ' data-d="' + day + '"' : '') + ' aria-label="' + esc(label) + '">' + inner + '</button>';
+  }
+  function dayWord(day) { var today = ymd(new Date()); return day === today ? L('today', 'hoy') : day === addDays(today, -1) ? L('yesterday', 'ayer') : fmtLong(day); }
+  function stShort(c) { return c.s === 'na' ? 'N/A' : c.s === 'flag' ? 'Done (*)' : 'Done'; }
+  function dayTaskCard(mo, t, wi, sd, locked) {
+    var c = dcell(mo, t, sd), ws = weekDayStat(mo, t, wi), cls = 'task', sub;
+    if (c && (c.s === 'done' || c.s === 'flag')) cls += ' isdone';
+    if (c) sub = '<b>' + stShort(c) + '</b> ' + esc(dayWord(sd)) + ' · ' + esc(c.by || '') + (c.at ? ' · ' + esc(fmtStamp(c.at)) : '');
+    else sub = L('Pending ', 'Pendiente ') + esc(dayWord(sd));
+    if (t.f === 'D') {
+      sub += '<span class="wd" aria-label="' + L('This week: ', 'Esta semana: ') + ws.done + L(' of ', ' de ') + ws.req + L(' days', ' días') + '">' + weekDays(mo, wi).map(function (d) {
+        var x = dcell(mo, t, d); if (!x && !isWorkday(mo, d)) return '';
+        return '<span class="' + (x ? x.s : '') + (d === sd ? ' cur' : '') + '">' + W('dayL')[parseYMD(d).getDay()].charAt(0) + '</span>';
+      }).join('') + '</span>';
+    } else sub += L(' · week ', ' · semana ') + ws.done + L(' of ', ' de ') + ws.req + (ws.req > 0 && ws.done >= ws.req && !c ? ' ✓' : '');
+    var note = c && c.note ? '<div class="nt">' + esc(c.note) + '</div>' : '';
+    return '<div class="' + cls + '">' + fchip(t.f) + '<div class="tx"><div class="nm">' + esc(tname(t)) + '</div><div class="st">' + sub + '</div>' + note + '</div>' + chkBtn(mo, t, wi, c, locked, sd) + '</div>';
+  }
+  function dayDot(mo, day) {
+    var list = mo.tasks.filter(function (t) { return t.f === 'D'; }), n = 0;
+    if (!list.length) list = mo.tasks.filter(isDayTask);
+    list.forEach(function (t) { if (dcell(mo, t, day)) n++; });
+    if (!n) return ''; return n >= list.length ? 'full' : 'part';
+  }
+  function dayStripHTML(mo, wi, sd) {
+    var today = ymd(new Date());
+    return '<div class="days" role="group" aria-label="' + L('Day for daily tasks', 'Día para las tareas diarias') + '">' + weekDays(mo, wi).map(function (d) {
+      var dd = parseYMD(d), wk = isWorkday(mo, d);
+      return '<button class="dy' + (d === sd ? ' sel' : '') + (wk ? '' : ' off') + (d === today ? ' now' : '') + '" data-act="day" data-d="' + d + '" aria-pressed="' + (d === sd) + '" aria-label="' + esc(W('dayN')[dd.getDay()] + ' ' + dd.getDate() + (d === today ? L(', today', ', hoy') : '')) + '"><span class="l">' + (d === today ? L('TODAY', 'HOY') : W('dayL')[dd.getDay()]) + '</span><span class="n">' + dd.getDate() + '</span><i class="' + dayDot(mo, d) + '"></i></button>';
+    }).join('') + '</div>';
+  }
+  function taskCard(mo, t, wi, stt, locked) {
+    var c = cell(mo, t, wi), F = FREQ[t.f], per = stt.per[t.id], cls = 'task', sub = '';
+    if (c && (c.s === 'done' || c.s === 'flag')) cls += ' isdone';
+    if (c) {
+      sub = '<b>' + stShort(c) + '</b> · ' + esc(c.by || '') + (c.at ? ' · ' + esc(fmtStamp(c.at)) : '');
+      if (F.unit === 'month' && per.req > 0) sub += ' · ' + per.done + L(' of ', ' de ') + per.req + L(' this month', ' este mes');
+    } else if (F.unit === 'week') sub = esc(fname(t.f));
+    else if (per.req === 0) sub = L('Not due this month', 'No aplica este mes');
+    else if (per.done >= per.req) { sub = L('Done for this month', 'Cumplido este mes') + ' (' + per.done + '/' + per.req + ')'; cls += ' muted'; }
+    else sub = per.done + L(' of ', ' de ') + per.req + L(' this month', ' este mes') + (per.doneWeeks.length ? L(' · done wk. ', ' · hecho sem. ') + per.doneWeeks.map(function (i) { return fmtWeek(mo.weeks[i]); }).join(', ') : '');
+    var note = c && c.note ? '<div class="nt">' + esc(c.note) + '</div>' : '';
+    return '<div class="' + cls + '">' + fchip(t.f) + '<div class="tx"><div class="nm">' + esc(tname(t)) + '</div><div class="st">' + sub + '</div>' + note + '</div>' + chkBtn(mo, t, wi, c, locked) + '</div>';
+  }
+  function matchQ(t) { if (!ui.q) return true; var q = fold(ui.q); return fold(t.es).indexOf(q) >= 0 || fold(t.en).indexOf(q) >= 0; }
+  function clampWeek(mo) { return Math.max(0, Math.min(ui.week, mo.weeks.length - 1)); }
+  function rangeTxt(w) { var a = parseYMD(addDays(w, -6)), b = parseYMD(w), M = W('mon'), same = a.getMonth() === b.getMonth(); return ES() ? a.getDate() + (same ? '' : ' ' + M[a.getMonth()]) + ' – ' + b.getDate() + ' ' + M[b.getMonth()] : M[a.getMonth()] + ' ' + a.getDate() + ' – ' + (same ? '' : M[b.getMonth()] + ' ') + b.getDate(); }
+  function weeksStripHTML(mo, wi, nowIdx) {
+    return '<div class="weeks" aria-label="' + L('Weeks of the month', 'Semanas del mes') + '">' + mo.weeks.map(function (w, i) {
+      var p = weekProgress(mo, i);
+      return '<button class="wk' + (i === wi ? ' sel' : '') + (i === nowIdx ? ' now' : '') + '" data-act="week" data-w="' + i + '" aria-pressed="' + (i === wi) + '"><div class="d">' + fmtWeek(w) + '</div><div class="rg">' + esc(rangeTxt(w)) + '</div><div class="p">' + p.pct + '%</div><i class="wb"><b style="width:' + p.pct + '%"></b></i></button>';
+    }).join('') + '</div>';
+  }
+  function openDayFn(mo, wi, sd) { return function (t) { if (dcell(mo, t, sd)) return false; if (t.f === 'D') return true; var w = weekDayStat(mo, t, wi); return w.done < w.req; }; }
+  /* tareas de una frecuencia que se ven con la búsqueda y el filtro "Pendientes" */
+  function shownTasks(mo, f, wi, sd, stt) {
+    var F = FREQ[f], isDay = F.unit === 'day', openDay = openDayFn(mo, wi, sd);
+    return mo.tasks.filter(function (t) {
+      if (t.f !== f || !matchQ(t)) return false;
+      if (!ui.pending) return true;
+      if (isDay) return openDay(t);
+      var c = cell(mo, t, wi); if (F.unit === 'week') return !c; var per = stt.per[t.id]; return !c && per.done < per.req;
+    });
+  }
+  /* texto de la derecha de cada grupo y botón "Marcar todo" */
+  function groupInfo(mo, f, wi, sd, stt, locked) {
+    var list = mo.tasks.filter(function (t) { return t.f === f; }), F = FREQ[f], isDay = F.unit === 'day', openDay = openDayFn(mo, wi, sd), right, empty = 0, of = L(' of ', ' de ');
+    if (f === 'D') { var dd = list.filter(function (t) { return !!dcell(mo, t, sd); }).length; empty = list.length - dd; right = dd + of + list.length + ' ' + esc(dayWord(sd)); }
+    else if (isDay) { empty = list.filter(openDay).length; right = list.filter(function (t) { var w = weekDayStat(mo, t, wi); return w.req > 0 && w.done >= w.req; }).length + of + list.length + L(' this week', ' esta semana'); }
+    else if (F.unit === 'week') { var d = list.filter(function (t) { return !!cell(mo, t, wi); }).length; empty = list.length - d; right = d + of + list.length; }
+    else right = list.filter(function (t) { var p = stt.per[t.id]; return p.done >= p.req; }).length + of + list.length + L(' this month', ' en el mes');
+    var canBulk = !locked && empty > 1 && !ui.q && (F.unit === 'week' || (isDay && sd <= ymd(new Date())));
+    var bulk = canBulk ? '<button class="gbtn" data-act="bulk" data-f="' + f + '" data-w="' + wi + '"' + (isDay ? ' data-d="' + sd + '"' : '') + '>' + L('Mark all', 'Marcar todo') + (isDay && isDesk() ? ' · ' + esc(dayWord(sd)) : '') + '</button>' : '';
+    return { right: right, bulk: bulk };
+  }
+  function groupSection(mo, f, wi, sd, stt, locked, shown) {
+    var gi = groupInfo(mo, f, wi, sd, stt, locked), isDay = FREQ[f].unit === 'day';
+    return '<section class="group" data-f="' + f + '"><div class="ghead"><div class="l">' + fchip(f) + esc(fname(f)) + '</div><div class="rt"><span class="r">' + gi.right + '</span>' + gi.bulk + '</div></div><div class="tlist">' +
+      shown.map(function (t) { return isDay ? dayTaskCard(mo, t, wi, sd, locked) : taskCard(mo, t, wi, stt, locked); }).join('') + '</div></section>';
+  }
+  function searchHTML(ph) { return '<div class="search">' + SEARCH + '<input id="q" type="text" placeholder="' + ph + '" autocomplete="off" value="' + esc(ui.q) + '" aria-label="' + L('Search area', 'Buscar área') + '"></div>'; }
+  function pendingSwitch() { return '<button class="switch' + (ui.pending ? ' on' : '') + '" data-act="pending" aria-pressed="' + ui.pending + '"><span class="t"></span>' + L('Pending only', 'Pendientes') + '</button>'; }
+  function emptyHTML() { return '<div class="empty">' + (ui.q ? L('No area matches "', 'Ninguna área coincide con "') + esc(ui.q) + '".' : L('Nothing left to do this week.', 'No quedan tareas pendientes esta semana.')) + '</div>'; }
+
+  function weekView(mo) {
+    var locked = isLocked(mo), wi = clampWeek(mo), nowIdx = mo.key === ui.cur ? curWeekIdx(mo) : -1, stt = stats(mo);
+    var h = bannerHTML(mo) + alertsHTML(mo, wi) + summaryHTML(mo, wi) + weeksStripHTML(mo, wi, nowIdx);
+    var hasDay = mo.tasks.some(isDayTask), sd = selDay(mo, wi);
+    if (hasDay) h += dayStripHTML(mo, wi, sd);
+    h += searchHTML(L('Search area', 'Buscar área'));
+    h += '<div class="toolbar"><span>' + (hasDay ? L('Daily: ', 'Diarias: ') + '<b>' + esc(dayWord(sd)) + '</b>' + (sd === ymd(new Date()) ? '' : ' (' + esc(fmtLong(sd)) + ')') : L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi]))) + '</span>' + pendingSwitch() + '</div>';
+    var any = false;
+    ORDER.forEach(function (f) {
+      var shown = shownTasks(mo, f, wi, sd, stt);
+      if (!shown.length) return;
+      any = true;
+      h += groupSection(mo, f, wi, sd, stt, locked, shown);
+    });
+    if (!any) h += emptyHTML();
+    return h;
+  }
+
+  /* ---- computadora: semana con las diarias en tabla (filas = áreas, columnas = días) y resumen al lado */
+  function weekViewDesk(mo) {
+    var locked = isLocked(mo), wi = clampWeek(mo), nowIdx = mo.key === ui.cur ? curWeekIdx(mo) : -1, stt = stats(mo), sd = selDay(mo, wi);
+    var h = bannerHTML(mo) + alertsHTML(mo, wi) + weeksStripHTML(mo, wi, nowIdx);
+    h += '<div class="dk-tools">' + searchHTML(L('Search area (key /)', 'Buscar área (tecla /)')) + '<span class="grow">' + L('Click: Done · Right-click: N/A, note or clear', 'Clic: Done · Clic derecho: N/A, observación o quitar') + '</span>' + pendingSwitch() + '</div>';
+    var rows = { D: shownTasks(mo, 'D', wi, sd, stt), TW: shownTasks(mo, 'TW', wi, sd, stt) }, any = false;
+    if (rows.D.length || rows.TW.length) { any = true; h += matrixHTML(mo, wi, sd, stt, locked, rows); }
+    ['W', 'BM', 'M', 'Q'].forEach(function (f) {
+      var shown = shownTasks(mo, f, wi, sd, stt);
+      if (!shown.length) return;
+      any = true;
+      h += groupSection(mo, f, wi, sd, stt, locked, shown);
+    });
+    if (!any) h += emptyHTML();
+    return '<div class="dk-week"><div class="dk-main">' + h + '</div>' + deskAside(mo, wi, stt) + '</div>';
+  }
+  function cellLabel(t, when, c, extra) {
+    return tname(t) + ', ' + when + ': ' + (c ? stName(c.s) + (c.by ? ' · ' + c.by : '') + (c.at ? ' · ' + fmtStamp(c.at) : '') + (c.note ? L(' · Note: ', ' · Nota: ') + c.note : '') : extra);
+  }
+  function mcellBtn(mo, t, wi, d, locked, kind, today) {
+    var c = dcell(mo, t, d), fut = d > today, off = t.f === 'D' && !isWorkday(mo, d);
+    var cls = 'cell ' + kind + (c ? ' ' + c.s : '') + (off ? ' off' : '') + (fut && !c ? ' fut' : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '');
+    var inner = c ? markInner(c, kind !== 'dc') : '';
+    var lab = cellLabel(t, fmtLong(d), c, fut ? L('not here yet', 'todavía no llega') : off ? L('day off, not marked', 'día libre, sin marcar') : L('not marked', 'sin marcar'));
+    return '<button class="' + cls + '" data-act="tap" data-t="' + t.id + '" data-w="' + wi + '" data-d="' + d + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '">' + inner + '</button>';
+  }
+  function matrixHTML(mo, wi, sd, stt, locked, rows) {
+    var days = weekDays(mo, wi), today = ymd(new Date());
+    var h = '<section class="group"><div class="gridwrap mxwrap"><table class="grid mx"><thead><tr><th class="nm">' + L('AREA', 'ÁREA') + '</th>';
+    days.forEach(function (d) {
+      var dd = parseYMD(d), cls = 'dh' + (d === sd ? ' sel' : '') + (d === today ? ' now' : '') + (isWorkday(mo, d) ? '' : ' off');
+      h += '<th class="' + cls + '"><button class="dhb" data-act="day" data-d="' + d + '" aria-pressed="' + (d === sd) + '" title="' + L('Choose this day for “Mark all”', 'Elegir este día para «Marcar todo»') + '" aria-label="' + esc(W('dayN')[dd.getDay()] + ' ' + dd.getDate() + (d === today ? L(', today', ', hoy') : '')) + '"><span class="l">' + (d === today ? L('Today', 'Hoy') : W('days')[dd.getDay()]) + '</span><span class="n">' + dd.getDate() + '</span></button></th>';
+    });
+    h += '<th>' + L('Week', 'Semana') + '</th></tr></thead><tbody>';
+    ['D', 'TW'].forEach(function (f) {
+      var list = rows[f];
+      if (!list.length) return;
+      var gi = groupInfo(mo, f, wi, sd, stt, locked);
+      h += '<tr class="gh"><td colspan="9"><div class="ghx"><div class="l">' + fchip(f) + esc(fname(f)) + '</div><div class="rt"><span>' + gi.right + '</span>' + gi.bulk + '</div></div></td></tr>';
+      list.forEach(function (t) {
+        var ws = weekDayStat(mo, t, wi);
+        h += '<tr><td class="nm">' + esc(tname(t)) + '</td>' + days.map(function (d) { return '<td' + (d === sd ? ' class="csel"' : '') + '>' + mcellBtn(mo, t, wi, d, locked, 'mc', today) + '</td>'; }).join('') +
+          '<td class="sum' + (ws.req > 0 && ws.done >= ws.req ? ' ok' : '') + '">' + ws.done + '/' + ws.req + '</td></tr>';
+      });
+    });
+    return h + '</tbody></table></div></section>';
+  }
+  function freqRows(mo, stt) {
+    return ORDER.filter(function (f) { return mo.tasks.some(function (t) { return t.f === f; }); }).map(function (f) {
+      var r = 0, d = 0, F = FREQ[f];
+      mo.tasks.forEach(function (t) { if (t.f === f) { r += stt.per[t.id].req; d += stt.per[t.id].done; } });
+      var pc = r ? Math.round(d * 100 / r) : 0;
+      return fchip(f) + '<div class="bar" style="--fc:' + F.color + '"><i style="width:' + pc + '%"></i></div><span class="n">' + (r ? d + '/' + r : '—') + '</span><span class="nm">' + esc(fname(f)) + (r ? ' · ' + pc + '%' : L(' · not due this month', ' · no aplica este mes')) + '</span>';
+    }).join('');
+  }
+  function actsHTML(mo, rec) {
+    return rec.map(function (r) {
+      return '<div class="act"><span class="ini ' + r.c.s + '">' + esc(r.c.s === 'na' ? 'N/A' : (r.c.by || '?')) + '</span><div class="tx"><div>' + esc(tname(r.t)) + '</div><div>' + esc(stName(r.c.s)) + (r.day ? ' · ' + esc(fmtLong(r.day)) : L(' · wk. ', ' · sem. ') + fmtWeek(mo.weeks[r.wi])) + ' · ' + esc(fmtStamp(r.c.at)) + '</div></div></div>';
+    }).join('');
+  }
+  function whoHTML(mo, n) { var who = whoCounts(mo); return who.length ? '<div class="who" aria-label="' + L('Marks by person', 'Marcas por persona') + '">' + who.slice(0, n).map(function (w) { return '<span>' + esc(w[0]) + ' · ' + w[1] + '</span>'; }).join('') + '</div>' : ''; }
+  function deskAside(mo, wi, stt) {
+    var w = weekProgress(mo, wi), rec = recent(mo, 7), who = whoHTML(mo, 10);
+    return '<aside class="dk-aside" aria-label="' + L('Summary', 'Resumen') + '">' +
+      '<div class="card summary"><div class="row"><div class="big">' + stt.pct + '%</div><div class="small">' + stt.done + L(' of ', ' de ') + stt.req + L(' tasks this month', ' tareas del mes') + '</div></div><div class="bar"><i style="width:' + stt.pct + '%"></i></div>' +
+      '<div class="row"><div class="small">' + L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi])) + ': ' + w.done + L(' of ', ' de ') + w.tot + '</div>' + liveHTML() + '</div>' + todayLine(mo) + '</div>' +
+      '<div class="card cardpad"><h3 class="ch">' + L('By frequency', 'Por frecuencia') + '</h3><div class="fq">' + freqRows(mo, stt) + '</div></div>' +
+      '<div class="card"><h3 class="ch in">' + L('Recent activity', 'Actividad reciente') + '</h3>' + (rec.length ? '<div class="acts">' + actsHTML(mo, rec) + '</div>' : '<div class="empty">' + L('No marks yet this month.', 'Todavía no hay marcas este mes.') + '</div>') + '</div>' +
+      (who ? '<div class="card cardpad"><h3 class="ch">' + L('Who marked', 'Quién marcó') + '</h3>' + who + '</div>' : '') +
+      '</aside>';
+  }
+  function kpisHTML(mo, wi, stt) {
+    var w = weekProgress(mo, wi), pend = stt.req - stt.done, left = daysLeft(mo);
+    var when = mo.closedAt ? L('when the month closed', 'al cerrar el mes') : left > 0 ? plural(left, L('day', 'día'), L('days', 'días')) + L(' left in the month', ' restantes del mes') : L('last day of the month', 'último día del mes');
+    return '<div class="kpis">' +
+      '<div class="card kpi"><div class="k">' + L('Compliance', 'Cumplimiento') + '</div><div class="v">' + stt.pct + '%</div><div class="bar"><i style="width:' + stt.pct + '%"></i></div></div>' +
+      '<div class="card kpi"><div class="k">' + L('Done', 'Hechas') + '</div><div class="v">' + stt.done + '</div><div class="s">' + L('of ', 'de ') + stt.req + L(' required', ' requeridas') + '</div></div>' +
+      '<div class="card kpi"><div class="k">' + L('Pending', 'Pendientes') + '</div><div class="v">' + pend + '</div><div class="s">' + when + '</div></div>' +
+      '<div class="card kpi"><div class="k">' + L('Week ending ', 'Semana al ') + esc(fmtWeek(mo.weeks[wi])) + '</div><div class="v">' + w.pct + '%</div><div class="s">' + w.done + L(' of ', ' de ') + w.tot + L(' done', ' hechas') + '</div></div>' +
+      '</div>';
+  }
+
+  function weeksGridHTML(mo, locked, stt) {
+    var today = ymd(new Date());
+    var h = '<div class="gridwrap"><table class="grid"><thead><tr><th class="nm">' + L('AREA', 'ÁREA') + '</th>' + mo.weeks.map(function (w) { return '<th>' + fmtWeek(w) + '</th>'; }).join('') + '<th>' + L('Month', 'Mes') + '</th></tr></thead><tbody>';
+    ORDER.forEach(function (f) {
+      var list = mo.tasks.filter(function (t) { return t.f === f; });
+      if (!list.length) return;
+      h += '<tr class="gh"><td colspan="' + (mo.weeks.length + 2) + '">' + fchip(f) + esc(fname(f)) + '</td></tr>';
+      list.forEach(function (t) {
+        var per = stt.per[t.id];
+        h += '<tr><td class="nm">' + esc(tname(t)) + '</td>';
+        mo.weeks.forEach(function (w, i) {
+          if (isDayTask(t)) {
+            var ws = weekDayStat(mo, t, i), dc = ws.req > 0 && ws.done >= ws.req ? ' done' : ws.marks > 0 ? ' part' : '', wfut = !ws.marks && addDays(w, -6) > today;
+            var txt = ws.done + L(' of ', ' de ') + ws.req + L(' days. Open the week', ' días. Abrir la semana');
+            h += '<td><button class="cell' + dc + (wfut ? ' fut' : '') + '" data-act="week" data-w="' + i + '" title="' + esc(txt) + '" aria-label="' + esc(tname(t) + ', ' + L('week ending ', 'semana al ') + fmtWeek(w) + ': ' + txt) + '">' + (!wfut && (ws.marks || ws.done < ws.req) ? ws.done + '/' + ws.req : '') + '</button></td>';
+            return;
+          }
+          var c = cell(mo, t, i), inner = c ? (c.s === 'done' ? '✓<small>' + esc(c.by) + '</small>' : c.s === 'flag' ? '*' : 'N/A') : '';
+          var lab = cellLabel(t, L('week ending ', 'semana al ') + fmtWeek(w), c, L('not marked', 'sin marcar'));
+          h += '<td><button class="cell' + (c ? ' ' + c.s : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '') + '" data-act="tap" data-t="' + t.id + '" data-w="' + i + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '">' + inner + '</button></td>';
+        });
+        h += '<td class="sum' + (per.req > 0 && per.done >= per.req ? ' ok' : '') + '">' + per.done + '/' + per.req + '</td></tr>';
+      });
+    });
+    return h + '</tbody></table></div>';
+  }
+  /* todas las diarias y las de 2 veces por semana, día por día, en todo el mes */
+  function daysGridHTML(mo, locked, stt) {
+    var today = ymd(new Date()), all = [];
+    mo.weeks.forEach(function (w, i) { weekDays(mo, i).forEach(function (d, j) { all.push({ d: d, wi: i, ws: j === 0 }); }); });
+    var h = '<div class="gridwrap"><table class="grid dg"><thead><tr><th class="nm" rowspan="2">' + L('AREA', 'ÁREA') + '</th>' +
+      mo.weeks.map(function (w) { return '<th class="wkh" colspan="7">' + L('Week ending ', 'Semana al ') + fmtWeek(w) + '</th>'; }).join('') + '<th rowspan="2">' + L('Month', 'Mes') + '</th></tr><tr>' +
+      all.map(function (x) { var dd = parseYMD(x.d); return '<th class="' + (x.ws ? 'ws' : '') + (isWorkday(mo, x.d) ? '' : ' off') + (x.d === today ? ' now' : '') + '" title="' + esc(W('dayN')[dd.getDay()] + ' ' + fmtDate(x.d)) + '">' + W('dayL')[dd.getDay()] + '<br>' + dd.getDate() + '</th>'; }).join('') +
+      '</tr></thead><tbody>';
+    ['D', 'TW'].forEach(function (f) {
+      var list = mo.tasks.filter(function (t) { return t.f === f; });
+      if (!list.length) return;
+      h += '<tr class="gh"><td colspan="' + (all.length + 2) + '">' + fchip(f) + esc(fname(f)) + '</td></tr>';
+      list.forEach(function (t) {
+        var per = stt.per[t.id];
+        h += '<tr><td class="nm">' + esc(tname(t)) + '</td>' + all.map(function (x) { return '<td class="' + (x.ws ? 'ws' : '') + (x.d === today ? ' now' : '') + '">' + mcellBtn(mo, t, x.wi, x.d, locked, 'dc', today) + '</td>'; }).join('') +
+          '<td class="sum' + (per.req > 0 && per.done >= per.req ? ' ok' : '') + '">' + per.done + '/' + per.req + '</td></tr>';
+      });
+    });
+    return h + '</tbody></table></div>';
+  }
+  function monthView(mo) {
+    var locked = isLocked(mo), stt = stats(mo), wi = clampWeek(mo), desk = isDesk(), hasDay = mo.tasks.some(isDayTask);
+    var mode = hasDay && prefs.mview === 'days' ? 'days' : 'weeks';
+    var printBtn = canDownload() ? '<button class="btn pri" data-act="printOpt" data-k="' + mo.key + '">' + L('Printable sheet', 'Hoja para imprimir') + '</button>' : '';
+    var h = bannerHTML(mo) + (desk ? kpisHTML(mo, wi, stt) : summaryHTML(mo, wi));
+    if (hasDay) h += '<div class="mtools"><div class="seg sm" role="group" aria-label="' + L('Month view', 'Vista del mes') + '"><button data-act="mview" data-v="weeks" class="' + (mode === 'weeks' ? 'on' : '') + '" aria-pressed="' + (mode === 'weeks') + '">' + L('By week', 'Por semanas') + '</button><button data-act="mview" data-v="days" class="' + (mode === 'days' ? 'on' : '') + '" aria-pressed="' + (mode === 'days') + '">' + L('Daily tasks, day by day', 'Diarias día por día') + '</button></div>' + (desk ? printBtn : '') + '</div>';
+    h += mode === 'days' ? daysGridHTML(mo, locked, stt) : weeksGridHTML(mo, locked, stt);
+    var tip = desk ? L('Click a cell to mark Done. Right-click for N/A, note (*) or to clear the mark.', 'Clic en una celda para marcar Done. Clic derecho para N/A, observación (*) o quitar la marca.') : L('Tap a cell to mark Done. Press and hold for N/A, note or to clear the mark.', 'Toca una celda para marcar Done. Mantén presionado para N/A, observación o quitar la marca.');
+    if (mode === 'weeks' && hasDay) tip += L(' Daily and twice-a-week tasks show days done / required: ', ' Las diarias y las de 2 veces por semana muestran días hechos / requeridos: ') + (desk ? L('mark them in “Daily tasks, day by day” or in the Week tab.', 'márcalas en «Diarias día por día» o en la pestaña Semana.') : L('tap the cell to mark them day by day in the week.', 'toca la celda para marcarlas por día en la semana.'));
+    if (mode === 'days') tip += L(' Striped days are not workdays.', ' Las rayas marcan los días que no son de trabajo.');
+    h += '<div class="note">' + tip + '</div>';
+    if (printBtn && (!desk || !hasDay)) h += '<div class="btns">' + printBtn + '</div>';
+    var rec = recent(mo, desk ? 10 : 8);
+    if (desk) {
+      h += '<div class="m-low"><div class="card"><h3 class="ch in">' + L('Recent activity', 'Actividad reciente') + '</h3>' + (rec.length ? '<div class="acts">' + actsHTML(mo, rec) + '</div>' : '<div class="empty">' + L('No marks yet this month.', 'Todavía no hay marcas en este mes.') + '</div>') + '</div>' +
+        '<div class="card cardpad"><h3 class="ch">' + L('By frequency', 'Por frecuencia') + '</h3><div class="fq">' + freqRows(mo, stt) + '</div>' + (whoCounts(mo).length ? '<h3 class="ch" style="margin-top:16px">' + L('Who marked', 'Quién marcó') + '</h3>' + whoHTML(mo, 10) : '') + '</div></div>';
+    } else if (rec.length) h += '<h2 class="sec">' + L('Recent activity', 'Actividad reciente') + '</h2><div class="card acts">' + actsHTML(mo, rec) + '</div>';
+    return h;
+  }
+  function histView() {
+    var keys = Object.keys(store.months).sort().reverse(), h = '<div class="hist-grid">', dl = canDownload();
+    keys.forEach(function (k) {
+      var mo = store.months[k], s = stats(mo);
+      var pill = (k === ui.cur && !mo.closedAt) ? '<span class="pill cur">' + L('Current month', 'Mes actual') + '</span>' : '<span class="pill closed">' + L('Closed', 'Cerrado') + '</span>';
+      h += '<div class="card mcard"><div class="top"><div class="nm">' + esc(monthName(k)) + '</div>' + pill + '</div><div class="bar"><i style="width:' + s.pct + '%"></i></div>' +
+        '<div class="small">' + s.pct + '% · ' + s.done + L(' of ', ' de ') + s.req + L(' tasks · ', ' tareas · ') + plural(mo.weeks.length, L('week', 'semana'), L('weeks', 'semanas')) + '</div>' + whoHTML(mo, 6) +
+        '<div class="btns"><button class="btn pri" data-act="open" data-k="' + k + '">' + L('Open', 'Abrir') + '</button>' +
+        (dl ? '<button class="btn" data-act="printOpt" data-k="' + k + '">' + L('Printable sheet', 'Hoja para imprimir') + '</button><button class="btn" data-act="csv" data-k="' + k + '">' + L('CSV (Excel)', 'CSV (Excel)') + '</button>' : '') + '</div></div>';
+    });
+    h += '</div>';
+    if (keys.length <= 1) h += '<div class="empty">' + L('When the month ends it is saved here as a read-only copy, and the new month opens blank.', 'Cuando termine el mes se guarda aquí como copia de solo lectura, y se abre el mes nuevo en blanco.') + '</div>';
+    h += '<h2 class="sec">' + L('Backups', 'Copias de seguridad') + '</h2><div class="card' + (isDesk() ? ' narrow' : '') + '"><div class="field"><div class="hint">' + (store.mode === 'cloud' ? L('Your months are already saved online. A backup file is an extra safety copy.', 'Tus meses ya se guardan en la nube. Una copia en archivo sirve como respaldo extra.') : L('Save your months to a file, or restore them from a backup.', 'Guarda tus meses en un archivo o recupéralos desde una copia.')) + '</div>' +
+      '<div class="btns">' + (dl ? '<button class="btn" data-act="exportAll">' + L('Export everything', 'Exportar todo') + '</button>' : '') + (store.readOnly ? '' : '<button class="btn" data-act="import">' + L('Import backup', 'Importar copia') + '</button>') + '</div></div></div>';
+    return h;
+  }
+  function shortcutsHTML() {
+    var k = [['1 2 3 4', L('Week, Month, History, Settings', 'Semana, Mes, Historial, Ajustes')], ['← →', L('Previous or next week (in Month: previous or next month)', 'Semana anterior o siguiente (en Mes: mes anterior o siguiente)')], ['H', L('Back to today', 'Volver a hoy')], ['/', L('Search an area', 'Buscar un área')], ['P', L('Show pending only', 'Ver solo lo pendiente')], ['Esc', L('Close a window or clear the search', 'Cerrar una ventana o borrar la búsqueda')], ['?', L('Show these shortcuts', 'Ver estos atajos')]];
+    return '<div class="keys">' + k.map(function (x) { return '<span>' + x[0].split(' ').map(function (y) { return '<kbd>' + esc(y) + '</kbd>'; }).join('') + '</span><span>' + esc(x[1]) + '</span>'; }).join('') + '</div>' +
+      '<div class="hint">' + L('With the mouse: click a circle or a cell to mark Done; right-click for N/A, note (*) or to clear the mark.', 'Con el ratón: clic en un círculo o una celda marca Done; clic derecho abre N/A, observación (*) o quitar la marca.') + '</div>';
+  }
+  function setView() {
+    var desk = isDesk(), ro = store.readOnly;
+    var where = store.mode === 'api' ? L('Online, in the team’s shared calendar (no Claude account needed). Phones and computers see the same marks. If the connection drops, your marks wait on this device and are sent automatically.', 'En línea, en el calendario compartido del equipo (sin cuenta de Claude). Teléfonos y computadoras ven las mismas marcas. Si se va la conexión, tus marcas esperan en este dispositivo y se envían solas.') + '<div class="btns"><button class="btn" data-act="pin">' + L('Change team PIN', 'Cambiar el PIN del equipo') + '</button></div>'
+      : store.mode === 'cloud' ? (ro ? L('Online, shared with the team. You can view it; to mark tasks, ask the owner to invite you by email as an Editor.', 'En la nube, compartido con el equipo. Puedes verlo; para marcar, pide al dueño que te invite por correo como Editor.') : L('Online, in Claude. Open this page on a phone or on another computer and you will see the same data, instantly.', 'En la nube de Claude. Abre esta página en el iPhone, en la computadora o en otro teléfono y verás los mismos datos, al momento.'))
+      : IN_VIEWER ? L('Only in this browser. Sign in to Claude and open the link again to use the shared calendar.', 'Solo en este navegador. Inicia sesión en Claude y abre el enlace otra vez para usar el calendario compartido.')
+      : L('Only on this computer (saved copy). The calendar shared with the team is the ', 'Solo en esta computadora (copia guardada). El calendario compartido con el equipo es la ') + '<a href="' + CLOUD_URL + '" target="_blank" rel="noopener">' + L('online version', 'versión en línea') + '</a>.' +
+''; 
+    var act = tpl.tasks.filter(function (t) { return t.active; }).length, off = tpl.tasks.length - act;
+    var rows = ORDER.map(function (f) {
+      return tpl.tasks.filter(function (t) { return t.f === f; }).map(function (t) {
+        var main = ES() ? t.es : t.en, other = ES() ? t.en : t.es;
+        return '<button class="trow' + (t.active ? '' : ' off') + '" data-act="editTask" data-id="' + t.id + '"' + (ro ? ' disabled' : '') + '>' + fchip(t.f) + '<span class="tx">' + esc(main || other) + '<small>' + esc(other) + (t.active ? '' : L(' · removed', ' · quitada')) + '</small></span></button>';
+      }).join('');
+    }).join('');
+    var pDevice = '<h2 class="sec" style="margin-top:4px">' + L('This device', 'Este dispositivo') + '</h2><div class="card">' +
+      '<div class="field"><span class="lab">' + L('Language', 'Idioma') + '</span><div class="seg"><button data-act="lang" data-v="en" lang="en" class="' + (ES() ? '' : 'on') + '" aria-pressed="' + !ES() + '">English</button><button data-act="lang" data-v="es" lang="es" class="' + (ES() ? 'on' : '') + '" aria-pressed="' + ES() + '">Español</button></div>' +
+      '<div class="hint">' + L('Applies to the whole app and to the area names, on this device only.', 'Cambia toda la app y los nombres de las áreas, solo en este dispositivo.') + '</div></div>' +
+      '<div class="field"><label for="ini">' + L('My initials', 'Mis iniciales') + '</label><input id="ini" type="text" maxlength="4" autocapitalize="characters" autocomplete="off" value="' + esc(prefs.initials) + '" placeholder="' + L('E.g. JD', 'Ej. HC') + '">' +
+      '<div class="hint">' + L('Saved with the date and time every time you mark Done.', 'Se guardan junto con la fecha y la hora cada vez que marcas Done.') + '</div></div></div>';
+    var pWork = '<h2 class="sec">' + L('Workdays', 'Días de trabajo') + '</h2><div class="card"><div class="field"><div class="wdset" role="group" aria-label="' + L('Workdays', 'Días de trabajo') + '">' +
+      [1, 2, 3, 4, 5, 6, 0].map(function (d) { var on = tpl.workdays.indexOf(d) >= 0; return '<button data-act="wday" data-v="' + d + '" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '" aria-label="' + W('dayN')[d] + '" title="' + W('dayN')[d] + '"' + (ro ? ' disabled' : '') + '>' + W('dayL')[d] + '</button>'; }).join('') +
+      '</div><div class="hint">' + L('Daily tasks need a mark on each of these days (', 'Las tareas diarias piden una marca en cada uno de estos días (') + tpl.workdays.length + L(' per week). Other days can be marked too if cleaning was done.', ' por semana). Los otros días también se pueden marcar si se limpia.') + '</div></div></div>';
+    var pAreas = '<h2 class="sec">' + L('Cleaning areas', 'Áreas de limpieza') + ' (' + act + ')</h2><div class="card"><div class="field"><div class="hint">' + L('Changes apply to the current month and to new months. Closed months keep their areas.', 'Los cambios se aplican al mes en curso y a los meses nuevos. Los meses cerrados conservan sus áreas.') + (off ? ' ' + plural(off, L('area removed.', 'área quitada.'), L('areas removed.', 'áreas quitadas.')) : '') + '</div>' +
+      (ro ? '' : '<button class="btn pri block" data-act="editTask" data-id="">' + L('Add area', 'Agregar área') + '</button>') + '</div>' + rows + '</div>';
+    var dis = ro ? ' disabled' : '';
+    var pHead = '<h2 class="sec">' + L('Printed sheet header', 'Encabezado de la hoja impresa') + '</h2><div class="card">' +
+      '<div class="field"><label for="doc-company">' + L('Company', 'Empresa') + '</label><input id="doc-company" type="text" maxlength="60" autocomplete="off" value="' + esc((tpl.doc || {}).company) + '" placeholder="' + L('Company name', 'Nombre de la empresa') + '"' + dis + '></div>' +
+      '<div class="field"><label for="doc-site">' + L('Facility', 'Planta') + '</label><input id="doc-site" type="text" maxlength="60" autocomplete="off" value="' + esc((tpl.doc || {}).site) + '" placeholder="' + L('E.g. Spring Hill, FL', 'Ej. Spring Hill, FL') + '"' + dis + '></div>' +
+      '<div class="field"><label for="doc-code">' + L('Document number', 'Número de documento') + '</label><input id="doc-code" type="text" maxlength="30" autocomplete="off" value="' + esc((tpl.doc || {}).code) + '" placeholder="' + L('E.g. SSOP-9.2.5-01', 'Ej. SSOP-9.2.5-01') + '"' + dis + '>' +
+      '<div class="hint">' + L('Shown in the header of the printed sheet. If left blank, the sheet has a line to fill them in by hand.', 'Salen en el encabezado de la hoja impresa. Si los dejas vacíos, la hoja trae una línea para llenarlos a mano.') + '</div></div></div>';
+    var pWhere = '<h2 class="sec">' + L('Where the data is kept', 'Dónde se guardan los datos') + '</h2><div class="card"><div class="field"><div class="hint">' + where + '</div></div></div>';
+    var pInstall = store.mode !== 'api' ? '' : '<h2 class="sec">' + L('Install as an app', 'Instalar como app') + '</h2><div class="card"><div class="field"><div class="hint">' +
+      L('<b>Computer (Chrome or Edge):</b> click the install icon at the right end of the address bar, or menu ⋮ › Apps › Install. <b>Android:</b> menu ⋮ › Install app. <b>iPhone (Safari):</b> Share › Add to Home Screen.', '<b>Computadora (Chrome o Edge):</b> clic en el icono de instalar al final de la barra de direcciones, o menú ⋮ › Aplicaciones › Instalar. <b>Android:</b> menú ⋮ › Instalar aplicación. <b>iPhone (Safari):</b> Compartir › Agregar a inicio.') +
+      '</div>' + (installEvt ? '<div class="btns"><button class="btn pri" data-act="install">' + L('Install now', 'Instalar ahora') + '</button></div>' : '') + '</div></div>';
+    var pHow = '<h2 class="sec">' + L('How it works', 'Cómo funciona') + '</h2><div class="card"><div class="field"><div class="hint">' + L('Weeks end on Saturday, and each week counts in the month it ends in. When a new month starts, the previous one closes automatically and goes to History. Daily and twice-a-week tasks are marked day by day: every morning the app opens on today, blank. ', 'Las semanas terminan en sábado y cada semana cuenta en el mes en que termina. Al empezar un mes nuevo, el anterior se cierra solo y queda en el Historial. Las tareas diarias y las de 2 veces por semana se marcan por día: cada mañana la app abre en el día de hoy, en blanco. ') +
+      (desk ? L('On a computer, click the circle or the cell to mark Done, and right-click for N/A, note (*) or to clear the mark.', 'En la computadora, haz clic en el círculo o la celda para marcar Done, y clic derecho para N/A, observación (*) o quitar la marca.') : L('Tap the circle to mark Done; press and hold it for N/A, note (*) or to clear the mark.', 'Toca el círculo para marcar Done; mantenlo presionado para N/A, observación (*) o quitar la marca.')) + '</div></div></div>';
+    if (!desk) return pDevice + pInstall + pWork + pAreas + pHead + pWhere + pHow;
+    var pKeys = '<h2 class="sec">' + L('Keyboard shortcuts', 'Atajos de teclado') + '</h2><div class="card"><div class="field">' + shortcutsHTML() + '</div></div>';
+    return '<div class="set-cols"><div>' + pDevice + pInstall + pWork + pHead + pKeys + pWhere + pHow + '</div><div>' + pAreas + '</div></div>';
+  }
+
+  /* ---------------------------------------------------------- hojas y diálogos */
+  function renderOverlay() {
+    var o = $('#overlay');
+    if (ui.dlg) {
+      var d = ui.dlg;
+      o.innerHTML = '<div class="scrim" data-act="dlgCancel"></div><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h3 id="dlg-t">' + esc(d.title) + '</h3>' + (d.text ? '<p>' + esc(d.text) + '</p>' : '') + (d.html || '') +
+        (d.input ? '<input id="dlg-in" type="' + (d.input.type || 'text') + '"' + (d.input.mode ? ' inputmode="' + d.input.mode + '"' : '') + ' maxlength="' + (d.input.max || 40) + '" autocomplete="off" autocapitalize="characters" value="' + esc(d.input.value || '') + '" placeholder="' + esc(d.input.placeholder || '') + '" aria-label="' + esc(d.title) + '">' : '') +
+        '<div class="btns' + (d.stack ? ' stack' : '') + '">' + d.buttons.map(function (b, i) { return '<button class="btn ' + (b.cls || '') + '" data-act="dlgBtn" data-i="' + i + '">' + esc(b.label) + '</button>'; }).join('') + '</div></div>';
+      var inp = $('#dlg-in'); if (inp) setTimeout(function () { inp.focus(); }, 60);
+      return;
+    }
+    if (ui.sheet && ui.sheet.type === 'task') { o.innerHTML = taskSheetHTML(); return; }
+    if (ui.sheet && ui.sheet.type === 'print') {
+      var ps = ui.sheet;
+      o.innerHTML = '<div class="scrim" data-act="sheetClose"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pr-t"><div class="grab"></div>' +
+        '<h3 id="pr-t">' + L('Printable sheet · ', 'Hoja para imprimir · ') + esc(monthName(ps.k)) + '</h3><div class="sub">' + L('2-page document, letter landscape: monthly log, summary, observations and signatures. ', 'Documento de 2 páginas en carta horizontal: registro del mes, resumen, observaciones y firmas. ') + (downloads ? L('Open it and click Print.', 'Ábrelo y toca Imprimir.') : L('It opens in a new tab, ready to print.', 'Se abre en una pestaña nueva, lista para imprimir.')) + '</div>' +
+        '<span class="lbl">' + L('Sheet language', 'Idioma de la hoja') + '</span><div class="seg"><button data-act="prLang" data-v="en" class="' + (ps.lang === 'en' ? 'on' : '') + '" aria-pressed="' + (ps.lang === 'en') + '">English</button><button data-act="prLang" data-v="es" class="' + (ps.lang === 'es' ? 'on' : '') + '" aria-pressed="' + (ps.lang === 'es') + '">Español</button></div>' +
+        '<span class="lbl">' + L('Content', 'Contenido') + '</span><div class="seg"><button data-act="prBlank" data-v="0" class="' + (!ps.blank ? 'on' : '') + '" aria-pressed="' + !ps.blank + '">' + L('With the marks', 'Con las marcas') + '</button><button data-act="prBlank" data-v="1" class="' + (ps.blank ? 'on' : '') + '" aria-pressed="' + !!ps.blank + '">' + L('Blank', 'En blanco') + '</button></div>' +
+        '<div class="opts"><button class="btn pri block" data-act="prGo">' + (downloads ? L('Download sheet', 'Descargar hoja') : L('Open sheet to print', 'Abrir hoja para imprimir')) + '</button><button class="opt cancel" data-act="sheetClose">' + L('Cancel', 'Cancelar') + '</button></div></div>';
+      return;
+    }
+    if (ui.sheet) {
+      var mo = store.months[ui.month], t = taskOf(mo, ui.sheet.tid), wi = ui.sheet.wi, sday = ui.sheet.day, c = getC(mo, t, wi, sday);
+      o.innerHTML = '<div class="scrim" data-act="sheetClose"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t"><div class="grab"></div>' +
+        '<h3 id="sh-t">' + esc(tname(t)) + '</h3><div class="sub">' + (sday ? W('dayN')[parseYMD(sday).getDay()] + ' ' + esc(fmtDate(sday)) : L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi]))) + ' · ' + esc(fname(t.f)) + (c ? ' · ' + esc(stName(c.s)) + ' ' + esc(c.by || '') + (c.at ? ' ' + esc(fmtStamp(c.at)) : '') : '') + '</div>' +
+        '<label class="lbl" for="sh-init">' + L('Initials', 'Iniciales') + '</label><input id="sh-init" type="text" maxlength="4" autocapitalize="characters" autocomplete="off" value="' + esc((c && c.by) || prefs.initials) + '" placeholder="' + L('E.g. JD', 'Ej. HC') + '">' +
+        '<label class="lbl" for="sh-note">' + L('Note or observation (optional)', 'Nota u observación (opcional)') + '</label><textarea id="sh-note" maxlength="300">' + esc((c && c.note) || '') + '</textarea>' +
+        '<div class="opts"><button class="opt done" data-act="setState" data-s="done"><span class="ic">✓</span>Done</button>' +
+        '<button class="opt flag" data-act="setState" data-s="flag"><span class="ic">*</span>' + L('Done with a note', 'Done con observación') + '</button>' +
+        '<button class="opt na" data-act="setState" data-s="na"><span class="ic">N/A</span>' + L('Not applicable', 'No aplica') + '</button>' +
+        (c ? '<button class="opt clr" data-act="setState" data-s="clr">' + L('Clear mark', 'Quitar marca') + '</button>' : '') +
+        '<button class="opt cancel" data-act="sheetClose">' + L('Cancel', 'Cancelar') + '</button></div></div>';
+      return;
+    }
+    o.innerHTML = '';
+  }
+  function taskSheetHTML() {
+    var s = ui.sheet, t = s.id ? tpl.tasks.filter(function (x) { return x.id === s.id; })[0] : null;
+    var f = s.f || (t ? t.f : 'W');
+    return '<div class="scrim" data-act="sheetClose"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ts-t"><div class="grab"></div>' +
+      '<h3 id="ts-t">' + (t ? L('Edit area', 'Editar área') : L('Add area', 'Agregar área')) + '</h3><div class="sub">' + (t ? L('Closed months do not change.', 'Los meses cerrados no cambian.') : L('It is added to the current month and to new months.', 'Se agrega al mes en curso y a los meses nuevos.')) + '</div>' +
+      '<label class="lbl" for="ts-en">' + L('Name in English (as on the sheet)', 'Nombre en inglés (como en la hoja)') + '</label><input id="ts-en" type="text" maxlength="120" value="' + esc(s.en != null ? s.en : (t ? t.en : '')) + '" placeholder="' + L('E.g. Mixing room floors', 'Ej. Mixing room floors') + '">' +
+      '<label class="lbl" for="ts-es">' + L('Name in Spanish', 'Nombre en español') + '</label><input id="ts-es" type="text" maxlength="120" value="' + esc(s.es != null ? s.es : (t ? t.es : '')) + '" placeholder="' + L('E.g. Pisos del cuarto de mezclado', 'Ej. Pisos del cuarto de mezclado') + '">' +
+      '<span class="lbl">' + L('Frequency', 'Frecuencia') + '</span><div class="fseg">' + ORDER.map(function (k) { var F = FREQ[k]; return '<button style="--fc:' + F.color + '" class="' + (k === f ? 'on' : '') + '" data-act="tsFreq" data-f="' + k + '" aria-pressed="' + (k === f) + '">' + fcode(k) + ' <span style="font-weight:500">' + esc(fname(k).replace(' por semana', '/sem.').replace(' al mes', '/mes').replace(' a week', '/wk').replace(' a month', '/mo')) + '</span></button>'; }).join('') + '</div>' +
+      '<div class="opts"><button class="btn pri block" data-act="tsSave">' + L('Save', 'Guardar') + '</button>' +
+      (t ? (t.active ? '<button class="btn danger block" data-act="tsToggle">' + L('Remove this area', 'Quitar esta área') + '</button>' : '<button class="btn block" data-act="tsToggle">' + L('Use this area again', 'Volver a usar esta área') + '</button>') : '') +
+      '<button class="opt cancel" data-act="sheetClose">' + L('Cancel', 'Cancelar') + '</button></div></div>';
+  }
+  function openDlg(d) { ui.dlg = d; renderOverlay(); }
+  function closeDlg() { ui.dlg = null; renderOverlay(); }
+  function closeSheet() { ui.sheet = null; renderOverlay(); }
+
+  /* ------------------------------------------------------------------ acciones */
+  /* quien solo puede ver no marca: se lo decimos en vez de fallar en silencio */
+  function blockRO() { if (!store.readOnly) return false; if (store.moved) { toast(L('This calendar moved to the new app. Open it from the banner at the top.', 'Este calendario se mudó a la app nueva. Ábrela desde el aviso de arriba.')); return true; } toast(L('View only: ask the owner to invite you by email as an Editor.', 'Solo lectura: pide al dueño que te invite por correo como Editor.')); return true; }
+  function writeCells(mo, changes) {
+    var at = nowISO(), patch = { updatedAt: at, cells: {} }, prev = {};
+    Object.keys(changes).forEach(function (k) { prev[k] = mo.cells[k] || null; var c = changes[k]; if (c) mo.cells[k] = c; else delete mo.cells[k]; patch.cells[k] = c || null; });
+    mo.updatedAt = at;
+    patchMonth(mo, patch);
+    return prev;
+  }
+  function keyFor(t, wi, day) { return day ? dayKey(t, day) : cellKey(t, wi); }
+  function getC(mo, t, wi, day) { return mo.cells[keyFor(t, wi, day)]; }
+  function writeCell(mo, t, wi, c, day) { var k = keyFor(t, wi, day), ch = {}; ch[k] = c; return writeCells(mo, ch)[k]; }
+  function restoreAll(mo, prev) { writeCells(mo, prev); render(); }
+  function markDone(mo, t, wi, day) {
+    var k = keyFor(t, wi, day), prev = writeCells(mo, (function () { var o = {}; o[k] = { s: 'done', by: prefs.initials, at: nowISO() }; return o; })());
+    render();
+    toast('Done' + (day ? ' ' + dayWord(day) : '') + ': ' + tname(t), function () { restoreAll(mo, prev); });
+  }
+  function isFutureDay(day) { return !!day && day > ymd(new Date()); }
+  function notYet() { toast(L('That day hasn’t come yet', 'Ese día todavía no llega')); }
+  function closedMsg() { toast(L('This month is closed. Click Edit to change it.', 'Mes cerrado. Toca Editar para cambiarlo.')); }
+  function bulkMark(f, wi, day) {
+    var mo = store.months[ui.month];
+    if (blockRO() || isLocked(mo)) return;
+    if (isFutureDay(day)) { notYet(); return; }
+    var go = function () {
+      var ch = {}, n = 0, at = nowISO();
+      mo.tasks.forEach(function (t) {
+        if (t.f !== f) return;
+        if (day) { if (dcell(mo, t, day)) return; if (t.f !== 'D') { var w = weekDayStat(mo, t, wi); if (w.done >= w.req) return; } }
+        else if (cell(mo, t, wi)) return;
+        ch[keyFor(t, wi, day)] = { s: 'done', by: prefs.initials, at: at }; n++;
+      });
+      if (!n) return;
+      var prev = writeCells(mo, ch);
+      render();
+      toast(plural(n, L('task', 'tarea'), L('tasks', 'tareas')) + L(' marked Done', ES() && n !== 1 ? ' marcadas como Done' : ' marcada como Done'), function () { restoreAll(mo, prev); });
+    };
+    if (!prefs.initials) askInitials(go); else go();
+  }
+  function askInitials(then) {
+    openDlg({
+      title: L('What are your initials?', '¿Cuáles son tus iniciales?'), text: L('They are saved with the date and time every time you mark Done.', 'Se guardan con la fecha y la hora cada vez que marcas Done.'),
+      input: { value: '', placeholder: L('E.g. JD', 'Ej. HC'), max: 4 },
+      buttons: [
+        { label: L('Cancel', 'Cancelar'), fn: function () { closeDlg(); } },
+        { label: L('Save', 'Guardar'), cls: 'pri', fn: function (val) { val = (val || '').trim().toUpperCase().slice(0, 4); if (!val) { toast(L('Type your initials', 'Escribe tus iniciales')); return; } prefs.initials = val; savePrefs(); closeDlg(); then(); } }
+      ]
+    });
+  }
+  function tapCell(tid, wi, day) {
+    var mo = store.months[ui.month], t = taskOf(mo, tid);
+    if (!t) return;
+    if (isDayTask(t) && !day) { ui.week = wi; ui.selDay = null; ui.tab = 'week'; render(); return; }
+    if (blockRO()) return;
+    if (isLocked(mo)) { closedMsg(); return; }
+    if (getC(mo, t, wi, day)) { ui.sheet = { type: 'cell', tid: tid, wi: wi, day: day || null }; renderOverlay(); return; }
+    if (isFutureDay(day)) { notYet(); return; }
+    if (!prefs.initials) { askInitials(function () { markDone(mo, t, wi, day); }); return; }
+    markDone(mo, t, wi, day);
+  }
+  function longPress(tid, wi, day) {
+    var mo = store.months[ui.month], t = mo && taskOf(mo, tid);
+    if (!t) return;
+    if (isDayTask(t) && !day) return;
+    if (blockRO()) return;
+    if (isLocked(mo)) { closedMsg(); return; }
+    if (isFutureDay(day) && !getC(mo, t, wi, day)) { notYet(); return; }
+    ui.sheet = { type: 'cell', tid: tid, wi: wi, day: day || null }; renderOverlay();
+  }
+  function applySheet(s) {
+    var mo = store.months[ui.month], t = taskOf(mo, ui.sheet.tid), wi = ui.sheet.wi, day = ui.sheet.day, k = keyFor(t, wi, day);
+    var init = ($('#sh-init').value || '').trim().toUpperCase().slice(0, 4), note = ($('#sh-note').value || '').trim().slice(0, 300);
+    if (s === 'clr') { var p0 = writeCell(mo, t, wi, null, day), pr0 = {}; pr0[k] = p0; closeSheet(); render(); toast(L('Mark cleared', 'Marca quitada'), function () { restoreAll(mo, pr0); }); return; }
+    if (!init) { toast(L('Type your initials', 'Escribe tus iniciales')); return; }
+    if (!prefs.initials) { prefs.initials = init; savePrefs(); }
+    var old = getC(mo, t, wi, day), c = { s: s, by: init, at: (old && old.s === s && old.at) ? old.at : nowISO() };
+    if (note) c.note = note;
+    var p = writeCell(mo, t, wi, c, day), pr = {}; pr[k] = p;
+    closeSheet(); render();
+    toast(stName(s) + ': ' + tname(t), function () { restoreAll(mo, pr); });
+  }
+  function toggleWorkday(d) {
+    if (blockRO()) return;
+    var w = tpl.workdays.slice(), i = w.indexOf(d);
+    if (i >= 0) { if (w.length === 1) { toast(L('Keep at least one workday', 'Deja al menos un día de trabajo')); return; } w.splice(i, 1); } else w.push(d);
+    tpl.workdays = normWorkdays(w);
+    saveTemplate(); render();
+    toast(L('Workdays: ', 'Días de trabajo: ') + tpl.workdays.length + L(' per week', ' por semana'));
+  }
+  function tsCapture() { var a = $('#ts-es'), b = $('#ts-en'); if (a) ui.sheet.es = a.value; if (b) ui.sheet.en = b.value; }
+  function tsSave() {
+    tsCapture();
+    var s = ui.sheet, es = (s.es || '').trim(), en = (s.en || '').trim();
+    if (!es && !en) { toast(L('Type the area name', 'Escribe el nombre del área')); return; }
+    var t = s.id ? tpl.tasks.filter(function (x) { return x.id === s.id; })[0] : null;
+    var f = s.f || (t ? t.f : 'W');
+    if (t) { t.es = es || en; t.en = en || es; t.f = f; }
+    else tpl.tasks.push({ id: nextTaskId(), es: es || en, en: en || es, f: f, active: true });
+    saveTemplate(); closeSheet(); render();
+    toast(t ? L('Area updated', 'Área actualizada') : L('Area added', 'Área agregada'));
+  }
+  function tsToggle() {
+    var t = tpl.tasks.filter(function (x) { return x.id === ui.sheet.id; })[0];
+    if (!t) return;
+    t.active = !t.active;
+    saveTemplate(); closeSheet(); render();
+    toast(t.active ? L('Area turned back on', 'Área activada') : L('Area removed. Its earlier marks are kept.', 'Área quitada. Sus marcas anteriores se conservan.'));
+  }
+  /* PIN del equipo: se pide una vez por dispositivo */
+  function askPin(wrong, closable) {
+    if (ui.dlg && ui.dlg.pin) return;
+    openDlg({
+      pin: true, noClose: !closable, title: L('Team PIN', 'PIN del equipo'),
+      text: wrong ? L('That PIN is not correct. Ask the person who shared the calendar with you.', 'Ese PIN no es correcto. Pídeselo a quien te compartió el calendario.') : L('Enter the team PIN to open the shared cleaning schedule. You only need to do this once on this device.', 'Escribe el PIN del equipo para abrir el calendario compartido. Solo hace falta una vez en este dispositivo.'),
+      html: '<div class="pinlang">' + langBtn('gbtn') + '</div>',
+      input: { value: '', placeholder: '••••••', max: 12, mode: 'numeric', type: 'password' },
+      buttons: (closable ? [{ label: L('Cancel', 'Cancelar'), fn: function () { closeDlg(); } }] : []).concat([{ label: L('Open', 'Abrir'), cls: 'pri', fn: function (v) { v = String(v || '').replace(/\s/g, ''); if (!v) { toast(L('Type the PIN', 'Escribe el PIN')); return; } api.pin = v; lsSet(API_PIN, v); closeDlg(); loadState(); } }])
+    });
+  }
+  /* copia abierta desde la computadora: elegir dónde viven los datos */
+  function readWhere() { try { return localStorage.getItem(WHERE_KEY) || ''; } catch (e) { return 'local'; } }
+  function saveWhere(v) { try { localStorage.setItem(WHERE_KEY, v); } catch (e) { /* sin almacenamiento */ } }
+  function askWhere() {
+    openDlg({
+      title: L('Where do you want to keep this calendar?', '¿Dónde quieres guardar este calendario?'),
+      html: '<div class="where"><p><b>' + L('Online (shared):', 'En línea (compartido):') + '</b> ' + L('everyone marks the same calendar and sees changes instantly, from the phone or the computer. Needs a free Claude account and an invitation from the owner.', 'todos marcan el mismo calendario y ven los cambios al momento, desde el teléfono o la computadora. Necesita una cuenta gratuita de Claude y una invitación del dueño.') + '</p>' +
+        '<p><b>' + L('On this computer:', 'En esta computadora:') + '</b> ' + L('works without internet, but the marks stay only in this browser on this PC. Make backups from History.', 'funciona sin internet, pero las marcas se quedan solo en este navegador de esta PC. Haz copias desde Historial.') + '</p></div>',
+      stack: true,
+      buttons: [
+        { label: L('Keep it on this computer', 'Guardar en esta computadora'), fn: function () { saveWhere('local'); closeDlg(); toast(L('Saved on this computer', 'Se guarda en esta computadora')); } },
+        { label: L('Use the online calendar', 'Usar el calendario en línea'), cls: 'pri', fn: function () { saveWhere('online'); closeDlg(); var w = null; try { w = window.open(CLOUD_URL, '_blank', 'noopener'); } catch (e) { w = null; } if (!w) location.href = CLOUD_URL; } }
+      ]
+    });
+  }
+
+  /* -------------------------------------------------------- exportar / importar */
+  function csvq(v) { v = String(v == null ? '' : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function csvOf(mo) {
+    var rows = [[L('Month', 'Mes'), L('Area (EN)', 'Área (ES)'), L('Area (ES)', 'Area (EN)'), L('Frequency', 'Frecuencia'), L('Week ending', 'Semana que termina'), L('Day', 'Día'), L('Status', 'Estado'), L('Initials', 'Iniciales'), L('Date and time', 'Fecha y hora'), L('Note', 'Nota')]];
+    var pend = L('Pending', 'Pendiente');
+    mo.tasks.forEach(function (t) {
+      var n1 = ES() ? t.es : t.en, n2 = ES() ? t.en : t.es;
+      mo.weeks.forEach(function (w, i) {
+        var F = FREQ[t.f];
+        if (isDayTask(t)) {
+          weekDays(mo, i).forEach(function (d) { var c = dcell(mo, t, d); if (!c && (t.f !== 'D' || !isWorkday(mo, d))) return; rows.push([monthName(mo.key), n1, n2, fname(t.f), w, d, c ? stName(c.s) : pend, c ? c.by : '', c ? c.at : '', c ? (c.note || '') : '']); });
+          return;
+        }
+        var c = cell(mo, t, i);
+        rows.push([monthName(mo.key), n1, n2, fname(t.f), w, '', c ? stName(c.s) : (F.unit === 'week' ? pend : '—'), c ? c.by : '', c ? c.at : '', c ? (c.note || '') : '']);
+      });
+    });
+    return '﻿' + rows.map(function (r) { return r.map(csvq).join(','); }).join('\r\n');
+  }
+  /* Hoja imprimible: documento controlado de planta (Carta horizontal, 2 páginas).
+     Página 1: registro de limpieza. Página 2: resumen, pendientes, observaciones/acciones correctivas y firmas. */
+  var PL = {
+    en: {
+      title: 'MASTER CLEANING SCHEDULE', sub: 'Non-SPS · Sanitation Program', company: 'Company', site: 'Facility',
+      docno: 'Doc. No.', rev: 'Revised', period: 'Period', page: 'Page', of: 'of',
+      instr: 'Record the initials of the person completing each task in the week-ending column. Daily and twice-weekly tasks show days completed / required.',
+      kDone: 'Done', kFlag: 'Done with observation (see page 2)', kNa: 'Not applicable',
+      area: 'Area / Equipment', freq: 'Freq.', weekEnding: 'Week ending', status: 'Status',
+      sumTitle: 'Monthly Summary', req: 'Tasks required', done: 'Completed', comp: 'Compliance', pend: 'Pending',
+      byFreq: 'By frequency', reqS: 'Req.', doneS: 'Done', dueEnd: 'due by month end', pendTitle: 'Incomplete Tasks', missing: 'missing', more: 'more (see page 1)', openNote: 'Month in progress: status reflects entries to date.', none: 'All required tasks were completed.',
+      obsTitle: 'Observations & Corrective Actions', wk: 'Week', obs: 'Observation', by: 'Init.', ca: 'Corrective action', ver: 'Verified',
+      signTitle: 'Review & Verification', s1: 'Completed by (Sanitation Lead)', s2: 'Reviewed by (Sanitation Supervisor)', s3: 'Verified by (Quality Assurance)',
+      name: 'Name', sig: 'Signature', date: 'Date', printed: 'Printed', uncontrolled: 'Uncontrolled when printed. Verify current revision before use.',
+      blankNote: 'Blank form for manual use', print: 'Print', freqNames: { D: 'Daily', TW: 'Twice weekly', W: 'Weekly', BM: 'Twice monthly', M: 'Monthly', Q: 'Quarterly' }, freqShort: { D: 'Daily', TW: '2× week', W: 'Weekly', BM: '2× month', M: 'Monthly', Q: 'Quarterly' },
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    },
+    es: {
+      title: 'CALENDARIO MAESTRO DE LIMPIEZA', sub: 'Non-SPS · Programa de Sanitización', company: 'Empresa', site: 'Planta',
+      docno: 'Doc. N.º', rev: 'Revisado', period: 'Período', page: 'Página', of: 'de',
+      instr: 'Anote las iniciales de la persona que completa cada tarea en la columna de la semana. Las diarias y de 2 veces por semana muestran días hechos / requeridos.',
+      kDone: 'Hecho', kFlag: 'Hecho con observación (ver página 2)', kNa: 'No aplica',
+      area: 'Área / Equipo', freq: 'Frec.', weekEnding: 'Semana al', status: 'Estado',
+      sumTitle: 'Resumen del mes', req: 'Tareas requeridas', done: 'Completadas', comp: 'Cumplimiento', pend: 'Pendientes',
+      byFreq: 'Por frecuencia', reqS: 'Req.', doneS: 'Hechas', dueEnd: 'pendiente antes de fin de mes', pendTitle: 'Tareas incompletas', missing: 'faltan', more: 'más (ver página 1)', openNote: 'Mes en curso: el estado refleja lo registrado hasta hoy.', none: 'Se completaron todas las tareas requeridas.',
+      obsTitle: 'Observaciones y acciones correctivas', wk: 'Semana', obs: 'Observación', by: 'Inic.', ca: 'Acción correctiva', ver: 'Verificó',
+      signTitle: 'Revisión y verificación', s1: 'Completado por (Líder de Sanitización)', s2: 'Revisado por (Supervisor de Sanitización)', s3: 'Verificado por (Aseguramiento de Calidad)',
+      name: 'Nombre', sig: 'Firma', date: 'Fecha', printed: 'Impreso', uncontrolled: 'Copia no controlada al imprimirse. Verifique la revisión vigente antes de usar.',
+      blankNote: 'Formulario en blanco para uso manual', print: 'Imprimir', freqNames: { D: 'Diario', TW: '2 veces por semana', W: 'Semanal', BM: '2 veces al mes', M: 'Mensual', Q: 'Trimestral' }, freqShort: { D: 'Diario', TW: '2× semana', W: 'Semanal', BM: '2× mes', M: 'Mensual', Q: 'Trimestral' },
+      months: TXT.months.es
+    }
+  };
+  function printableOf(mo, opt) {
+    var L = PL[opt.lang] || PL.en, blank = !!opt.blank, en = opt.lang === 'en';
+    var doc = tpl.doc || {};
+    var p = mo.key.split('-').map(Number), period = L.months[p[1] - 1] + ' ' + p[0];
+    var tn = function (t) { return en ? (t.en || t.es) : (t.es || t.en); };
+    var tasks = [];
+    ORDER.forEach(function (f) { mo.tasks.forEach(function (t) { if (t.f === f) tasks.push(t); }); });
+    var n = tasks.length, rowH = Math.max(12, Math.min(21, Math.floor(568 / Math.max(n, 1))));
+    var fs = rowH < 15 ? 9.5 : 10.5;
+    var final = !!mo.closedAt || mo.key < currentKey(), today = ymd(new Date());
+    var isFut = function (w) { if (blank || final) return false; var s = parseYMD(w); s.setDate(s.getDate() - 6); return ymd(s) > today; };
+    var stt = stats(mo), now = new Date();
+    var printed = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear() + ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+    var line = function (v) { return v ? esc(v) : '<span class="ln"></span>'; };
+
+    function header(pg) {
+      return '<header class="hd"><div class="hd-co"><div class="lab">' + L.company + '</div><div class="val">' + line(doc.company) + '</div>' +
+        '<div class="lab">' + L.site + '</div><div class="val">' + line(doc.site) + '</div></div>' +
+        '<div class="hd-ti"><div class="t1">' + L.title + '</div><div class="t2">' + L.sub + '</div>' + (blank ? '<div class="t3">' + L.blankNote + '</div>' : '') + '</div>' +
+        '<table class="hd-ctl"><tr><th>' + L.docno + '</th><td>' + line(doc.code) + '</td></tr><tr><th>' + L.rev + '</th><td>' + esc(mo.revised || tpl.revised) + '</td></tr>' +
+        '<tr><th>' + L.period + '</th><td><b>' + esc(period) + '</b></td></tr><tr><th>' + L.page + '</th><td>' + pg + ' ' + L.of + ' 2</td></tr></table></header>';
+    }
+    function footer(pg) {
+      return '<footer class="ft"><span>' + esc(PATH) + '</span><span>' + L.uncontrolled + '</span><span>' + L.printed + ': ' + printed + ' · ' + L.page + ' ' + pg + '/2</span></footer>';
+    }
+    function mark(c) {
+      if (!c || blank) return '';
+      if (c.s === 'na') return 'N/A';
+      return (c.s === 'flag' ? '<i>*</i>' : '<i>✓</i>') + esc(c.by || '');
+    }
+
+    // ---- página 1: registro
+    var legend = ORDER.filter(function (f) { return tasks.some(function (t) { return t.f === f; }); }).map(function (f) { return '<span><b style="background:' + FREQ[f].color + '">' + fcode(f, opt.lang) + '</b>' + L.freqNames[f] + '</span>'; }).join('');
+    var keys = '<span><b class="k done">✓</b>' + L.kDone + '</span><span><b class="k flag">*</b>' + L.kFlag + '</span><span><b class="k na">N/A</b>' + L.kNa + '</span>';
+    var thead = '<tr><th rowspan="2" class="c-n">#</th><th rowspan="2" class="c-a">' + L.area + '</th><th rowspan="2" class="c-f">' + L.freq + '</th><th colspan="' + mo.weeks.length + '" class="c-wh">' + esc(period) + ' · ' + L.weekEnding + '</th><th rowspan="2" class="c-s">' + L.status + '</th></tr>' +
+      '<tr>' + mo.weeks.map(function (w) { return '<th class="c-w' + (isFut(w) ? ' fut' : '') + '">' + fmtWeek(w) + '</th>'; }).join('') + '</tr>';
+    var body = tasks.map(function (t, i) {
+      var F = FREQ[t.f], per = stt.per[t.id], prevF = i > 0 ? tasks[i - 1].f : t.f;
+      var st = blank ? '' : (per.req === 0 ? '—' : per.done + '/' + per.req);
+      var ok = !blank && per.req > 0 && per.done >= per.req;
+      return '<tr class="' + (prevF !== t.f ? 'gs' : '') + '"><td class="c-n">' + (i + 1) + '</td><td class="c-a" style="--fc:' + F.color + '">' + esc(tn(t)) + '</td><td class="c-f" style="background:' + F.color + '">' + fcode(t.f, opt.lang) + '</td>' +
+        mo.weeks.map(function (w, wi) {
+          if (isDayTask(t)) {
+            if (blank) return '<td class="c-w"></td>';
+            var ws = weekDayStat(mo, t, wi), full = ws.req > 0 && ws.done >= ws.req;
+            if (!ws.marks && isFut(w)) return '<td class="c-w fut"></td>';
+            return '<td class="c-w ' + (full ? 'done' : ws.marks ? 'part' : '') + '">' + (full ? '<i>✓</i>' : '') + ws.done + '/' + ws.req + '</td>';
+          }
+          var c = blank ? null : cell(mo, t, wi); return '<td class="c-w ' + (c ? c.s : (isFut(w) ? 'fut' : '')) + '">' + mark(c) + '</td>';
+        }).join('') +
+        '<td class="c-s' + (ok ? ' ok' : (!blank && final && per.req > 0 ? ' due' : '')) + '">' + st + '</td></tr>';
+    }).join('');
+    var page1 = '<section class="page">' + header(1) +
+      '<div class="meta"><div class="instr">' + L.instr + '</div><div class="keys">' + keys + '</div></div>' +
+      '<div class="leg">' + legend + '</div>' +
+      '<table class="grid" style="--rh:' + rowH + 'px;--fs:' + fs + 'px"><thead>' + thead + '</thead><tbody>' + body + '</tbody></table>' +
+      footer(1) + '</section>';
+
+    // ---- página 2: resumen, pendientes, observaciones, firmas
+    var byF = ORDER.filter(function (f) { return tasks.some(function (t) { return t.f === f; }); }).map(function (f) {
+      var r = 0, d = 0; tasks.forEach(function (t) { if (t.f === f) { r += stt.per[t.id].req; d += stt.per[t.id].done; } });
+      var pc = r ? Math.round(d * 100 / r) : 0;
+      return '<tr><td><b class="chip" style="background:' + FREQ[f].color + '">' + fcode(f, opt.lang) + '</b>' + L.freqShort[f] + '</td><td>' + (blank ? '' : r) + '</td><td>' + (blank ? '' : d) + '</td><td>' + (blank ? '' : pc + '%') + '</td>' +
+        '<td class="bar">' + (blank ? '' : '<i style="width:' + pc + '%"></i>') + '</td></tr>';
+    }).join('');
+    var pendRows = [];
+    if (!blank) tasks.forEach(function (t) {
+      var s = stt.per[t.id], F = FREQ[t.f], miss = 0, extra = '';
+      if (F.unit === 'day') { mo.weeks.forEach(function (w, wi) { if (final || w < today) { var ws = weekDayStat(mo, t, wi); miss += ws.req - ws.done; } }); }
+      else if (F.unit === 'week') { mo.weeks.forEach(function (w, wi) { if ((final || w < today) && !cell(mo, t, wi)) miss++; }); }
+      else { miss = s.req - s.done; if (!final && miss > 0) extra = ' (' + L.dueEnd + ')'; }
+      if (miss > 0) pendRows.push('<li><b>' + esc(tn(t)) + '</b> · ' + L.freqNames[t.f] + ' · ' + miss + ' ' + L.missing + extra + '</li>');
+    });
+    var obs = [];
+    if (!blank) tasks.forEach(function (t) {
+      if (isDayTask(t)) { mo.weeks.forEach(function (w, wi) { weekDays(mo, wi).forEach(function (d) { var c = dcell(mo, t, d); if (c && c.note) obs.push([fmtWeek(d), tn(t), c.note, c.by || '', d]); }); }); return; }
+      mo.weeks.forEach(function (w, wi) { var c = cell(mo, t, wi); if (c && c.note) obs.push([fmtWeek(w), tn(t), c.note, c.by || '', w]); });
+    });
+    obs.sort(function (a, b) { return a[4] < b[4] ? -1 : a[4] > b[4] ? 1 : 0; });
+    var obsRows = obs.map(function (o) { return '<tr><td>' + o[0] + '</td><td>' + esc(o[1]) + '</td><td>' + esc(o[2]) + '</td><td>' + esc(o[3]) + '</td><td></td><td></td></tr>'; });
+    var minRows = blank ? 11 : Math.max(5, 10 - obsRows.length);
+    for (var i = 0; i < minRows; i++) obsRows.push('<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
+    var sign = [L.s1, L.s2, L.s3].map(function (s) {
+      return '<div class="sg"><div class="sg-t">' + s + '</div><div class="sg-l"><span>' + L.name + '</span></div><div class="sg-l"><span>' + L.sig + '</span></div><div class="sg-l"><span>' + L.date + '</span></div></div>';
+    }).join('');
+    var page2 = '<section class="page">' + header(2) +
+      '<div class="p2">' +
+      '<div class="col">' +
+      '<h2>' + L.sumTitle + '</h2><div class="kpis">' +
+      '<div><span>' + L.req + '</span><b>' + (blank ? '' : stt.req) + '</b></div><div><span>' + L.done + '</span><b>' + (blank ? '' : stt.done) + '</b></div>' +
+      '<div class="hl"><span>' + L.comp + '</span><b>' + (blank ? '' : stt.pct + '%') + '</b></div><div><span>' + L.pend + '</span><b>' + (blank ? '' : (stt.req - stt.done)) + '</b></div></div>' +
+      '<table class="bf"><thead><tr><th>' + L.byFreq + '</th><th>' + L.reqS + '</th><th>' + L.doneS + '</th><th>%</th><th></th></tr></thead><tbody>' + byF + '</tbody></table>' +
+      (blank ? '' : '<h2>' + L.pendTitle + '</h2>' + (!final ? '<p class="note">' + L.openNote + '</p>' : '') + (pendRows.length ? '<ul class="pend">' + pendRows.slice(0, 11).join('') + (pendRows.length > 11 ? '<li class="more">+ ' + (pendRows.length - 11) + ' ' + L.more + '</li>' : '') + '</ul>' : '<p class="okmsg">' + L.none + '</p>')) +
+      '</div>' +
+      '<div class="col wide">' +
+      '<h2>' + L.obsTitle + '</h2><table class="obs"><thead><tr><th class="o-w">' + L.wk + '</th><th class="o-a">' + L.area + '</th><th>' + L.obs + '</th><th class="o-i">' + L.by + '</th><th>' + L.ca + '</th><th class="o-v">' + L.ver + '</th></tr></thead><tbody>' + obsRows.join('') + '</tbody></table>' +
+      '<h2>' + L.signTitle + '</h2><div class="signs">' + sign + '</div>' +
+      '</div></div>' + footer(2) + '</section>';
+
+    var css = '@page{size:letter landscape;margin:0}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+      'html{background:#E9ECF1}body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#111827;font-size:11px}' +
+      '.bar-top{position:sticky;top:0;z-index:5;display:flex;justify-content:center;gap:12px;padding:10px;background:#14213D}.bar-top button{font:600 15px/1 inherit;padding:12px 26px;border-radius:8px;border:0;background:#fff;color:#14213D}' +
+      '.page{width:11in;height:8.5in;margin:16px auto;background:#fff;padding:.38in .4in .32in;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.18);overflow:hidden;page-break-after:always;break-after:page}' +
+      '.page:last-of-type{page-break-after:auto;break-after:auto}' +
+      '.hd{display:grid;grid-template-columns:2.3in 1fr 2.3in;border:1.5px solid #14213D;margin-bottom:7px}' +
+      '.hd-co{padding:5px 8px;display:grid;grid-template-columns:auto 1fr;gap:3px 6px;align-content:center;border-right:1px solid #14213D}.hd-co .lab{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#4B5563;align-self:end}.hd-co .val{font-size:11.5px;font-weight:700;min-height:14px}' +
+      '.ln{display:inline-block;width:100%;border-bottom:1px solid #6B7280;height:12px}' +
+      '.hd-ti{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6px;background:#14213D;color:#fff}.hd-ti .t1{font-size:17px;font-weight:800;letter-spacing:.06em}.hd-ti .t2{font-size:10px;letter-spacing:.08em;color:#C7D2E6;margin-top:2px;text-transform:uppercase}.hd-ti .t3{margin-top:3px;font-size:9.5px;font-weight:700;color:#FDE68A}' +
+      '.hd-ctl{border-collapse:collapse;width:100%;border-left:1px solid #14213D}.hd-ctl th{font-size:8.5px;text-transform:uppercase;letter-spacing:.05em;color:#4B5563;text-align:left;padding:2px 6px;width:42%;border-bottom:1px solid #D1D5DB;font-weight:600}.hd-ctl td{font-size:11px;padding:2px 6px;border-bottom:1px solid #D1D5DB}.hd-ctl tr:last-child th,.hd-ctl tr:last-child td{border-bottom:0}' +
+      '.meta{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:10px;margin-bottom:4px}.instr{color:#374151}.keys{display:flex;gap:12px;white-space:nowrap}.keys span,.leg span{display:inline-flex;align-items:center;gap:4px}' +
+      '.k{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:14px;padding:0 3px;border-radius:2px;font-size:9px}.k.done{background:#D1FAE5;color:#065F46}.k.flag{background:#FEF08A;color:#713F12}.k.na{background:#E5E7EB;color:#374151}' +
+      '.leg{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:10px;margin-bottom:5px}.leg b,.chip{display:inline-block;min-width:24px;text-align:center;color:#fff;border-radius:2px;padding:1px 3px;font-size:9px;margin-right:2px}' +
+      'table.grid{border-collapse:collapse;width:100%;table-layout:fixed;flex:none}.grid th{background:#14213D;color:#fff;font-size:9.5px;font-weight:700;padding:3px 2px;border:1px solid #14213D}.grid th.c-wh{background:#2B3F66;border-color:#14213D;letter-spacing:.04em}.grid th.c-w{background:#E5EAF3;color:#14213D;border:1px solid #9CA3AF;font-size:10px}' +
+      '.grid td{border:1px solid #9CA3AF;height:var(--rh);padding:0 4px;font-size:var(--fs);line-height:1;vertical-align:middle}.grid tr.gs td{border-top:1.6px solid #14213D}' +
+      '.c-n{width:.28in;text-align:center;color:#6B7280}.grid td.c-n{font-size:9px}.c-a{width:3.55in}.grid td.c-a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:inset 3px 0 0 var(--fc)}.c-f{width:.42in;text-align:center}.grid td.c-f{color:#fff;font-weight:700;font-size:9px}' +
+      '.c-s{width:.55in;text-align:center}.grid td.c-s{font-weight:700;font-size:9.5px}.grid td.c-s.ok{background:#D1FAE5;color:#065F46}.grid td.c-s.due{background:#FEE2E2;color:#991B1B}' +
+      '.grid td.c-w{text-align:center;font-weight:700;font-size:9.5px;letter-spacing:.02em}.grid td.c-w i{font-style:normal;margin-right:2px}.grid td.done{background:#ECFDF5;color:#065F46}.grid td.flag{background:#FEF9C3;color:#713F12}.grid td.na{background:#F3F4F6;color:#4B5563;font-weight:600}.grid td.part{background:#FFFBEB;color:#92400E}' +
+      '.ft{margin-top:auto;padding-top:5px;border-top:1px solid #9CA3AF;display:flex;justify-content:space-between;gap:10px;font-size:8.5px;color:#4B5563}' +
+      '.p2{display:grid;grid-template-columns:3.3in 1fr;gap:.25in;flex:1;min-height:0}.col{min-width:0}h2{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#14213D;margin:4px 0 6px;padding-bottom:3px;border-bottom:1.5px solid #14213D}' +
+      '.kpis{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}.kpis div{border:1px solid #9CA3AF;padding:6px 8px;min-height:44px}.kpis span{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#4B5563}.kpis b{font-size:20px}.kpis .hl{background:#14213D;color:#fff;border-color:#14213D}.kpis .hl span{color:#C7D2E6}' +
+      'table.bf,table.obs{border-collapse:collapse;width:100%;margin-bottom:10px}.bf th,.obs th{background:#E5EAF3;color:#14213D;font-size:9px;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:4px 5px;border:1px solid #9CA3AF}.bf td,.obs td{border:1px solid #9CA3AF;padding:3px 5px;font-size:10px;height:19px}' +
+      '.bf{table-layout:fixed}.bf th:first-child{width:1.4in}.bf th:nth-child(n+2):nth-child(-n+4){width:.5in;text-align:center}.bf th{white-space:nowrap;font-size:8px}.bf td:first-child{white-space:nowrap}.bf td:nth-child(n+2):nth-child(-n+4){text-align:center}.bf td.bar{width:.55in}.bf td.bar i{display:block;height:7px;background:#14213D}' +
+      '.obs{table-layout:fixed}.obs td{height:22px;vertical-align:top;overflow-wrap:anywhere}.o-w{width:.55in}.o-a{width:1.55in}.o-i{width:.45in}.o-v{width:.7in}.obs th{white-space:nowrap}' +
+      '.pend{margin:0;padding-left:14px;font-size:9.5px;line-height:1.45}.pend .more{list-style:none;margin-left:-14px;color:#4B5563;font-style:italic}.note{font-size:9px;color:#4B5563;margin:-2px 0 4px;font-style:italic}.grid th.c-w.fut{background:#F3F4F6;color:#6B7280}.grid td.fut{background:repeating-linear-gradient(135deg,#fff 0 4px,#F3F4F6 4px 6px)}.okmsg{font-size:10px;color:#065F46;font-weight:700}' +
+      '.signs{display:grid;grid-template-columns:repeat(3,1fr);gap:.18in}.sg{border:1px solid #9CA3AF;padding:6px 8px 8px}.sg-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#14213D;margin-bottom:4px;min-height:24px}.sg-l{border-bottom:1px solid #374151;height:28px;display:flex;align-items:flex-end}.sg-l span{font-size:8px;color:#6B7280;text-transform:uppercase;letter-spacing:.06em;transform:translateY(11px)}.sg-l+.sg-l{margin-top:12px}' +
+      '@media print{html,body{background:#fff}.bar-top{display:none}.page{margin:0;box-shadow:none}}';
+    var title = (en ? 'Master Cleaning Schedule' : 'Calendario Maestro de Limpieza') + ' · ' + period + (blank ? (en ? ' (blank)' : ' (en blanco)') : '');
+    return '<!doctype html><html lang="' + (en ? 'en' : 'es') + '"><head><meta charset="utf-8"><meta name="viewport" content="width=1100"><title>' + esc(title) + '</title><style>' + css + '</style></head><body>' +
+      '<div class="bar-top"><button onclick="window.print()">' + L.print + '</button></div>' + page1 + page2 + '</body></html>';
+  }
+  function exportObj(keys) { var m = {}; keys.forEach(function (k) { m[k] = store.months[k]; }); return { app: 'limpieza', v: 2, exportedAt: nowISO(), template: tpl, months: m }; }
+  function canDownload() { return !!downloads || !IN_VIEWER; }
+  function offer(filename, data) {
+    if (downloads) {
+      downloads.save({ filename: filename, data: data }).then(function (r) { if (r && r.status === 'saved') toast(L('File saved: ', 'Archivo guardado: ') + filename); })
+        .catch(function (e) { var c = e && e.code; if (c === 'declined') return; if (c === 'rate_limited') { toast(L('Wait a moment and try again', 'Espera un momento e inténtalo otra vez')); return; } toast(L('Could not save the file', 'No se pudo guardar el archivo')); });
+      return;
+    }
+    if (!IN_VIEWER) {
+      // copia abierta desde la computadora: descarga normal del navegador
+      try {
+        var type = /\.csv$/.test(filename) ? 'text/csv;charset=utf-8' : /\.json$/.test(filename) ? 'application/json' : 'text/html;charset=utf-8';
+        var url = URL.createObjectURL(new Blob([data], { type: type })), a = document.createElement('a');
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+        toast(L('Downloaded: ', 'Descargado: ') + filename);
+      } catch (e) { toast(L('Could not download the file', 'No se pudo descargar el archivo')); }
+      return;
+    }
+    toast(L('Downloads are not available here', 'Descargar no está disponible aquí'));
+  }
+  function validMonth(k, m) {
+    if (!/^\d{4}-\d{2}$/.test(k) || !m || typeof m !== 'object' || !Array.isArray(m.tasks) || !Array.isArray(m.weeks) || !m.cells || typeof m.cells !== 'object') return null;
+    var tasks = [];
+    for (var i = 0; i < m.tasks.length; i++) { var t = m.tasks[i]; if (!t || typeof t.id !== 'string' || !FREQ[t.f]) return null; tasks.push({ id: String(t.id).slice(0, 12), f: t.f, es: String(t.es || '').slice(0, 120), en: String(t.en || '').slice(0, 120) }); }
+    var weeks = m.weeks.filter(function (w) { return /^\d{4}-\d{2}-\d{2}$/.test(w); });
+    if (!weeks.length) return null;
+    var cells = {};
+    Object.keys(m.cells).forEach(function (ck) { var c = m.cells[ck]; if (c && (c.s === 'done' || c.s === 'flag' || c.s === 'na') && /^[\w-]+\|(\d+|\d{4}-\d{2}-\d{2})$/.test(ck)) { cells[ck] = { s: c.s, by: String(c.by || '').slice(0, 4), at: String(c.at || '').slice(0, 40) }; if (c.note) cells[ck].note = String(c.note).slice(0, 300); } });
+    return { key: k, createdAt: String(m.createdAt || nowISO()), updatedAt: String(m.updatedAt || nowISO()), closedAt: m.closedAt ? String(m.closedAt) : null, revised: String(m.revised || ''), workdays: Array.isArray(m.workdays) ? normWorkdays(m.workdays) : null, weeks: weeks, tasks: tasks, cells: cells };
+  }
+  function importText(text) {
+    if (blockRO()) return;
+    var data;
+    try { data = JSON.parse(text); } catch (e) { toast(L('That file is not a valid backup', 'El archivo no es una copia válida')); return; }
+    if (!data || data.app !== 'limpieza' || !data.months) { toast(L('That file is not a backup of this app', 'Ese archivo no es una copia de esta app')); return; }
+    var add = 0, rep = 0, keep = 0;
+    Object.keys(data.months).forEach(function (k) {
+      var m = validMonth(k, data.months[k]); if (!m) return;
+      var cur = store.months[k];
+      if (!cur) { putMonth(m); add++; } else if (m.updatedAt > (cur.updatedAt || '')) { putMonth(m); rep++; } else keep++;
+    });
+    if (data.template && data.template.updatedAt && data.template.updatedAt > (tpl.updatedAt || '')) { tpl = normTemplate(data.template); saveTemplate(); }
+    migrateAll();
+    refreshClock(true);
+    toast(L('Imported: ', 'Importado: ') + add + L(' new, ', ' nuevos, ') + rep + L(' updated, ', ' actualizados, ') + keep + L(' unchanged', ' sin cambios'));
+  }
+
+  /* -------------------------------------------------------------------- eventos */
+  function shiftWeek(dir) {
+    var mo = store.months[ui.month]; if (!mo) return;
+    var w = clampWeek(mo) + dir;
+    if (w < 0 || w >= mo.weeks.length) {
+      var k = keyOfIdx(monthIdx(ui.month) + dir), m2 = store.months[k];
+      if (!m2) { toast(dir < 0 ? L('No earlier weeks saved', 'No hay semanas anteriores guardadas') : L('That week has no sheet yet', 'Esa semana todavía no tiene hoja')); return; }
+      ui.month = k; w = dir < 0 ? m2.weeks.length - 1 : 0;
+    }
+    ui.week = w; ui.selDay = null; ui.tab = 'week'; render();
+  }
+  function shiftMonth(dir) {
+    var k = keyOfIdx(monthIdx(ui.month) + dir);
+    if (!store.months[k]) { toast(dir < 0 ? L('No earlier months saved', 'No hay meses anteriores guardados') : L('That month hasn’t started yet', 'Ese mes todavía no empieza')); return; }
+    ui.month = k; ui.week = k === ui.cur ? curWeekIdx(store.months[k]) : 0; ui.selDay = null; render();
+  }
+  function goToday() {
+    if (!store.months[ui.cur]) return;
+    ui.month = ui.cur; ui.week = curWeekIdx(store.months[ui.cur]); ui.selDay = null;
+    if (ui.tab !== 'month') ui.tab = 'week';
+    render();
+  }
+  function showHelp() { openDlg({ title: L('Keyboard shortcuts', 'Atajos de teclado'), html: shortcutsHTML(), buttons: [{ label: L('Close', 'Cerrar'), cls: 'pri', fn: function () { closeDlg(); } }] }); }
+  function setLang(v) { prefs.lang = v === 'es' ? 'es' : 'en'; savePrefs(); render(); renderOverlay(); }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-act]');
+    if (!el) return;
+    if (longFired) { longFired = false; e.preventDefault(); return; }
+    var d = el.dataset;
+    switch (d.act) {
+      case 'tab': ui.tab = d.tab; render(); $('#view').scrollTop = 0; break;
+      case 'week': ui.week = Number(d.w); ui.selDay = null; ui.tab = 'week'; render(); break;
+      case 'day': ui.selDay = d.d; render(); break;
+      case 'wday': toggleWorkday(Number(d.v)); break;
+      case 'monthPending': ui.tab = 'week'; ui.pending = true; ui.q = ''; render(); var g = document.querySelector('.group[data-f="BM"], .group[data-f="M"], .group[data-f="Q"]'); if (g) g.scrollIntoView({ block: 'start' }); break;
+      case 'pending': ui.pending = !ui.pending; render(); break;
+      case 'bulk': bulkMark(d.f, Number(d.w), d.d || null); break;
+      case 'tap': if (store.months[ui.month]) tapCell(d.t, Number(d.w), d.d || null); break;
+      case 'undo': if (undoFn) { var f = undoFn; undoFn = null; $('#toast').hidden = true; f(); } break;
+      case 'unlock': openDlg({ title: L('Edit a closed month', 'Editar mes cerrado'), text: L('This month is already saved as a copy. Are you sure you want to change it?', 'Este mes ya está guardado como copia. ¿Seguro que quieres cambiarlo?'), buttons: [{ label: L('Cancel', 'Cancelar'), fn: closeDlg }, { label: L('Edit', 'Editar'), cls: 'warn', fn: function () { ui.unlocked[ui.month] = true; closeDlg(); render(); } }] }); break;
+      case 'relock': delete ui.unlocked[ui.month]; render(); break;
+      case 'open': ui.month = d.k; ui.selDay = null; ui.week = d.k === ui.cur ? curWeekIdx(store.months[d.k]) : 0; ui.tab = 'week'; ui.q = ''; render(); $('#view').scrollTop = 0; break;
+      case 'csv': offer((ES() ? 'Limpieza_' : 'Cleaning_') + d.k + '.csv', csvOf(store.months[d.k])); break;
+      case 'printOpt': ui.sheet = { type: 'print', k: d.k, lang: prefs.printLang || 'en', blank: false }; renderOverlay(); break;
+      case 'prLang': ui.sheet.lang = d.v; prefs.printLang = d.v; savePrefs(); renderOverlay(); break;
+      case 'prBlank': ui.sheet.blank = d.v === '1'; renderOverlay(); break;
+      case 'prGo':
+        var pk = ui.sheet.k, po = { lang: ui.sheet.lang, blank: ui.sheet.blank }, phtml = printableOf(store.months[pk], po); closeSheet();
+        if (!downloads && !IN_VIEWER) { var pw = null; try { pw = window.open('', '_blank'); } catch (e2) { pw = null; } if (pw) { pw.document.open(); pw.document.write(phtml); pw.document.close(); break; } }
+        offer((po.lang === 'en' ? 'Cleaning_Schedule_' : 'Hoja_Limpieza_') + pk + (po.blank ? (po.lang === 'en' ? '_blank' : '_en_blanco') : '') + '.html', phtml); break;
+      case 'nav': if (ui.tab === 'month') shiftMonth(Number(d.d)); else shiftWeek(Number(d.d)); break;
+      case 'today': goToday(); break;
+      case 'mview': prefs.mview = d.v === 'days' ? 'days' : 'weeks'; savePrefs(); render(); break;
+      case 'help': showHelp(); break;
+      case 'where': askWhere(); break;
+      case 'exportAll': offer((ES() ? 'Limpieza_todo_' : 'Cleaning_backup_') + ymd(new Date()) + '.json', JSON.stringify(exportObj(Object.keys(store.months).sort()), null, 1)); break;
+      case 'import': if (!blockRO()) $('#imp').click(); break;
+      case 'lang': setLang(d.v); break;
+      case 'editTask': if (!blockRO()) { ui.sheet = { type: 'task', id: d.id || null }; renderOverlay(); } break;
+      case 'tsFreq': tsCapture(); ui.sheet.f = d.f; renderOverlay(); break;
+      case 'tsSave': tsSave(); break;
+      case 'tsToggle': tsToggle(); break;
+      case 'sheetClose': closeSheet(); break;
+      case 'setState': applySheet(d.s); break;
+      case 'dlgCancel': if (!(ui.dlg && ui.dlg.noClose)) closeDlg(); break;
+      case 'pin': askPin(false, true); break;
+      case 'install': if (installEvt) { var ie = installEvt; ie.prompt(); ie.userChoice.then(function () { installEvt = null; render(); }, function () { /* */ }); } break;
+      case 'dlgBtn': var b = ui.dlg && ui.dlg.buttons[Number(d.i)]; if (b) { var inp = $('#dlg-in'); b.fn(inp ? inp.value : ''); } break;
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (ui.dlg) { if (!ui.dlg.noClose) closeDlg(); } else if (ui.sheet) closeSheet(); else if (e.target && e.target.id === 'q' && ui.q) { ui.q = ''; render(); }
+      return;
+    }
+    if (e.key === 'Enter' && e.target && e.target.id === 'dlg-in' && ui.dlg) { var b = ui.dlg.buttons[ui.dlg.buttons.length - 1]; b.fn(e.target.value); return; }
+    if (ui.dlg || ui.sheet || !store.booted || !store.months[ui.month]) return;
+    var tg = e.target && e.target.tagName;
+    if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'SELECT' || (e.target && e.target.isContentEditable)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key, tabs = { '1': 'week', '2': 'month', '3': 'hist', '4': 'set' };
+    if (tabs[k]) { ui.tab = tabs[k]; render(); $('#view').scrollTop = 0; }
+    else if ((k === 'ArrowLeft' || k === 'ArrowRight') && (ui.tab === 'week' || ui.tab === 'month')) { if (ui.tab === 'month') shiftMonth(k === 'ArrowLeft' ? -1 : 1); else shiftWeek(k === 'ArrowLeft' ? -1 : 1); }
+    else if (k === 'h' || k === 'H') goToday();
+    else if (k === '/') { if (ui.tab !== 'week') { ui.tab = 'week'; render(); } var q = $('#q'); if (q) q.focus(); }
+    else if ((k === 'p' || k === 'P') && ui.tab === 'week') { ui.pending = !ui.pending; render(); }
+    else if (k === '?') showHelp();
+    else return;
+    e.preventDefault();
+  });
+  document.addEventListener('input', function (e) {
+    var id = e.target && e.target.id;
+    if (id === 'ini') { var v = e.target.value.toUpperCase().slice(0, 4); e.target.value = v; prefs.initials = v.trim(); savePrefs(); }
+    if (id === 'q') { ui.q = e.target.value.slice(0, 60); render(); }
+  });
+  document.addEventListener('change', function (e) {
+    var id = e.target && e.target.id, map = { 'doc-company': 'company', 'doc-site': 'site', 'doc-code': 'code' };
+    if (!map[id] || blockRO()) return;
+    tpl.doc = tpl.doc || { company: '', site: '', code: '' };
+    var v = e.target.value.trim().slice(0, map[id] === 'code' ? 30 : 60);
+    if (tpl.doc[map[id]] === v) return;
+    tpl.doc[map[id]] = v; saveTemplate(); toast(L('Header saved', 'Encabezado guardado'));
+  });
+  $('#imp').addEventListener('change', function () { var inp = this, f = inp.files && inp.files[0]; if (!f) return; var r = new FileReader(); r.onload = function () { importText(String(r.result)); inp.value = ''; }; r.readAsText(f); });
+
+  // pulsación larga en círculos y celdas
+  document.addEventListener('pointerdown', function (e) {
+    if (e.button !== 0) return; // el clic derecho abre el menú por su cuenta
+    var el = e.target.closest('.chk, .cell'); if (!el) return;
+    clearTimeout(pressTimer);
+    pressTimer = setTimeout(function () { longFired = true; longPress(el.getAttribute('data-t'), Number(el.getAttribute('data-w')), el.getAttribute('data-d') || null); }, 480);
+  });
+  ['pointerup', 'pointercancel', 'pointerleave', 'scroll'].forEach(function (ev) {
+    document.addEventListener(ev, function () { clearTimeout(pressTimer); if (longFired) setTimeout(function () { longFired = false; }, 400); }, true);
+  });
+  // clic derecho (o pulsación larga en Android): N/A, observación o quitar la marca
+  document.addEventListener('contextmenu', function (e) {
+    var el = e.target.closest('.chk, .cell'); if (!el) return;
+    e.preventDefault(); clearTimeout(pressTimer);
+    if (!el.getAttribute('data-t') || !store.months[ui.month]) return;
+    longPress(el.getAttribute('data-t'), Number(el.getAttribute('data-w')), el.getAttribute('data-d') || null);
+  });
+  // al pasar de teléfono a computadora (o al cambiar el ancho de la ventana) cambia el diseño
+  if (MQ) { if (MQ.addEventListener) MQ.addEventListener('change', function () { render(); }); else if (MQ.addListener) MQ.addListener(function () { render(); }); }
+
+  /* ------------------------------------------------- se actualiza sola
+     Con la app abierta: cambia de día, de semana y de mes sin recargar.
+     Los cambios de otros dispositivos llegan en vivo por la suscripción. */
+  function refreshClock(force) {
+    if (!store.booted) return;
+    var today = ymd(new Date());
+    var dayChanged = today !== ui.day;
+    // si se estaba viendo "hoy", al cambiar de día pasa al día nuevo (en blanco para las diarias)
+    if (dayChanged && (!ui.selDay || ui.selDay === ui.day)) ui.selDay = null;
+    var prev = ui.cur;
+    ui.cur = ensureMonths();
+    if (prev && prev !== ui.cur && ui.month === prev) { ui.month = ui.cur; ui.week = curWeekIdx(store.months[ui.cur]); ui.q = ''; if (ui.sheet && ui.sheet.type === 'cell') closeSheet(); toast(monthName(ui.cur) + L(' has started. ', ' empezó. ') + monthName(prev) + L(' was saved in History.', ' quedó guardado en el Historial.')); }
+    else if (dayChanged && ui.month === ui.cur && store.months[ui.cur]) { var oldWk = ui.week, nw = curWeekIdx(store.months[ui.cur]); if (ui.day && nw !== oldWk && oldWk === curWeekIdxFor(store.months[ui.cur], ui.day)) ui.week = nw; }
+    if (!store.months[ui.month]) ui.month = ui.cur;
+    ui.day = today;
+    if (force || dayChanged || prev !== ui.cur) render();
+  }
+  function curWeekIdxFor(mo, day) { for (var i = 0; i < mo.weeks.length; i++) if (mo.weeks[i] >= day) return i; return mo.weeks.length - 1; }
+  setInterval(function () { refreshClock(false); }, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { refreshClock(false); pollApi(); } });
+  window.addEventListener('online', function () { flushOutbox(); pollApi(); });
+  // instalar como app (Chrome, Edge, Android)
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); installEvt = e; render(); });
+  window.addEventListener('appinstalled', function () { installEvt = null; render(); toast(L('App installed', 'App instalada')); });
+  window.addEventListener('focus', function () { refreshClock(false); });
+  window.addEventListener('pageshow', function () { refreshClock(false); });
+
+  /* ---------------------------------------------------------------- arranque */
+  render();
+  var started = false;
+  function fallback() { if (!started) { started = true; startLocal(); } }
+  if (IN_VIEWER) {
+    // la versión dentro de Claude queda de solo lectura y manda a la app nueva
+    store.moved = true; store.readOnly = true;
+    window.claude.use('downloads').then(function (dl) { downloads = dl || null; if (store.booted) render(); }).catch(function () { downloads = null; });
+    window.claude.use('db').then(function (db) { if (started) return; started = true; if (db) startCloud(db); else startLocal(); }).catch(fallback);
+    // ¿puede esta persona escribir? Si la plataforma dice que no, la página queda en solo lectura desde el principio
+    window.claude.use('user').then(function (u) {
+      if (!u) return;
+      Promise.all([u.isOwner(), u.can('data.write')]).then(function (r) { store.isOwner = !!r[0]; if (!r[0] && r[1] === false) setReadOnly(); }).catch(function () { /* sin datos: decide la primera escritura */ });
+    }).catch(function () { /* sin datos de la persona */ });
+    setTimeout(fallback, 12000);
+  } else if (API) {
+    startApi();
+    if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(function () { /* sin modo sin conexión */ });
+  } else {
+    fallback();
+  }
+})();
+</script>
+
+
+</body></html>
