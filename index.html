@@ -279,6 +279,8 @@ textarea { min-height: 76px; resize: vertical; }
 .mtools { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 0 0 10px; }
 .seg.sm { flex: 1 1 320px; max-width: 460px; }
 .seg.sm button { min-height: 40px; font-size: 13.5px; }
+.mtools > .btn { flex: 1 1 auto; }
+@media (min-width: 1000px) { .mtools > .btn { flex: none; } }
 .lnk { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 12px; border-radius: 10px; background: var(--sel); color: var(--sel-fg); font-weight: 600; font-size: 14px; text-decoration: none; flex: none; }
 .cell.fut { opacity: .45; }
 .cell.off:not(.done):not(.flag):not(.na) { background: repeating-linear-gradient(135deg, transparent 0 5px, var(--off) 5px 8px); }
@@ -1323,14 +1325,14 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
     var mode = hasDay && prefs.mview === 'days' ? 'days' : 'weeks';
     var printBtn = canDownload() ? '<button class="btn pri" data-act="printOpt" data-k="' + mo.key + '">' + L('Printable sheet', 'Hoja para imprimir') + '</button>' : '';
     var h = bannerHTML(mo) + (desk ? kpisHTML(mo, wi, stt) : summaryHTML(mo, wi));
-    if (hasDay) h += '<div class="mtools"><div class="seg sm" role="group" aria-label="' + L('Month view', 'Vista del mes') + '"><button data-act="mview" data-v="weeks" class="' + (mode === 'weeks' ? 'on' : '') + '" aria-pressed="' + (mode === 'weeks') + '">' + L('By week', 'Por semanas') + '</button><button data-act="mview" data-v="days" class="' + (mode === 'days' ? 'on' : '') + '" aria-pressed="' + (mode === 'days') + '">' + L('Daily tasks, day by day', 'Diarias día por día') + '</button></div>' + (desk ? printBtn : '') + '</div>';
+    if (hasDay) h += '<div class="mtools"><div class="seg sm" role="group" aria-label="' + L('Month view', 'Vista del mes') + '"><button data-act="mview" data-v="weeks" class="' + (mode === 'weeks' ? 'on' : '') + '" aria-pressed="' + (mode === 'weeks') + '">' + L('By week', 'Por semanas') + '</button><button data-act="mview" data-v="days" class="' + (mode === 'days' ? 'on' : '') + '" aria-pressed="' + (mode === 'days') + '">' + L('Daily tasks, day by day', 'Diarias día por día') + '</button></div>' + printBtn + '</div>';
+    else if (printBtn) h += '<div class="mtools">' + printBtn + '</div>';
     h += mode === 'days' ? daysGridHTML(mo, locked, stt) : weeksGridHTML(mo, locked, stt);
     var tip = desk ? L('Click a cell to mark Done. Right-click for N/A, note (*) or to clear the mark.', 'Clic en una celda para marcar Done. Clic derecho para N/A, observación (*) o quitar la marca.') : L('Tap a cell to mark Done. Press and hold for N/A, note or to clear the mark.', 'Toca una celda para marcar Done. Mantén presionado para N/A, observación o quitar la marca.');
     if (mode === 'weeks' && hasDay) tip += L(' Daily and twice-a-week tasks show days done / required: ', ' Las diarias y las de 2 veces por semana muestran días hechos / requeridos: ') + (desk ? L('mark them in “Daily tasks, day by day” or in the Week tab.', 'márcalas en «Diarias día por día» o en la pestaña Semana.') : L('tap the cell to mark them day by day in the week.', 'toca la celda para marcarlas por día en la semana.'));
     if (mode === 'days') tip += L(' Striped days are not workdays.', ' Las rayas marcan los días que no son de trabajo.');
     tip += ' <span class="legend-miss" aria-hidden="true"></span>' + L('Amber: the day or week is over and it was not done.', 'Ámbar: el día o la semana ya pasó y no se hizo.');
     h += '<div class="note">' + tip + '</div>';
-    if (printBtn && (!desk || !hasDay)) h += '<div class="btns">' + printBtn + '</div>';
     var rec = recent(mo, desk ? 10 : 8);
     if (desk) {
       h += '<div class="m-low"><div class="card"><h3 class="ch in">' + L('Recent activity', 'Actividad reciente') + '</h3>' + (rec.length ? '<div class="acts">' + actsHTML(mo, rec) + '</div>' : '<div class="empty">' + L('No marks yet this month.', 'Todavía no hay marcas en este mes.') + '</div>') + '</div>' +
