@@ -20,6 +20,7 @@
   --danger: #B42318; --danger-line: #F1B8B2;
   --ring: #AEB9CC; --scrim: rgba(20,33,61,.55); --toast: #1B2638; --toast-fg: #FFFFFF; --toast-link: #8EC5FF;
   --side-hover: #1E2F52; --side-on: #2B4373; --col: #EAF1FC; --off: #F0F2F6; --live: #3FBF74;
+  --miss-bg: #FCE3C2; --miss-ink: #7A3300; --miss-line: #E39A4E;
   --font: 'IBM Plex Sans', -apple-system, 'Segoe UI', system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
@@ -35,6 +36,7 @@
     --danger: #FF8A80; --danger-line: #6E2B27;
     --ring: #56658A; --scrim: rgba(0,0,0,.6); --toast: #E7ECF4; --toast-fg: #0B1222; --toast-link: #1D4E89;
     --side-hover: #17243F; --side-on: #25395F; --col: #18284A; --off: #0F182B; --live: #3FBF74;
+    --miss-bg: #4A2C10; --miss-ink: #FFD4A3; --miss-line: #9A6128;
     color-scheme: dark;
   }
 }
@@ -50,6 +52,7 @@
   --danger: #FF8A80; --danger-line: #6E2B27;
   --ring: #56658A; --scrim: rgba(0,0,0,.6); --toast: #E7ECF4; --toast-fg: #0B1222; --toast-link: #1D4E89;
   --side-hover: #17243F; --side-on: #25395F; --col: #18284A; --off: #0F182B; --live: #3FBF74;
+  --miss-bg: #4A2C10; --miss-ink: #FFD4A3; --miss-line: #9A6128;
   color-scheme: dark;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -223,6 +226,29 @@ textarea { min-height: 76px; resize: vertical; }
 .wd span.na { background: var(--na-bg); color: var(--na-ink); }
 .wd span.cur { box-shadow: 0 0 0 1.5px var(--ink); }
 .cell.part { background: var(--warn-bg); color: var(--warn-ink); }
+/* atrasado: día o semana que ya pasó sin la marca requerida */
+.cell.miss, .cell.miss.part { background: var(--miss-bg); color: var(--miss-ink); box-shadow: inset 0 0 0 1px var(--miss-line); }
+.wd span.miss { background: var(--miss-bg); color: var(--miss-ink); box-shadow: inset 0 0 0 1px var(--miss-line); }
+.wd span.miss.cur { box-shadow: 0 0 0 1.5px var(--ink); }
+.legend-miss { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--miss-bg); box-shadow: inset 0 0 0 1px var(--miss-line); vertical-align: -1px; margin-right: 4px; }
+/* teléfono: navegación compacta de la semana (reemplaza el resumen grande y la tira de semanas) */
+.mnav { display: flex; align-items: stretch; margin-bottom: 8px; padding: 0; overflow: hidden; }
+.mnb { flex: none; width: 48px; min-height: 58px; border: 0; background: none; font-size: 26px; line-height: 1; color: var(--ink); }
+.mnb:active { background: var(--hover); }
+.mnc { flex: 1; min-width: 0; padding: 8px 4px 9px; display: flex; flex-direction: column; justify-content: center; gap: 3px; text-align: center; }
+.mnc .t { font-size: 16px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.mnc .t .now { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-left: 6px; vertical-align: middle; }
+.mnc .s { font-size: 12.5px; color: var(--muted); display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.mnc .s b { color: var(--ink); font-weight: 600; }
+.mnc .wb { display: block; height: 4px; border-radius: 999px; background: var(--track); overflow: hidden; margin: 2px 12px 0; }
+.mnc .wb b { display: block; height: 100%; background: var(--done-solid); }
+.days.cmp .dy { min-height: 48px; }
+.toolbar .tb-r { display: flex; align-items: center; gap: 4px; }
+.ibtn { width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); flex: none; }
+.ibtn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.ibtn.on { background: var(--hover); }
+.task.dayoff .st { color: var(--muted); font-style: italic; }
+.task .st .mtx { color: var(--miss-ink); font-weight: 600; }
 .wdset { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
 .wdset button { min-height: 44px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; font-weight: 700; font-size: 13px; }
 .wdset button.on { background: var(--sel); color: var(--sel-fg); border-color: var(--sel); }
@@ -845,6 +871,10 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   function weekDays(mo, wi) { var end = mo.weeks[wi], out = []; for (var i = 6; i >= 0; i--) out.push(addDays(end, -i)); return out; }
   function isWorkday(mo, day) { return wdOf(mo).indexOf(parseYMD(day).getDay()) >= 0; }
   function dayKey(t, day) { return t.id + '|' + day; }
+  /* atrasos: solo cuentan desde que el mes empezó a usarse en la app (como los avisos de semanas atrasadas) */
+  function startDayOf(mo) { return mo.createdAt ? ymd(new Date(mo.createdAt)) : ''; }
+  function missedDay(mo, t, d, today) { var s0 = startDayOf(mo); return t.f === 'D' && d < today && (!s0 || d >= s0) && isWorkday(mo, d) && !mo.cells[dayKey(t, d)]; }
+  function weekOver(mo, wi, today) { var s0 = startDayOf(mo); return mo.weeks[wi] < today && (!s0 || mo.weeks[wi] >= s0); }
   function dcell(mo, t, day) { return mo.cells[dayKey(t, day)]; }
   function perWeek(mo, t) { return t.f === 'D' ? wdOf(mo).length : (FREQ[t.f].perWeek || 1); }
   function weekDayStat(mo, t, wi) {
@@ -885,7 +915,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   }
 
   /* -------------------------------------------------------------------- vista */
-  var ui = { tab: 'week', month: null, week: 0, pending: false, q: '', sheet: null, dlg: null, unlocked: {}, cur: null, day: null, selDay: null };
+  var ui = { tab: 'week', month: null, week: 0, pending: false, q: '', sheet: null, dlg: null, unlocked: {}, cur: null, day: null, selDay: null, searchOpen: false };
   var undoFn = null, toastTimer = null, longFired = false, pressTimer = null, downloads = null, installEvt = null;
 
   function ICON(name) {
@@ -1046,13 +1076,19 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   function dayTaskCard(mo, t, wi, sd, locked) {
     var c = dcell(mo, t, sd), ws = weekDayStat(mo, t, wi), cls = 'task', sub;
     if (c && (c.s === 'done' || c.s === 'flag')) cls += ' isdone';
+    var today = ymd(new Date());
     if (c) sub = '<b>' + stShort(c) + '</b> ' + esc(dayWord(sd)) + ' · ' + esc(c.by || '') + (c.at ? ' · ' + esc(fmtStamp(c.at)) : '');
+    else if (!isWorkday(mo, sd)) { sub = L('Day off', 'Día libre') + (t.f === 'D' ? L(' · no mark needed', ' · no hace falta marcar') : ''); cls += ' dayoff'; }
+    else if (missedDay(mo, t, sd, today)) sub = '<span class="mtx">' + L('Not done ', 'No se hizo ') + esc(dayWord(sd)) + '</span>';
     else sub = L('Pending ', 'Pendiente ') + esc(dayWord(sd));
     if (t.f === 'D') {
-      sub += '<span class="wd" aria-label="' + L('This week: ', 'Esta semana: ') + ws.done + L(' of ', ' de ') + ws.req + L(' days', ' días') + '">' + weekDays(mo, wi).map(function (d) {
+      var nMiss = 0;
+      var chips = weekDays(mo, wi).map(function (d) {
         var x = dcell(mo, t, d); if (!x && !isWorkday(mo, d)) return '';
-        return '<span class="' + (x ? x.s : '') + (d === sd ? ' cur' : '') + '">' + W('dayL')[parseYMD(d).getDay()].charAt(0) + '</span>';
-      }).join('') + '</span>';
+        var ms = missedDay(mo, t, d, today); if (ms) nMiss++;
+        return '<span class="' + (x ? x.s : ms ? 'miss' : '') + (d === sd ? ' cur' : '') + '">' + W('dayL')[parseYMD(d).getDay()].charAt(0) + '</span>';
+      }).join('');
+      sub += '<span class="wd" aria-label="' + L('This week: ', 'Esta semana: ') + ws.done + L(' of ', ' de ') + ws.req + L(' days', ' días') + (nMiss ? ', ' + plural(nMiss, L('day missed', 'día sin hacer'), L('days missed', 'días sin hacer')) : '') + '">' + chips + '</span>';
     } else sub += L(' · week ', ' · semana ') + ws.done + L(' of ', ' de ') + ws.req + (ws.req > 0 && ws.done >= ws.req && !c ? ' ✓' : '');
     var note = c && c.note ? '<div class="nt">' + esc(c.note) + '</div>' : '';
     return '<div class="' + cls + '">' + fchip(t.f) + '<div class="tx"><div class="nm">' + esc(tname(t)) + '</div><div class="st">' + sub + '</div>' + note + '</div>' + chkBtn(mo, t, wi, c, locked, sd) + '</div>';
@@ -1092,7 +1128,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
       return '<button class="wk' + (i === wi ? ' sel' : '') + (i === nowIdx ? ' now' : '') + '" data-act="week" data-w="' + i + '" aria-pressed="' + (i === wi) + '"><div class="d">' + fmtWeek(w) + '</div><div class="rg">' + esc(rangeTxt(w)) + '</div><div class="p">' + p.pct + '%</div><i class="wb"><b style="width:' + p.pct + '%"></b></i></button>';
     }).join('') + '</div>';
   }
-  function openDayFn(mo, wi, sd) { return function (t) { if (dcell(mo, t, sd)) return false; if (t.f === 'D') return true; var w = weekDayStat(mo, t, wi); return w.done < w.req; }; }
+  function openDayFn(mo, wi, sd) { return function (t) { if (dcell(mo, t, sd)) return false; if (t.f === 'D') return isWorkday(mo, sd); var w = weekDayStat(mo, t, wi); return w.done < w.req; }; }
   /* tareas de una frecuencia que se ven con la búsqueda y el filtro "Pendientes" */
   function shownTasks(mo, f, wi, sd, stt) {
     var F = FREQ[f], isDay = F.unit === 'day', openDay = openDayFn(mo, wi, sd);
@@ -1106,7 +1142,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   /* texto de la derecha de cada grupo y botón "Marcar todo" */
   function groupInfo(mo, f, wi, sd, stt, locked) {
     var list = mo.tasks.filter(function (t) { return t.f === f; }), F = FREQ[f], isDay = F.unit === 'day', openDay = openDayFn(mo, wi, sd), right, empty = 0, of = L(' of ', ' de ');
-    if (f === 'D') { var dd = list.filter(function (t) { return !!dcell(mo, t, sd); }).length; empty = list.length - dd; right = dd + of + list.length + ' ' + esc(dayWord(sd)); }
+    if (f === 'D') { var dd = list.filter(function (t) { return !!dcell(mo, t, sd); }).length; if (isWorkday(mo, sd)) { empty = list.length - dd; right = dd + of + list.length + ' ' + esc(dayWord(sd)); } else right = L('Day off', 'Día libre') + (dd ? ' · ' + dd + L(' extra', ' extra') : ''); }
     else if (isDay) { empty = list.filter(openDay).length; right = list.filter(function (t) { var w = weekDayStat(mo, t, wi); return w.req > 0 && w.done >= w.req; }).length + of + list.length + L(' this week', ' esta semana'); }
     else if (F.unit === 'week') { var d = list.filter(function (t) { return !!cell(mo, t, wi); }).length; empty = list.length - d; right = d + of + list.length; }
     else right = list.filter(function (t) { var p = stt.per[t.id]; return p.done >= p.req; }).length + of + list.length + L(' this month', ' en el mes');
@@ -1123,13 +1159,25 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   function pendingSwitch() { return '<button class="switch' + (ui.pending ? ' on' : '') + '" data-act="pending" aria-pressed="' + ui.pending + '"><span class="t"></span>' + L('Pending only', 'Pendientes') + '</button>'; }
   function emptyHTML() { return '<div class="empty">' + (ui.q ? L('No area matches "', 'Ninguna área coincide con "') + esc(ui.q) + '".' : L('Nothing left to do this week.', 'No quedan tareas pendientes esta semana.')) + '</div>'; }
 
+  /* teléfono: una sola franja con la semana (‹ ›), su avance y el del mes; así las tareas quedan a la vista */
+  function weekNavHTML(mo, wi, nowIdx, stt) {
+    var w = weekProgress(mo, wi), prev = L('Previous week', 'Semana anterior'), next = L('Next week', 'Semana siguiente');
+    return '<div class="card mnav"><button class="mnb" data-act="nav" data-d="-1" aria-label="' + prev + '" title="' + prev + '">‹</button>' +
+      '<div class="mnc"><div class="t">' + L('Week ', 'Semana ') + esc(rangeTxt(mo.weeks[wi])) + (wi === nowIdx ? '<i class="now" aria-label="' + L('current week', 'semana actual') + '"></i>' : '') + '</div>' +
+      '<div class="s"><span><b>' + w.done + L(' of ', ' de ') + w.tot + '</b>' + L(' done', ' hechas') + ' · ' + L('month ', 'mes ') + stt.pct + '%</span>' + liveHTML() + '</div>' +
+      '<i class="wb"><b style="width:' + w.pct + '%"></b></i></div>' +
+      '<button class="mnb" data-act="nav" data-d="1" aria-label="' + next + '" title="' + next + '">›</button></div>';
+  }
   function weekView(mo) {
     var locked = isLocked(mo), wi = clampWeek(mo), nowIdx = mo.key === ui.cur ? curWeekIdx(mo) : -1, stt = stats(mo);
-    var h = bannerHTML(mo) + alertsHTML(mo, wi) + summaryHTML(mo, wi) + weeksStripHTML(mo, wi, nowIdx);
+    var h = bannerHTML(mo) + alertsHTML(mo, wi) + weekNavHTML(mo, wi, nowIdx, stt);
     var hasDay = mo.tasks.some(isDayTask), sd = selDay(mo, wi);
-    if (hasDay) h += dayStripHTML(mo, wi, sd);
-    h += searchHTML(L('Search area', 'Buscar área'));
-    h += '<div class="toolbar"><span>' + (hasDay ? L('Daily: ', 'Diarias: ') + '<b>' + esc(dayWord(sd)) + '</b>' + (sd === ymd(new Date()) ? '' : ' (' + esc(fmtLong(sd)) + ')') : L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi]))) + '</span>' + pendingSwitch() + '</div>';
+    if (hasDay) h += dayStripHTML(mo, wi, sd).replace('class="days"', 'class="days cmp"');
+    var so = ui.searchOpen || !!ui.q;
+    if (so) h += searchHTML(L('Search area', 'Buscar área'));
+    var sbtn = '<button class="ibtn' + (so ? ' on' : '') + '" data-act="search" aria-expanded="' + so + '" aria-label="' + L('Search area', 'Buscar área') + '" title="' + L('Search area', 'Buscar área') + '">' + SEARCH + '</button>';
+    var dayTxt = hasDay ? L('Daily: ', 'Diarias: ') + '<b>' + esc(dayWord(sd)) + '</b>' + (sd === ymd(new Date()) ? '' : ' (' + esc(fmtLong(sd)) + ')') + (isWorkday(mo, sd) ? '' : ' · ' + L('day off', 'día libre')) : L('Week ending ', 'Semana al ') + esc(fmtLong(mo.weeks[wi]));
+    h += '<div class="toolbar"><span>' + dayTxt + '</span><span class="tb-r">' + sbtn + pendingSwitch() + '</span></div>';
     var any = false;
     ORDER.forEach(function (f) {
       var shown = shownTasks(mo, f, wi, sd, stt);
@@ -1145,7 +1193,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   function weekViewDesk(mo) {
     var locked = isLocked(mo), wi = clampWeek(mo), nowIdx = mo.key === ui.cur ? curWeekIdx(mo) : -1, stt = stats(mo), sd = selDay(mo, wi);
     var h = bannerHTML(mo) + alertsHTML(mo, wi) + weeksStripHTML(mo, wi, nowIdx);
-    h += '<div class="dk-tools">' + searchHTML(L('Search area (key /)', 'Buscar área (tecla /)')) + '<span class="grow">' + L('Click: Done · Right-click: N/A, note or clear', 'Clic: Done · Clic derecho: N/A, observación o quitar') + '</span>' + pendingSwitch() + '</div>';
+    h += '<div class="dk-tools">' + searchHTML(L('Search area (key /)', 'Buscar área (tecla /)')) + '<span class="grow">' + L('Click: Done · Right-click: N/A, note or clear', 'Clic: Done · Clic derecho: N/A, observación o quitar') + ' · <span class="legend-miss" aria-hidden="true"></span>' + L('not done', 'no se hizo') + '</span>' + pendingSwitch() + '</div>';
     var rows = { D: shownTasks(mo, 'D', wi, sd, stt), TW: shownTasks(mo, 'TW', wi, sd, stt) }, any = false;
     if (rows.D.length || rows.TW.length) { any = true; h += matrixHTML(mo, wi, sd, stt, locked, rows); }
     ['W', 'BM', 'M', 'Q'].forEach(function (f) {
@@ -1161,10 +1209,10 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
     return tname(t) + ', ' + when + ': ' + (c ? stName(c.s) + (c.by ? ' · ' + c.by : '') + (c.at ? ' · ' + fmtStamp(c.at) : '') + (c.note ? L(' · Note: ', ' · Nota: ') + c.note : '') : extra);
   }
   function mcellBtn(mo, t, wi, d, locked, kind, today) {
-    var c = dcell(mo, t, d), fut = d > today, off = t.f === 'D' && !isWorkday(mo, d);
-    var cls = 'cell ' + kind + (c ? ' ' + c.s : '') + (off ? ' off' : '') + (fut && !c ? ' fut' : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '');
+    var c = dcell(mo, t, d), fut = d > today, off = t.f === 'D' && !isWorkday(mo, d), miss = missedDay(mo, t, d, today);
+    var cls = 'cell ' + kind + (c ? ' ' + c.s : '') + (off ? ' off' : '') + (miss ? ' miss' : '') + (fut && !c ? ' fut' : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '');
     var inner = c ? markInner(c, kind !== 'dc') : '';
-    var lab = cellLabel(t, fmtLong(d), c, fut ? L('not here yet', 'todavía no llega') : off ? L('day off, not marked', 'día libre, sin marcar') : L('not marked', 'sin marcar'));
+    var lab = cellLabel(t, fmtLong(d), c, fut ? L('not here yet', 'todavía no llega') : off ? L('day off, not marked', 'día libre, sin marcar') : miss ? L('not done', 'no se hizo') : L('not marked', 'sin marcar'));
     return '<button class="' + cls + '" data-act="tap" data-t="' + t.id + '" data-w="' + wi + '" data-d="' + d + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '">' + inner + '</button>';
   }
   function matrixHTML(mo, wi, sd, stt, locked, rows) {
@@ -1235,14 +1283,15 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
         h += '<tr><td class="nm">' + esc(tname(t)) + '</td>';
         mo.weeks.forEach(function (w, i) {
           if (isDayTask(t)) {
-            var ws = weekDayStat(mo, t, i), dc = ws.req > 0 && ws.done >= ws.req ? ' done' : ws.marks > 0 ? ' part' : '', wfut = !ws.marks && addDays(w, -6) > today;
+            var ws = weekDayStat(mo, t, i), dc = ws.req > 0 && ws.done >= ws.req ? ' done' : weekOver(mo, i, today) && ws.done < ws.req ? ' miss' : ws.marks > 0 ? ' part' : '', wfut = !ws.marks && addDays(w, -6) > today;
             var txt = ws.done + L(' of ', ' de ') + ws.req + L(' days. Open the week', ' días. Abrir la semana');
             h += '<td><button class="cell' + dc + (wfut ? ' fut' : '') + '" data-act="week" data-w="' + i + '" title="' + esc(txt) + '" aria-label="' + esc(tname(t) + ', ' + L('week ending ', 'semana al ') + fmtWeek(w) + ': ' + txt) + '">' + (!wfut && (ws.marks || ws.done < ws.req) ? ws.done + '/' + ws.req : '') + '</button></td>';
             return;
           }
           var c = cell(mo, t, i), inner = c ? (c.s === 'done' ? '✓<small>' + esc(c.by) + '</small>' : c.s === 'flag' ? '*' : 'N/A') : '';
-          var lab = cellLabel(t, L('week ending ', 'semana al ') + fmtWeek(w), c, L('not marked', 'sin marcar'));
-          h += '<td><button class="cell' + (c ? ' ' + c.s : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '') + '" data-act="tap" data-t="' + t.id + '" data-w="' + i + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '">' + inner + '</button></td>';
+          var wmiss = !c && FREQ[t.f].unit === 'week' && weekOver(mo, i, today);
+          var lab = cellLabel(t, L('week ending ', 'semana al ') + fmtWeek(w), c, wmiss ? L('not done', 'no se hizo') : L('not marked', 'sin marcar'));
+          h += '<td><button class="cell' + (c ? ' ' + c.s : '') + (wmiss ? ' miss' : '') + (locked ? ' dis' : '') + (c && c.note ? ' hn' : '') + '" data-act="tap" data-t="' + t.id + '" data-w="' + i + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '">' + inner + '</button></td>';
         });
         h += '<td class="sum' + (per.req > 0 && per.done >= per.req ? ' ok' : '') + '">' + per.done + '/' + per.req + '</td></tr>';
       });
@@ -1279,6 +1328,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
     var tip = desk ? L('Click a cell to mark Done. Right-click for N/A, note (*) or to clear the mark.', 'Clic en una celda para marcar Done. Clic derecho para N/A, observación (*) o quitar la marca.') : L('Tap a cell to mark Done. Press and hold for N/A, note or to clear the mark.', 'Toca una celda para marcar Done. Mantén presionado para N/A, observación o quitar la marca.');
     if (mode === 'weeks' && hasDay) tip += L(' Daily and twice-a-week tasks show days done / required: ', ' Las diarias y las de 2 veces por semana muestran días hechos / requeridos: ') + (desk ? L('mark them in “Daily tasks, day by day” or in the Week tab.', 'márcalas en «Diarias día por día» o en la pestaña Semana.') : L('tap the cell to mark them day by day in the week.', 'toca la celda para marcarlas por día en la semana.'));
     if (mode === 'days') tip += L(' Striped days are not workdays.', ' Las rayas marcan los días que no son de trabajo.');
+    tip += ' <span class="legend-miss" aria-hidden="true"></span>' + L('Amber: the day or week is over and it was not done.', 'Ámbar: el día o la semana ya pasó y no se hizo.');
     h += '<div class="note">' + tip + '</div>';
     if (printBtn && (!desk || !hasDay)) h += '<div class="btns">' + printBtn + '</div>';
     var rec = recent(mo, desk ? 10 : 8);
@@ -1805,6 +1855,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
       case 'wday': toggleWorkday(Number(d.v)); break;
       case 'monthPending': ui.tab = 'week'; ui.pending = true; ui.q = ''; render(); var g = document.querySelector('.group[data-f="BM"], .group[data-f="M"], .group[data-f="Q"]'); if (g) g.scrollIntoView({ block: 'start' }); break;
       case 'pending': ui.pending = !ui.pending; render(); break;
+      case 'search': ui.searchOpen = !(ui.searchOpen || ui.q); if (!ui.searchOpen) ui.q = ''; render(); if (ui.searchOpen) { var sq = $('#q'); if (sq) sq.focus(); } break;
       case 'bulk': bulkMark(d.f, Number(d.w), d.d || null); break;
       case 'tap': if (store.months[ui.month]) tapCell(d.t, Number(d.w), d.d || null); break;
       case 'undo': if (undoFn) { var f = undoFn; undoFn = null; $('#toast').hidden = true; f(); } break;
@@ -1853,7 +1904,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
     if (tabs[k]) { ui.tab = tabs[k]; render(); $('#view').scrollTop = 0; }
     else if ((k === 'ArrowLeft' || k === 'ArrowRight') && (ui.tab === 'week' || ui.tab === 'month')) { if (ui.tab === 'month') shiftMonth(k === 'ArrowLeft' ? -1 : 1); else shiftWeek(k === 'ArrowLeft' ? -1 : 1); }
     else if (k === 'h' || k === 'H') goToday();
-    else if (k === '/') { if (ui.tab !== 'week') { ui.tab = 'week'; render(); } var q = $('#q'); if (q) q.focus(); }
+    else if (k === '/') { if (ui.tab !== 'week' || !ui.searchOpen) { ui.tab = 'week'; ui.searchOpen = true; render(); } var q = $('#q'); if (q) q.focus(); }
     else if ((k === 'p' || k === 'P') && ui.tab === 'week') { ui.pending = !ui.pending; render(); }
     else if (k === '?') showHelp();
     else return;
